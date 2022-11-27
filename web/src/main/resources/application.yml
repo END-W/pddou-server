@@ -1,0 +1,26 @@
+server:
+  port: 7003
+
+spring:
+  profiles:
+    active: @spring.active@
+    group:
+      dev:
+        - core
+        - core-dev
+      prod:
+        - core
+        - core-prod
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 30MB
+
+token:
+  expire: 10800
+  secret: F432515A
