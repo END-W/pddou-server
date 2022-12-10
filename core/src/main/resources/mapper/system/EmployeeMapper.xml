@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waiend.pddou.core.system.mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.waiend.pddou.core.system.entity.EmployeeEntity">
+    <!--@mbg.generated-->
+    <!--@Table sys_employee-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="locked" jdbcType="BOOLEAN" property="locked" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, create_time, update_time, username, `password`, `name`, email, phone, gender, 
+    `type`, user_type, parent_id, locked, avatar
+  </sql>
+
+</mapper>

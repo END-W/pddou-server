@@ -23,4 +23,4 @@ spring:
 
 token:
   expire: 10800
-  secret: F432515A
+  secret: 8D5E91A5CDB3CC0B
