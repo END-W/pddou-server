@@ -1,4 +1,4 @@
-package com.waiend.pddou.admin.system.dto;
+package com.waiend.pddou.core.system.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class LoginDto {
+public class LoginEmployeeDto {
 
     private String username;
 

@@ -7,10 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author end
@@ -30,6 +27,8 @@ public class JwtTokenUtils {
      */
     @Value("${token.secret}")
     private String secret;
+
+    private int startIndex = 3;
 
     /**
      * 从数据声明生成令牌
@@ -59,14 +58,45 @@ public class JwtTokenUtils {
     }
 
     /**
+     * 通过id生成sub
+     *
+     * @param id 用户id
+     * @return list
+     */
+    private List<String> generateSubById(Long id) {
+        byte[] encode = Base64.getEncoder().encode(String.valueOf(id).getBytes());
+        String newId = new String(encode);
+        newId = newId.replaceAll("=", "");
+        String uuid = UUID.randomUUID().toString();
+        String[] split = uuid.split("-");
+        StringBuilder s1 = new StringBuilder();
+        for (String s2 : split) {
+            Random random = new Random();
+            double v = random.nextDouble();
+            if (v < 0.5) {
+                s2 = s2.toUpperCase();
+            }
+            s1.append(s2);
+        }
+        String sub = s1.replace(startIndex, startIndex + newId.length(), newId).toString();
+        List<String> list = new ArrayList<>();
+        list.add(sub);
+        list.add(String.valueOf(newId.length()));
+        return list;
+
+    }
+
+    /**
      * 生成令牌
      *
-     * @param id
+     * @param id 用户id
      * @return 令牌
      */
     public String generateToken(Long id) {
-        Map<String, Object> claims = new HashMap<>(2);
-        claims.put("sub", id);
+        Map<String, Object> claims = new HashMap<>(4);
+        List<String> list = generateSubById(id);
+        claims.put("sub", list.get(0));
+        claims.put("len", Integer.valueOf(list.get(1)) + 32);
         claims.put("created", new Date());
         return generateToken(claims);
     }
@@ -81,7 +111,11 @@ public class JwtTokenUtils {
         Long id;
         try {
             Claims claims = getClaimsFromToken(token);
-            id = Long.valueOf(claims.getSubject());
+            String subject = claims.getSubject();
+            Integer len = (Integer) claims.get("len");
+            String substring = subject.substring(startIndex, (startIndex + len - 32));
+            byte[] decode = Base64.getDecoder().decode(substring.getBytes());
+            id = Long.valueOf(new String(decode));
         } catch (Exception e) {
             id = null;
         }

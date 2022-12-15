@@ -1,6 +1,7 @@
 package com.waiend.pddou.core.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.waiend.pddou.core.system.dto.LoginEmployeeDto;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface EmployeeService extends IService<EmployeeEntity> {
 
-    String login(String username, String password, HttpServletRequest request);
+    String login(LoginEmployeeDto loginEmployeeDto, HttpServletRequest request);
 
     void logout();
 }

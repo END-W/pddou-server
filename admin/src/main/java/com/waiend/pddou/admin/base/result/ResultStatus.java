@@ -22,7 +22,9 @@ public enum ResultStatus {
 
     INTERNAL_SERVER_ERROR(500), // 网络错误
 
-    INVALID_TOKEN(101), // 令牌错误
+    ILLEGAL_TOKEN(50008), // 非法令牌
+
+    TOKEN_EXPIRED(50014), // 令牌过期
 
     KICKED(103), // 被踢出
 
