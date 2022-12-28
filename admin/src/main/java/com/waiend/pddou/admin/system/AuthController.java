@@ -1,14 +1,12 @@
 package com.waiend.pddou.admin.system;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
+import com.waiend.pddou.admin.base.resolver.EmployeeId;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.system.dto.LoginEmployeeDto;
 import com.waiend.pddou.core.system.service.EmployeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,19 +22,18 @@ public class AuthController {
     @Resource
     private EmployeeService employeeServiceImpl;
 
-    @RequiresOperationLog(description = "登录操作")
-    @PostMapping("/login")
-    public Result login(LoginEmployeeDto loginEmployeeDto, HttpServletRequest request) {
+    @PostMapping("login")
+    public Result login(@RequestBody LoginEmployeeDto loginEmployeeDto, HttpServletRequest request) {
         return ResultFactory.buildSuccessResult(employeeServiceImpl.login(loginEmployeeDto, request));
     }
 
     @GetMapping("info")
-    public Result info() {
-        return ResultFactory.buildSuccessResult("info");
+    public Result info(@EmployeeId Long employeeId) {
+        return ResultFactory.buildSuccessResult(employeeServiceImpl.info(employeeId));
     }
 
     @RequiresOperationLog(description = "注销操作")
-    @PostMapping("/logout")
+    @PostMapping("logout")
     public Result logout() {
         employeeServiceImpl.logout();
         return ResultFactory.buildSuccessResult("注销成功");

@@ -1,14 +1,12 @@
 package com.waiend.pddou.core.system.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @author end
  * @date 2022年12月11日 22:55
  */
-@Setter
-@Getter
+@Data
 public class LoginEmployeeDto {
 
     private String username;

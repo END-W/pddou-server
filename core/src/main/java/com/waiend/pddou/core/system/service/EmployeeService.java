@@ -5,6 +5,7 @@ import com.waiend.pddou.core.system.dto.LoginEmployeeDto;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author end
@@ -12,7 +13,25 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface EmployeeService extends IService<EmployeeEntity> {
 
-    String login(LoginEmployeeDto loginEmployeeDto, HttpServletRequest request);
+    /**
+     * 登录
+     *
+     * @param loginEmployeeDto 登录实体
+     * @param request 请求体
+     * @return map
+     */
+    Map<String, String> login(LoginEmployeeDto loginEmployeeDto, HttpServletRequest request);
 
+    /**
+     * 员工信息
+     *
+     * @param employeeId 员工ID
+     * @return
+     */
+    Map<String, String> info(Long employeeId);
+
+    /**
+     * 注销
+     */
     void logout();
 }

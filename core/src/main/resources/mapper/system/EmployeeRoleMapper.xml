@@ -15,4 +15,14 @@
     <!--@mbg.generated-->
     id, create_time, update_time, employee_id, role_id
   </sql>
+
+  <select id="selectRolesByEmployeeId" resultType="java.lang.String">
+    SELECT name
+    FROM sys_role
+    WHERE id IN (
+        SELECT role_id
+        FROM sys_employee_role
+        WHERE employee_id=1
+        )
+  </select>
 </mapper>

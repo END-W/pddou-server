@@ -68,7 +68,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                                     SerializerFeature.WriteMapNullValue);
 
                     OperationLogEntity operationLogEntity = new OperationLogEntity();
-                    operationLogEntity.setCreateTime(LocalDateTime.now());
                     operationLogEntity.setOperationId(id);
                     operationLogEntity.setUrl(request.getRequestURL().toString());
                     operationLogEntity.setIp(IPUtils.getIpAddr(request));
@@ -79,8 +78,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     operationLogServiceImpl.save(operationLogEntity);
                 }
                 return true;
+            } else {
+                throw new UnauthenticatedException("未登录");
             }
-            return false;
         }
 
         return true;

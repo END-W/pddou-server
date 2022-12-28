@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result<T>  {
 
-    private int status;
+    private int code;
 
     private String message;
 

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * mybatis的自动插入更新
@@ -17,10 +17,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        // 新增的时候插入创建时间
+        // 新增的时候插入创建时间和更新时间
         Object createTime = getFieldValByName("createTime", metaObject);
-        if (createTime == null) {
-            setFieldValByName("createTime", new Date(), metaObject);
+        Object updateTime = getFieldValByName("updateTime", metaObject);
+        if (createTime == null || updateTime == null) {
+            setFieldValByName("createTime", LocalDateTime.now(), metaObject);
+            setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         }
     }
 
@@ -29,7 +31,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         // 更新的时候修改更新时间
         Object updateTime = getFieldValByName("updateTime", metaObject);
         if (updateTime == null) {
-            setFieldValByName("updateTime", new Date(), metaObject);
+            setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         }
     }
 }

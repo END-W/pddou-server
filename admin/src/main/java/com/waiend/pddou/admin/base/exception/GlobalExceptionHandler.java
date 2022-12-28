@@ -1,5 +1,7 @@
 package com.waiend.pddou.admin.base.exception;
 
+import com.waiend.pddou.admin.base.auth.UnauthenticatedException;
+import com.waiend.pddou.admin.base.auth.UnauthorizedException;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.admin.base.result.ResultStatus;
@@ -21,7 +23,19 @@ import java.io.IOException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(PDDouException.class)
-    public Result handleRRException(PDDouException e) {
+    public Result handlePDDouException(PDDouException e) {
+        log.error(e.getMessage(), e);
+        return ResultFactory.buildErrorResult(e.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(UnauthenticatedException.class)
+    public Result handleUnauthenticatedException(UnauthenticatedException e) {
+        log.error(e.getMessage(), e);
+        return ResultFactory.buildErrorResult(e.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public Result handleUnauthorizedException(UnauthorizedException e) {
         log.error(e.getMessage(), e);
         return ResultFactory.buildErrorResult(e.getCode(), e.getMessage());
     }

@@ -8,7 +8,7 @@ public class ResultFactory {
 
     private static <R> Result buildResult(ResultStatus resultStatus, String message, R data, long timestamp) {
         Result<R> result = new Result<>();
-        result.setStatus(resultStatus.getStatus());
+        result.setCode(resultStatus.getStatus());
         result.setMessage(message);
         result.setData(data);
         result.setTimestamp(timestamp);
