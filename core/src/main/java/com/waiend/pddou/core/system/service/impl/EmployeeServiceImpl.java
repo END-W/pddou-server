@@ -95,12 +95,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
                 SerializerFeature.WriteMapNullValue);
 
         OperationLogEntity operationLogEntity = new OperationLogEntity();
-        operationLogEntity.setOperationId(employeeEntity.getId());
-        operationLogEntity.setUrl(request.getRequestURL().toString());
-        operationLogEntity.setIp(IPUtils.getIpAddr(request));
-        operationLogEntity.setParams(param);
-        operationLogEntity.setOperationType(OperationLogEntity.OperationType.ADMIN);
-        operationLogEntity.setDescription("登录操作");
+        operationLogEntity.setOperationId(employeeEntity.getId())
+                          .setUrl(request.getRequestURL().toString())
+                          .setIp(IPUtils.getIpAddr(request))
+                          .setParams(param)
+                          .setOperationType(OperationLogEntity.OperationType.ADMIN)
+                          .setDescription("登录操作");
 
         operationLogMapper.insert(operationLogEntity);
 

@@ -5,6 +5,7 @@ import com.waiend.pddou.core.base.entity.BaseEntity;
 import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * @author end
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @TableName("sys_menu")
 public class MenuEntity extends BaseEntity {
 

@@ -68,12 +68,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                                     SerializerFeature.WriteMapNullValue);
 
                     OperationLogEntity operationLogEntity = new OperationLogEntity();
-                    operationLogEntity.setOperationId(id);
-                    operationLogEntity.setUrl(request.getRequestURL().toString());
-                    operationLogEntity.setIp(IPUtils.getIpAddr(request));
-                    operationLogEntity.setParams(param);
-                    operationLogEntity.setOperationType(OperationLogEntity.OperationType.ADMIN);
-                    operationLogEntity.setDescription(requiresOperationLog.description());
+                    operationLogEntity.setOperationId(id)
+                                      .setUrl(request.getRequestURL().toString())
+                                      .setIp(IPUtils.getIpAddr(request))
+                                      .setParams(param)
+                                      .setOperationType(OperationLogEntity.OperationType.ADMIN)
+                                      .setDescription(requiresOperationLog.description());
 
                     operationLogServiceImpl.save(operationLogEntity);
                 }
