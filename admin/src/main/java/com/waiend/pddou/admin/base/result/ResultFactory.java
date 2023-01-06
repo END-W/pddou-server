@@ -15,6 +15,10 @@ public class ResultFactory {
         return result;
     }
 
+    public static Result buildSuccessResult() {
+        return buildResult(ResultStatus.SUCCESS, "success", null, System.currentTimeMillis());
+    }
+
     public static Result buildSuccessResult(String message) {
         return buildResult(ResultStatus.SUCCESS, message, null, System.currentTimeMillis());
     }

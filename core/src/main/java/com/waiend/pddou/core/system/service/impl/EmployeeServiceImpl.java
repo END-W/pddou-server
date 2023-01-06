@@ -12,21 +12,21 @@ import com.waiend.pddou.core.common.util.RedisUtils;
 import com.waiend.pddou.core.operationlog.entity.OperationLogEntity;
 import com.waiend.pddou.core.operationlog.mapper.OperationLogMapper;
 import com.waiend.pddou.core.system.dto.LoginEmployeeDto;
+import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import com.waiend.pddou.core.system.entity.EmployeeRoleEntity;
+import com.waiend.pddou.core.system.mapper.EmployeeMapper;
 import com.waiend.pddou.core.system.mapper.EmployeeRoleMapper;
+import com.waiend.pddou.core.system.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import com.waiend.pddou.core.system.mapper.EmployeeMapper;
-import com.waiend.pddou.core.system.entity.EmployeeEntity;
-import com.waiend.pddou.core.system.service.EmployeeService;
-import org.springframework.util.Assert;
-
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -127,6 +127,19 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
 
     @Override
     public void logout() {
+    }
+
+    @Override
+    public void changePassword(Long employeeId, String password, String newPassword) {
+        EmployeeEntity employeeEntity = employeeMapper.selectById(employeeId);
+        boolean match = bCryptPasswordManager.match(employeeEntity.getPassword(), password);
+        if (!match) {
+            throw new IllegalArgumentException("密码错误");
+        }
+        employeeEntity = new EmployeeEntity();
+        employeeEntity.setPassword(newPassword)
+                      .setId(employeeId);
+        employeeMapper.updateById(employeeEntity);
     }
 
     /**

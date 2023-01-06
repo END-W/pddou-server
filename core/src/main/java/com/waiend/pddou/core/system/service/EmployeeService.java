@@ -34,4 +34,12 @@ public interface EmployeeService extends IService<EmployeeEntity> {
      * 注销
      */
     void logout();
+
+    /**
+     * 修改密码
+     *  @param employeeId 员工ID
+     * @param password
+     * @param newPassword 新密码
+     */
+    void changePassword(Long employeeId, String password, String newPassword);
 }
