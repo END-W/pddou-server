@@ -137,7 +137,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
             throw new IllegalArgumentException("密码错误");
         }
         employeeEntity = new EmployeeEntity();
-        employeeEntity.setPassword(newPassword)
+        employeeEntity.setPassword(bCryptPasswordManager.hash(newPassword))
                       .setId(employeeId);
         employeeMapper.updateById(employeeEntity);
     }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -67,21 +68,18 @@ public class AuthController {
      * 修改密码
      *
      * @param employeeId 员工ID
-     * @param newPassword 新密码
+     * @param param map
      * @return Result
      */
     @RequiresOperationLog(description = "修改密码")
     @PostMapping("changePwd")
-    public Result changePwd(@EmployeeId Long employeeId, String password, String newPassword) {
-        if (!StringUtils.hasText(newPassword) || verifyPassword(newPassword)) {
+    public Result changePwd(@EmployeeId Long employeeId, @RequestBody Map<String, String> param) {
+        String password = param.get("password");
+        String newPassword = param.get("newPassword");
+        if (!StringUtils.hasText(password) || !StringUtils.hasText(newPassword)) {
             return ResultFactory.buildErrorResult("密码格式错误");
         }
         employeeServiceImpl.changePassword(employeeId, password, newPassword);
         return ResultFactory.buildSuccessResult("修改密码成功");
-    }
-
-    // 验证密码格式
-    private static boolean verifyPassword(String password) {
-        return Pattern.matches(PASSWORD_REGEX, password);
     }
 }
