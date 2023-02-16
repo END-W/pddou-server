@@ -26,9 +26,9 @@ public interface EmployeeService extends IService<EmployeeEntity> {
      * 员工信息
      *
      * @param employeeId 员工ID
-     * @return
+     * @return map
      */
-    Map<String, String> info(Long employeeId);
+    Map<String, Object> info(Long employeeId);
 
     /**
      * 注销
@@ -42,4 +42,44 @@ public interface EmployeeService extends IService<EmployeeEntity> {
      * @param newPassword 新密码
      */
     void changePassword(Long employeeId, String password, String newPassword);
+
+    /**
+     * 员工列表
+     *
+     * @param page 页码
+     * @param limit 页大小
+     * @param username 用户名
+     * @param phone 电话
+     * @param employeeId 员工ID
+     * @return map
+     */
+    Map<String, Object> employeeList(Integer page, Integer limit, String username, String phone, Long employeeId);
+
+    /**
+     * 添加员工
+     *
+     * @param employeeEntity 员工实体
+     */
+    void addEmployee(EmployeeEntity employeeEntity);
+
+    /**
+     * 更新员工信息
+     * @param employeeEntity 员工实体
+     */
+    void updateEmployee(EmployeeEntity employeeEntity);
+
+    /**
+     * 删除员工
+     *
+     * @param employeeId 员工ID
+     */
+    void removeEmployeeById(Long employeeId);
+
+    /**
+     * 账号是否锁定
+     *
+     * @param employeeId 员工ID
+     * @param locked 锁定状态
+     */
+    void changeStatus(Long employeeId, Boolean locked);
 }

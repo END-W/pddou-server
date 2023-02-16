@@ -22,7 +22,7 @@
     WHERE id IN (
         SELECT role_id
         FROM sys_employee_role
-        WHERE employee_id=1
+        WHERE employee_id=#{employeeId}
         )
   </select>
 </mapper>

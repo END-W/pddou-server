@@ -1,8 +1,11 @@
 package com.waiend.pddou.core.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.waiend.pddou.core.base.password.PasswordManager;
 import com.waiend.pddou.core.common.constant.RedisConstants;
@@ -14,19 +17,20 @@ import com.waiend.pddou.core.operationlog.mapper.OperationLogMapper;
 import com.waiend.pddou.core.system.dto.LoginEmployeeDto;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import com.waiend.pddou.core.system.entity.EmployeeRoleEntity;
+import com.waiend.pddou.core.system.entity.RoleEntity;
 import com.waiend.pddou.core.system.mapper.EmployeeMapper;
 import com.waiend.pddou.core.system.mapper.EmployeeRoleMapper;
+import com.waiend.pddou.core.system.mapper.RoleMapper;
 import com.waiend.pddou.core.system.service.EmployeeService;
+import com.waiend.pddou.core.system.vo.EmployeeVo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +45,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
 
     @Resource
     private EmployeeRoleMapper employeeRoleMapper;
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Resource
     private OperationLogMapper operationLogMapper;
@@ -112,15 +119,15 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
     }
 
     @Override
-    public Map<String, String> info(Long employeeId) {
+    public Map<String, Object> info(Long employeeId) {
         EmployeeEntity employeeEntity = employeeMapper.selectById(employeeId);
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("name", employeeEntity.getName());
         map.put("avatar", employeeEntity.getAvatar());
 
         // 员工角色集合
         List<String> roles = employeeRoleMapper.selectRolesByEmployeeId(employeeId);
-        map.put("roles", "admin");
+        map.put("roles", roles);
 
         return map;
     }
@@ -139,6 +146,75 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
         employeeEntity = new EmployeeEntity();
         employeeEntity.setPassword(bCryptPasswordManager.hash(newPassword))
                       .setId(employeeId);
+        employeeMapper.updateById(employeeEntity);
+    }
+
+    @Override
+    public Map<String, Object> employeeList(Integer page, Integer limit, String username, String phone, Long employeeId) {
+        ArrayList<EmployeeVo> employeeList = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+        Page<EmployeeEntity> pages = new Page<>(page, limit);
+
+        QueryWrapper<EmployeeEntity> queryWrapper = new QueryWrapper<>();
+
+        List<Integer> roleIds = (List<Integer>) redisUtils.get(RedisConstants.EMPLOYEE_ROLES_KEY + employeeId);
+
+        if (Objects.nonNull(roleIds)) {
+            if (StringUtils.hasText(username)) {
+                queryWrapper.eq("username", username);
+            }
+
+            if (StringUtils.hasText(phone)) {
+                queryWrapper.eq("phone", phone);
+            }
+
+            List<RoleEntity> roles = roleMapper.selectBatchIds(roleIds);
+            // 管理员权限
+            if (EmployeeEntity.UserType.ADMIN.name().equals(roles.get(0).getName())) {
+                queryWrapper.eq("type", EmployeeEntity.Type.MERCHANT);
+            } else if (EmployeeEntity.UserType.STORE.name().equals(roles.get(0).getName())) { // 商家权限
+                queryWrapper.eq("type", EmployeeEntity.Type.MERCHANT);
+                queryWrapper.eq("parent_id", employeeId);
+            } else if (EmployeeEntity.UserType.SUPERADMIN.name().equals(roles.get(0).getName())) { // 超级管理员权限
+                queryWrapper.in("user_type", EmployeeEntity.UserType.ADMIN,
+                                                     EmployeeEntity.UserType.STORE,
+                                                     EmployeeEntity.UserType.STAFF);
+            }
+
+            employeeMapper.selectPage(pages, queryWrapper);
+
+            for (EmployeeEntity e: pages.getRecords()) {
+                EmployeeVo employeeVo = BeanUtil.copyProperties(e, EmployeeVo.class);
+                employeeList.add(employeeVo);
+            }
+
+            map.put("list", employeeList);
+            map.put("total", pages.getTotal());
+        }
+
+        return map;
+    }
+
+    @Override
+    public void addEmployee(EmployeeEntity employeeEntity) {
+
+    }
+
+    @Override
+    public void updateEmployee(EmployeeEntity employeeEntity) {
+        employeeMapper.updateById(employeeEntity);
+    }
+
+    @Override
+    public void removeEmployeeById(Long employeeId) {
+        employeeMapper.deleteById(employeeId);
+    }
+
+    @Override
+    public void changeStatus(Long employeeId, Boolean locked) {
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setId(employeeId);
+        employeeEntity.setLocked(locked);
         employeeMapper.updateById(employeeEntity);
     }
 
