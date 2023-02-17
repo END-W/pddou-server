@@ -25,6 +25,7 @@ import com.waiend.pddou.core.system.service.EmployeeService;
 import com.waiend.pddou.core.system.vo.EmployeeVo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -168,17 +169,23 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
                 queryWrapper.eq("phone", phone);
             }
 
-            List<RoleEntity> roles = roleMapper.selectBatchIds(roleIds);
+            List<String> roles = roleMapper.selectBatchIds(roleIds).stream()
+                                            .map(RoleEntity::getName)
+                                            .collect(Collectors.toList());
             // 管理员权限
-            if (EmployeeEntity.UserType.ADMIN.name().equals(roles.get(0).getName())) {
+            if (roles.contains(EmployeeEntity.UserType.ADMIN.name())) {
                 queryWrapper.eq("type", EmployeeEntity.Type.MERCHANT);
-            } else if (EmployeeEntity.UserType.STORE.name().equals(roles.get(0).getName())) { // 商家权限
+            } else if (roles.contains(EmployeeEntity.UserType.STORE.name())) { // 商家权限
                 queryWrapper.eq("type", EmployeeEntity.Type.MERCHANT);
                 queryWrapper.eq("parent_id", employeeId);
-            } else if (EmployeeEntity.UserType.SUPERADMIN.name().equals(roles.get(0).getName())) { // 超级管理员权限
+            } else if (roles.contains(EmployeeEntity.UserType.SUPERADMIN.name())) { // 超级管理员权限
                 queryWrapper.in("user_type", EmployeeEntity.UserType.ADMIN,
                                                      EmployeeEntity.UserType.STORE,
                                                      EmployeeEntity.UserType.STAFF);
+            } else { // 无权限
+                map.put("list", employeeList);
+                map.put("total", 0);
+                return map;
             }
 
             employeeMapper.selectPage(pages, queryWrapper);
@@ -195,9 +202,33 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
         return map;
     }
 
+    @Transactional
     @Override
-    public void addEmployee(EmployeeEntity employeeEntity) {
+    public void addEmployee(EmployeeEntity employeeEntity, Long employeeId) {
+        QueryWrapper<RoleEntity> queryWrapper = new QueryWrapper<>();
+        if (EmployeeEntity.UserType.SUPERADMIN.name().equals(employeeEntity.getUserType().name())) {
+            employeeEntity.setType(EmployeeEntity.Type.ADMINISTRATION);
+            employeeEntity.setUserType(EmployeeEntity.UserType.ADMIN);
+            queryWrapper.lambda().eq(RoleEntity::getName, EmployeeEntity.UserType.ADMIN);
+        } else if (EmployeeEntity.UserType.STORE.name().equals(employeeEntity.getUserType().name())) {
+            employeeEntity.setType(EmployeeEntity.Type.MERCHANT);
+            employeeEntity.setUserType(EmployeeEntity.UserType.STAFF);
+            employeeEntity.setParentId(employeeId);
+            queryWrapper.lambda().eq(RoleEntity::getName, EmployeeEntity.UserType.STAFF);
+        } else {
+            return;
+        }
 
+        employeeEntity.setPassword(bCryptPasswordManager.hash(employeeEntity.getPassword()));
+
+        employeeMapper.insert(employeeEntity);
+
+        EmployeeRoleEntity employeeRoleEntity = new EmployeeRoleEntity();
+        RoleEntity roleEntity = roleMapper.selectOne(queryWrapper);
+        employeeRoleEntity.setEmployeeId(employeeEntity.getId());
+        employeeRoleEntity.setRoleId(Math.toIntExact(roleEntity.getId()));
+
+        employeeRoleMapper.insert(employeeRoleEntity);
     }
 
     @Override
@@ -205,9 +236,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
         employeeMapper.updateById(employeeEntity);
     }
 
+    @Transactional
     @Override
     public void removeEmployeeById(Long employeeId) {
         employeeMapper.deleteById(employeeId);
+        employeeRoleMapper.delete(new QueryWrapper<EmployeeRoleEntity>().lambda()
+                                    .eq(EmployeeRoleEntity::getEmployeeId, employeeId));
     }
 
     @Override

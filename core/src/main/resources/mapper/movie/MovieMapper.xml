@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waiend.pddou.core.movie.mapper.MovieMapper">
+  <resultMap id="BaseResultMap" type="com.waiend.pddou.core.movie.entity.MovieEntity">
+    <!--@mbg.generated-->
+    <!--@Table pddou_movie-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="poster" jdbcType="VARCHAR" property="poster" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="actor" jdbcType="VARCHAR" property="actor" />
+    <result column="movie_long" jdbcType="VARCHAR" property="movieLong" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="intro" jdbcType="LONGVARCHAR" property="intro" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="public_date" jdbcType="VARCHAR" property="publicDate" />
+    <result column="wish_num" jdbcType="INTEGER" property="wishNum" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, poster, director, actor, movie_long, `language`, intro, `type`, public_date, 
+    wish_num, score, create_time, update_time
+  </sql>
+</mapper>

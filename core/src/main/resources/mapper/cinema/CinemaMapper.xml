@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waiend.pddou.core.cinema.mapper.CinemaMapper">
+  <resultMap id="BaseResultMap" type="com.waiend.pddou.core.cinema.entity.CinemaEntity">
+    <!--@mbg.generated-->
+    <!--@Table pddou_cinema-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cinema_name" jdbcType="VARCHAR" property="cinemaName" />
+    <result column="cinema_phone" jdbcType="CHAR" property="cinemaPhone" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="county" jdbcType="VARCHAR" property="county" />
+    <result column="specified_address" jdbcType="VARCHAR" property="specifiedAddress" />
+    <result column="employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="is_block" jdbcType="BOOLEAN" property="isBlock" />
+    <result column="is_examine" jdbcType="VARCHAR" property="isExamine" />
+    <result column="check_employee_id" jdbcType="BIGINT" property="checkEmployeeId" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, cinema_name, cinema_phone, province, city, county, specified_address, employee_id, 
+    is_block, is_examine, check_employee_id, check_time, create_time, updateTime
+  </sql>
+</mapper>

@@ -1,5 +1,6 @@
 package com.waiend.pddou.admin.system;
 
+import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
@@ -45,9 +46,11 @@ public class EmployeeController {
      * @param employeeEntity 员工实体
      * @return Result
      */
+    @RequiresOperationLog(description = "添加员工操作")
     @PostMapping("add")
-    public Result addEmployee(@RequestBody EmployeeEntity employeeEntity) {
-        employeeServiceImpl.addEmployee(employeeEntity);
+    public Result addEmployee(@RequestBody EmployeeEntity employeeEntity,
+                              @EmployeeId Long employeeId) {
+        employeeServiceImpl.addEmployee(employeeEntity, employeeId);
         return ResultFactory.buildSuccessResult();
     }
 
@@ -57,6 +60,7 @@ public class EmployeeController {
      * @param employeeEntity 员工实体
      * @return Result
      */
+    @RequiresOperationLog(description = "更新员工操作")
     @PutMapping("update")
     public Result updateEmployee(@RequestBody EmployeeEntity employeeEntity) {
         employeeServiceImpl.updateEmployee(employeeEntity);
@@ -69,6 +73,7 @@ public class EmployeeController {
      * @param employeeId 员工ID
      * @return Result
      */
+    @RequiresOperationLog(description = "删除员工操作")
     @DeleteMapping("delete")
     public Result removeEmployeeById(Long employeeId) {
         employeeServiceImpl.removeEmployeeById(employeeId);
@@ -81,6 +86,7 @@ public class EmployeeController {
      * @param map map
      * @return Result
      */
+    @RequiresOperationLog(description = "员工账号锁定操作")
     @PostMapping("changeStatus")
     public Result changeStatus(@RequestBody Map<String, String> map) {
         Long employeeId = Long.valueOf(map.get("employeeId"));
