@@ -79,4 +79,10 @@ public class MovieEntity extends BaseEntity {
     * 电影综合评分
     */
     private BigDecimal score;
+
+    /**
+     * 是否上映（0-false，1-true-默认）
+     */
+    @TableField(value = "is_show")
+    private Boolean isShow;
 }

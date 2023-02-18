@@ -18,10 +18,11 @@
     <result column="score" jdbcType="DECIMAL" property="score" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_show" jdbcType="BOOLEAN" property="isShow" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, `name`, poster, director, actor, movie_long, `language`, intro, `type`, public_date, 
-    wish_num, score, create_time, update_time
+    wish_num, score, create_time, update_time, is_show
   </sql>
 </mapper>

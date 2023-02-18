@@ -188,6 +188,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
                 return map;
             }
 
+            queryWrapper.orderByDesc("create_time");
+
             employeeMapper.selectPage(pages, queryWrapper);
 
             for (EmployeeEntity e: pages.getRecords()) {
