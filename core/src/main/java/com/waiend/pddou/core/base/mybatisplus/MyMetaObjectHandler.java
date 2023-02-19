@@ -29,9 +29,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         // 更新的时候修改更新时间
-        Object updateTime = getFieldValByName("updateTime", metaObject);
-        if (updateTime == null) {
-            setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
-        }
+        setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
     }
 }

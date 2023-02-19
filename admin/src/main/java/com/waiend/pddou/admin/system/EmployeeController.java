@@ -44,6 +44,7 @@ public class EmployeeController {
      * 添加员工
      *
      * @param employeeEntity 员工实体
+     * @param employeeId 员工ID
      * @return Result
      */
     @RequiresOperationLog(description = "添加员工操作")
@@ -81,12 +82,12 @@ public class EmployeeController {
     }
 
     /**
-     * 账号是否锁定
+     * 账号锁定/未锁定
      *
      * @param map map
      * @return Result
      */
-    @RequiresOperationLog(description = "员工账号锁定操作")
+    @RequiresOperationLog(description = "员工账号锁定/未锁定操作")
     @PostMapping("changeStatus")
     public Result changeStatus(@RequestBody Map<String, String> map) {
         Long employeeId = Long.valueOf(map.get("employeeId"));

@@ -50,12 +50,12 @@ public class UserController {
     }
 
     /**
-     * 账号是否锁定
+     * 账号锁定/未锁定
      *
      * @param map map
      * @return Result
      */
-    @RequiresOperationLog(description = "用户账号锁定操作")
+    @RequiresOperationLog(description = "用户账号锁定/未锁定操作")
     @PostMapping("changeStatus")
     public Result changeStatus(@RequestBody Map<String, String> map) {
         Long userId = Long.valueOf(map.get("userId"));

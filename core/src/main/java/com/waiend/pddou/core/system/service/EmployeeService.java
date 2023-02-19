@@ -59,7 +59,7 @@ public interface EmployeeService extends IService<EmployeeEntity> {
      * 添加员工
      *
      * @param employeeEntity 员工实体
-     * @param employeeId
+     * @param employeeId 员工ID
      */
     void addEmployee(EmployeeEntity employeeEntity, Long employeeId);
 

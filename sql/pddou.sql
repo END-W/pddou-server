@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 17/02/2023 21:48:10
+ Date: 19/02/2023 23:12:14
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `pddou_cinema`  (
   `create_time` datetime(6) NOT NULL COMMENT '创建时间',
   `update_time` datetime(6) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_cinema
@@ -64,12 +64,18 @@ CREATE TABLE `pddou_movie`  (
   `score` decimal(4, 1) NULL DEFAULT NULL COMMENT '电影综合评分',
   `create_time` datetime(6) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(6) NULL DEFAULT NULL COMMENT '更新时间',
+  `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否上映（0-false，1-true-默认）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_movie
 -- ----------------------------
+INSERT INTO `pddou_movie` VALUES (1, '驯龙高手3', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/676110c423df4c429f78dc0b68435937.jpg', '迪恩·德布洛斯', '刘昊然', '130分钟', '英语', '统领伯克岛的酋长嗝嗝（刘昊然 配音），与阿丝翠德（亚美莉卡·费雷拉 配音）共同打造了一个奇妙而热闹的飞龙乌托邦。一只雌性光煞飞龙的意外出现，加上一个前所未有的威胁的到来，令嗝嗝和没牙仔不得不离开自己唯一的家园，前往他们本以为只存在于神话之中的隐秘之境。在发现自己真正的命运之后，飞龙与骑士将携手殊死奋战，保护他们所珍爱的一切。', '动漫', '2018-12-11', 0, 8.0, '2023-02-19 16:43:15.977763', '2023-02-19 17:36:06.421665', 1);
+INSERT INTO `pddou_movie` VALUES (2, '夏目友人帐', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/c401b18212244ff88894be26f3b59718.jpg', '大森贵弘', '村濑步', '105分钟', '日语', '唱片制作人张哲凯（刘以豪 饰）和王牌作词人宋媛媛（陈意涵 饰）相依为命，两人自幼身世坎坷只有彼此为伴，他们是亲人、是朋友，也彷佛是命中注定的另一半。父亲罹患遗传重症而被母亲抛弃的哲凯，深怕自己随时会发病不久人世，始终没有跨出友谊的界线对媛媛展露爱意。眼见哲凯的病情加重，他暗自决定用剩余的生命完成他们之间的终曲，再为媛媛找个可以托付一生的好男人。这时，事业有成温柔体贴的医生（张书豪 饰）适时的出现让他成为照顾媛媛的最佳人选，二人按部就班发展着关系。一切看似都在哲凯的计划下进行。然而，故事远比这里所写更要悲伤', '言情', '2018-11-13', 12, 8.3, '2023-02-19 17:47:41.974124', '2023-02-19 17:47:41.974124', 1);
+INSERT INTO `pddou_movie` VALUES (3, '比悲伤更悲伤的故事', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/dec50b4e94ce45ce96fccfb8fbd50368.jpg', '林孝谦', '陈庭妮', '105分钟', '国语', '唱片制作人张哲凯（刘以豪 饰）和王牌作词人宋媛媛（陈意涵 饰）相依为命，两人自幼身世坎坷只有彼此为伴，他们是亲人、是朋友，也彷佛是命中注定的另一半。父亲罹患遗传重症而被母亲抛弃的哲凯，深怕自己随时会发病不久人世，始终没有跨出友谊的界线对媛媛展露爱意。眼见哲凯的病情加重，他暗自决定用剩余的生命完成他们之间的终曲，再为媛媛找个可以托付一生的好男人。这时，事业有成温柔体贴的医生（张书豪 饰）适时的出现让他成为照顾媛媛的最佳人选，二人按部就班发展着关系。一切看似都在哲凯的计划下进行。然而，故事远比这里所写更要悲伤', '言情', '2018-09-01', 178, 9.0, '2023-02-19 22:51:36.000000', '2023-02-19 22:51:36.000000', 1);
+INSERT INTO `pddou_movie` VALUES (4, '惊奇队长', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/e5b3623128424e3e85d2d683825e30e8.jpg', '瑞安·弗雷克', '本·门德尔森', '108分钟', '英语', '卡罗尔·丹弗斯（布丽·拉尔森 饰）是克里人的精英部队一员，但她挣扎着回忆过去，对于怎么获得超能力、以及之前的人生等超能力之前的人生，她只在梦中有片段不成章的记忆，这层困扰引起的情绪波动也进而影响她对超能力的掌控。所幸，在星际战队指挥官（裘德·洛 饰）的调教之下，卡罗尔·丹弗斯学会如何控制自己的超能力。一次外星任务中，卡罗尔·丹弗斯因故来到了地球，并遇到还是低阶探员的尼克·弗瑞（塞缪尔·杰克逊 饰），卡罗尔·丹弗斯与尼克·弗瑞一起追捕在地球惹事的变形人塔罗斯（本·门德尔森 饰），同时，也发现自己如何获得超能力。', '爱情', '2018-07-03', 0, NULL, '2023-02-19 23:04:01.000000', '2023-02-19 23:04:01.000000', 1);
+INSERT INTO `pddou_movie` VALUES (5, '我的英雄学院', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/8a76aeed433d4707aba376577e4f331a.jpg', '长崎健司', '生濑胜久', '96分钟', '日语', '讲述在绝大多数人都有超能力的未来时代，没有天赋的异能少年，如何凭努力与坚持打破绝境，成长为最强英雄，守卫世界和平的故事。 剧场版以移动科研都市“我之岛”为舞台，描绘正反两派的殊死激战。在第一英雄被困之际，少年与英雄科同学拼死克敌，却在无意中探得隐秘真相，剧情随之反转', '科幻', '2018-08-13', 0, NULL, '2023-02-19 23:10:36.000000', '2023-02-19 23:11:06.523690', 1);
 
 -- ----------------------------
 -- Table structure for pddou_user
@@ -91,17 +97,17 @@ CREATE TABLE `pddou_user`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_username`(`username`) USING BTREE,
   UNIQUE INDEX `uk_phone`(`phone`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_user
 -- ----------------------------
-INSERT INTO `pddou_user` VALUES (1, 'end', 'https://pddou.oss-cn-chengdu.aliyuncs.com/AD7945F9-B4FD-4D23-A76B-237531BCC0F4.jpg', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13414850282', '男', '2003-08-12', '我命由我不由天', 20, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
+INSERT INTO `pddou_user` VALUES (1, 'end', 'https://pddou.oss-cn-chengdu.aliyuncs.com/AD7945F9-B4FD-4D23-A76B-237531BCC0F4.jpg', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13414850282', '男', '2003-08-12', '我命由我不由天', 20, '2023-02-17 20:00:12.000000', '2023-02-18 15:15:07.379144', 0);
 INSERT INTO `pddou_user` VALUES (2, '张三', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13423232323', '男', '2001-04-08', '66666', 0, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
 INSERT INTO `pddou_user` VALUES (3, '13478565555', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13478565555', '男', NULL, '加油', 5, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
 INSERT INTO `pddou_user` VALUES (4, '13877777766', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13877777766', '男', NULL, '生而无畏', 0, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
 INSERT INTO `pddou_user` VALUES (5, '13482638273', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13482638273', '女', NULL, '向前跑，用尽全部力气', 3, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
-INSERT INTO `pddou_user` VALUES (6, '13428372632', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13428372632', '女', NULL, '生活不止眼前的枸杞，还有诗和远方', 3, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
+INSERT INTO `pddou_user` VALUES (6, '13428372632', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13428372632', '女', NULL, '生活不止眼前的枸杞，还有诗和远方', 3, '2023-02-17 20:00:12.000000', '2023-02-18 15:15:15.334073', 1);
 INSERT INTO `pddou_user` VALUES (7, '小李', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13414232321', '男', NULL, '一起加油', 0, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
 INSERT INTO `pddou_user` VALUES (8, '王大锤', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '13412121211', '男', '1990-06-16', '开心就好', 0, '2023-02-17 20:00:12.000000', '2023-02-17 20:00:16.000000', 0);
 
@@ -128,7 +134,7 @@ CREATE TABLE `sys_employee`  (
   UNIQUE INDEX `uk_username`(`username`) USING BTREE,
   UNIQUE INDEX `uk_email`(`email`) USING BTREE,
   UNIQUE INDEX `uk_phone`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_employee
@@ -151,7 +157,7 @@ CREATE TABLE `sys_employee_role`  (
   `employee_id` bigint NOT NULL COMMENT '平台id',
   `role_id` int NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_employee_role
@@ -200,7 +206,7 @@ CREATE TABLE `sys_operation_log`  (
   `ip_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '具体地址',
   `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -296,6 +302,35 @@ INSERT INTO `sys_operation_log` VALUES (88, '2023-02-17 19:06:32.542838', '2023-
 INSERT INTO `sys_operation_log` VALUES (89, '2023-02-17 19:06:44.312453', '2023-02-17 19:06:44.312453', 7, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
 INSERT INTO `sys_operation_log` VALUES (90, '2023-02-17 19:09:45.544821', '2023-02-17 19:09:45.544821', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
 INSERT INTO `sys_operation_log` VALUES (91, '2023-02-17 19:21:32.174360', '2023-02-17 19:21:32.174360', 1, 'ADMIN', 'http://localhost:7001/admin/employee/delete', '{\"employeeId\":[\"9\"]}', '127.0.0.1', NULL, '删除员工操作');
+INSERT INTO `sys_operation_log` VALUES (92, '2023-02-18 15:04:08.595974', '2023-02-18 15:04:08.595974', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (93, '2023-02-18 15:04:12.601322', '2023-02-18 15:04:12.601322', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (94, '2023-02-18 15:14:57.338467', '2023-02-18 15:14:57.338467', 1, 'ADMIN', 'http://localhost:7001/admin/user/changeStatus', '{}', '127.0.0.1', NULL, '用户账号锁定操作');
+INSERT INTO `sys_operation_log` VALUES (95, '2023-02-18 15:15:07.348742', '2023-02-18 15:15:07.348742', 1, 'ADMIN', 'http://localhost:7001/admin/user/changeStatus', '{}', '127.0.0.1', NULL, '用户账号锁定操作');
+INSERT INTO `sys_operation_log` VALUES (96, '2023-02-18 15:15:15.306391', '2023-02-18 15:15:15.306391', 1, 'ADMIN', 'http://localhost:7001/admin/user/changeStatus', '{}', '127.0.0.1', NULL, '用户账号锁定操作');
+INSERT INTO `sys_operation_log` VALUES (97, '2023-02-18 15:23:39.195382', '2023-02-18 15:23:39.195382', 1, 'ADMIN', 'http://localhost:7001/admin/user/delete', '{\"userId\":[\"9\"]}', '127.0.0.1', NULL, '删除用户操作');
+INSERT INTO `sys_operation_log` VALUES (98, '2023-02-18 15:25:30.351588', '2023-02-18 15:25:30.351588', 1, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (99, '2023-02-18 15:25:40.913281', '2023-02-18 15:25:40.913281', 7, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (100, '2023-02-18 15:31:59.941047', '2023-02-18 15:31:59.941047', 7, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (101, '2023-02-18 15:32:12.826330', '2023-02-18 15:32:12.826330', 4, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (102, '2023-02-18 15:32:23.378184', '2023-02-18 15:32:23.378184', 4, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (103, '2023-02-18 15:33:18.215207', '2023-02-18 15:33:18.215207', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (104, '2023-02-18 20:52:24.408689', '2023-02-18 20:52:24.408689', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (105, '2023-02-18 22:29:31.441737', '2023-02-18 22:29:31.441737', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (106, '2023-02-19 14:20:19.271426', '2023-02-19 14:20:19.271426', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (107, '2023-02-19 16:37:28.423308', '2023-02-19 16:37:28.423308', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (108, '2023-02-19 16:43:15.750515', '2023-02-19 16:43:15.750515', 1, 'ADMIN', 'http://localhost:7001/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (109, '2023-02-19 17:32:11.327665', '2023-02-19 17:32:11.327665', 1, 'ADMIN', 'http://localhost:7001/admin/movie/changeStatus', '{}', '127.0.0.1', NULL, '电影上映/下映操作');
+INSERT INTO `sys_operation_log` VALUES (110, '2023-02-19 17:36:06.315843', '2023-02-19 17:36:06.315843', 1, 'ADMIN', 'http://localhost:7001/admin/movie/changeStatus', '{}', '127.0.0.1', NULL, '电影上映/下映操作');
+INSERT INTO `sys_operation_log` VALUES (111, '2023-02-19 17:41:10.230557', '2023-02-19 17:41:10.230557', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (112, '2023-02-19 17:41:21.166085', '2023-02-19 17:41:21.166085', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (113, '2023-02-19 17:47:41.833284', '2023-02-19 17:47:41.833284', 1, 'ADMIN', 'http://localhost:7001/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (114, '2023-02-19 22:27:29.959754', '2023-02-19 22:27:29.959754', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (115, '2023-02-19 22:51:36.304014', '2023-02-19 22:51:36.304014', 1, 'ADMIN', 'http://localhost:7001/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (116, '2023-02-19 22:52:12.716940', '2023-02-19 22:52:12.716940', 1, 'ADMIN', 'http://localhost:7001/admin/movie/update', '{}', '127.0.0.1', NULL, '更新电影操作');
+INSERT INTO `sys_operation_log` VALUES (117, '2023-02-19 23:04:01.351335', '2023-02-19 23:04:01.351335', 1, 'ADMIN', 'http://localhost:7001/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (118, '2023-02-19 23:04:57.348905', '2023-02-19 23:04:57.348905', 1, 'ADMIN', 'http://localhost:7001/admin/movie/update', '{}', '127.0.0.1', NULL, '更新电影操作');
+INSERT INTO `sys_operation_log` VALUES (119, '2023-02-19 23:10:36.282931', '2023-02-19 23:10:36.282931', 1, 'ADMIN', 'http://localhost:7001/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (120, '2023-02-19 23:11:06.493273', '2023-02-19 23:11:06.493273', 1, 'ADMIN', 'http://localhost:7001/admin/movie/update', '{}', '127.0.0.1', NULL, '更新电影操作');
 
 -- ----------------------------
 -- Table structure for sys_role
