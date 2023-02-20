@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waiend.pddou.core.movie.mapper.MovieCinemaMapper">
+  <resultMap id="BaseResultMap" type="com.waiend.pddou.core.movie.entity.MovieCinemaEntity">
+    <!--@mbg.generated-->
+    <!--@Table pddou_movie_cinema-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="movie_id" jdbcType="BIGINT" property="movieId" />
+    <result column="cinema_id" jdbcType="BIGINT" property="cinemaId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, movie_id, cinema_id, price
+  </sql>
+</mapper>

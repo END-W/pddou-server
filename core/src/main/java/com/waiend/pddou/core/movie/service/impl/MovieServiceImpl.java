@@ -3,14 +3,20 @@ package com.waiend.pddou.core.movie.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.waiend.pddou.core.cinema.entity.CinemaEntity;
+import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
+import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
+import com.waiend.pddou.core.movie.mapper.MovieCinemaMapper;
 import com.waiend.pddou.core.movie.mapper.MovieMapper;
 import com.waiend.pddou.core.movie.service.MovieService;
+import com.waiend.pddou.core.movie.vo.MovieStoreVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,8 +29,14 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     @Resource
     private MovieMapper movieMapper;
 
+    @Resource
+    private MovieCinemaMapper movieCinemaMapper;
+
+    @Resource
+    private CinemaMapper cinemaMapper;
+
     @Override
-    public Map<String, Object> MovieList(Integer page, Integer limit, String name, String language, String type, String publicDate) {
+    public Map<String, Object> MovieList(Integer page, Integer limit, String name, String language, String isShow) {
         Map<String, Object> map = new HashMap<>();
         Page<MovieEntity> pages = new Page<>(page, limit);
 
@@ -34,12 +46,8 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
             queryWrapper.eq("language", language);
         }
 
-        if (StringUtils.hasText(type)) {
-            queryWrapper.eq("type", type);
-        }
-
-        if (StringUtils.hasText(publicDate)) {
-            queryWrapper.eq("public_date", publicDate);
+        if (StringUtils.hasText(isShow)) {
+            queryWrapper.eq("is_show", isShow);
         }
 
         if (StringUtils.hasText(name)) {
@@ -57,8 +65,29 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     }
 
     @Override
+    public Map<String, Object> MovieListByStore(Integer page, Integer limit, Long employeeId, String name, String language, String isShow) {
+        Map<String, Object> map = new HashMap<>();
+
+        Long cinemaId = cinemaMapper.selectOne(new QueryWrapper<CinemaEntity>().lambda()
+                                    .eq(CinemaEntity::getEmployeeId, employeeId)).getId();
+        int total = movieMapper.selectCountMoviesByStore(cinemaId, name, language, isShow);
+        List<MovieStoreVo> movieList = movieMapper.selectMoviesByStore((page - 1) * limit, limit, cinemaId, name, language, isShow);
+
+        map.put("list", movieList);
+        map.put("total", total);
+
+        return map;
+    }
+
+    @Override
     public MovieEntity getMovie(Long movieId) {
         return movieMapper.selectById(movieId);
+    }
+
+    @Override
+    public List<MovieEntity> getMovieByStore(String name) {
+        return movieMapper.selectList(new QueryWrapper<MovieEntity>().lambda()
+                                        .like(MovieEntity::getName, name));
     }
 
     @Override
@@ -67,8 +96,22 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     }
 
     @Override
+    public void addMovieByStore(MovieCinemaEntity movieCinemaEntity, Long employeeId) {
+        Long cinemaId = cinemaMapper.selectOne(new QueryWrapper<CinemaEntity>().lambda()
+                .eq(CinemaEntity::getEmployeeId, employeeId)).getId();
+        movieCinemaEntity.setCinemaId(cinemaId);
+
+        movieCinemaMapper.insert(movieCinemaEntity);
+    }
+
+    @Override
     public void updateMovie(MovieEntity movieEntity) {
         movieMapper.updateById(movieEntity);
+    }
+
+    @Override
+    public void updateMovieByStore(MovieCinemaEntity movieCinemaEntity) {
+        movieCinemaMapper.updateById(movieCinemaEntity);
     }
 
     @Override
@@ -78,5 +121,10 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
         movieEntity.setIsShow(isShow);
 
         movieMapper.updateById(movieEntity);
+    }
+
+    @Override
+    public void deleteByStore(Integer id) {
+        movieCinemaMapper.deleteById(id);
     }
 }

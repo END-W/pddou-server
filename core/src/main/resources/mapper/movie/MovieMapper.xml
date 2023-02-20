@@ -25,4 +25,42 @@
     id, `name`, poster, director, actor, movie_long, `language`, intro, `type`, public_date, 
     wish_num, score, create_time, update_time, is_show
   </sql>
+
+  <select id="selectCountMoviesByStore" resultType="int">
+    SELECT count(*)
+    FROM pddou_movie m
+    JOIN (SELECT id, movie_id, price FROM pddou_movie_cinema WHERE cinema_id=#{cinemaId}) mc
+    ON m.id=mc.movie_id
+    <where>
+      <if test="language != null and language != ''">
+        language = #{language}
+      </if>
+      <if test="isShow != null and isShow != ''">
+        AND is_show = #{isShow}
+      </if>
+      <if test="name != null and name != ''">
+        AND name like concat('%',#{name},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectMoviesByStore" resultType="com.waiend.pddou.core.movie.vo.MovieStoreVo">
+    SELECT mc.id, mc.price, `name`, director, actor, movie_long, `language`, `type`, public_date, score, is_show
+    FROM pddou_movie m
+    JOIN (SELECT id, movie_id, price FROM pddou_movie_cinema WHERE cinema_id=#{cinemaId}) mc
+    ON m.id=mc.movie_id
+    <where>
+      <if test="language != null and language != ''">
+        language = #{language}
+      </if>
+      <if test="isShow != null and isShow != ''">
+        AND is_show = #{isShow}
+      </if>
+      <if test="name != null and name != ''">
+        AND name like concat('%',#{name},'%')
+      </if>
+    </where>
+    ORDER BY public_date DESC
+    LIMIT #{page}, #{limit}
+  </select>
 </mapper>

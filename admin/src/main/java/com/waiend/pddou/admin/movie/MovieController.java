@@ -1,10 +1,14 @@
 package com.waiend.pddou.admin.movie;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
+import com.waiend.pddou.admin.base.resolver.EmployeeId;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
+import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
 import com.waiend.pddou.core.movie.service.MovieService;
+import com.waiend.pddou.core.system.entity.EmployeeEntity;
+import com.waiend.pddou.core.system.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +25,9 @@ public class MovieController {
     @Resource
     private MovieService movieServiceImpl;
 
+    @Resource
+    private EmployeeService employeeServiceImpl;
+
     /**
      * 电影列表
      *
@@ -28,15 +35,38 @@ public class MovieController {
      * @param limit 页大小
      * @param name 电影名
      * @param language 语言
-     * @param type 类型
-     * @param publicDate 上映时间
+     * @param isShow 上映/下映
      * @return Result
      */
     @GetMapping("list")
     public Result MovieList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                             @RequestParam(value = "limit", defaultValue = "20") Integer limit,
-                            String name, String language, String type, String publicDate) {
-        return ResultFactory.buildSuccessResult(movieServiceImpl.MovieList(page, limit, name, language, type, publicDate));
+                            String name, String language, String isShow) {
+        return ResultFactory.buildSuccessResult(movieServiceImpl.MovieList(page, limit, name, language, isShow));
+    }
+
+    /**
+     * 电影列表
+     *
+     * @param page 页码
+     * @param limit 页大小
+     * @param employeeId 员工ID
+     * @param name 电影名
+     * @param language 语言
+     * @param isShow 上映/下映
+     * @return Result
+     */
+    @GetMapping("listByStore")
+    public Result MovieListByStore(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                   @RequestParam(value = "limit", defaultValue = "20") Integer limit,
+                                   @EmployeeId Long employeeId,
+                                   String name, String language, String isShow) {
+        EmployeeEntity employeeEntity = employeeServiceImpl.getById(employeeId);
+        // 如果是员工，不是商家
+        if (EmployeeEntity.UserType.STAFF.name().equals(employeeEntity.getUserType().name())) {
+            employeeId = employeeEntity.getParentId();
+        }
+        return ResultFactory.buildSuccessResult(movieServiceImpl.MovieListByStore(page, limit, employeeId, name, language, isShow));
     }
 
     /**
@@ -50,6 +80,16 @@ public class MovieController {
     }
 
     /**
+     * 商家获取电影信息
+     * @param name 电影名
+     * @return Result
+     */
+    @GetMapping("getMovieByStore")
+    public Result getMovieByStore(String name){
+        return ResultFactory.buildSuccessResult(movieServiceImpl.getMovieByStore(name));
+    }
+
+    /**
      * 添加电影
      *
      * @param movieEntity 电影实体
@@ -59,6 +99,26 @@ public class MovieController {
     @PostMapping("add")
     public Result addMovie(@RequestBody MovieEntity movieEntity) {
         movieServiceImpl.addMovie(movieEntity);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 商家添加电影
+     *
+     * @param movieCinemaEntity 电影-影院实体
+     * @param employeeId 员工ID
+     * @return Result
+     */
+    @RequiresOperationLog(description = "商家添加电影操作")
+    @PostMapping("addByStore")
+    public Result addMovieByStore(@RequestBody MovieCinemaEntity movieCinemaEntity,
+                                  @EmployeeId Long employeeId) {
+        EmployeeEntity employeeEntity = employeeServiceImpl.getById(employeeId);
+        // 如果是员工，不是商家
+        if (EmployeeEntity.UserType.STAFF.name().equals(employeeEntity.getUserType().name())) {
+            employeeId = employeeEntity.getParentId();
+        }
+        movieServiceImpl.addMovieByStore(movieCinemaEntity, employeeId);
         return ResultFactory.buildSuccessResult();
     }
 
@@ -76,6 +136,19 @@ public class MovieController {
     }
 
     /**
+     * 商家更新电影信息
+     *
+     * @param movieCinemaEntity 电影-影院实体
+     * @return Result
+     */
+    @RequiresOperationLog(description = "商家更新电影操作")
+    @PutMapping("updateByStore")
+    public Result updateMovieByStore(@RequestBody MovieCinemaEntity movieCinemaEntity) {
+        movieServiceImpl.updateMovieByStore(movieCinemaEntity);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
      * 电影上映/下映
      *
      * @param map map
@@ -87,6 +160,19 @@ public class MovieController {
         Long movieId = Long.valueOf(map.get("movieId"));
         Boolean isShow = Boolean.valueOf(map.get("isShow"));
         movieServiceImpl.changeStatus(movieId, isShow);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 商家删除电影
+     *
+     * @param id 电影-影院实体ID
+     * @return Result
+     */
+    @RequiresOperationLog(description = "商家删除电影操作")
+    @DeleteMapping("deleteByStore")
+    public Result deleteByStore(Integer id) {
+        movieServiceImpl.deleteByStore(id);
         return ResultFactory.buildSuccessResult();
     }
 }
