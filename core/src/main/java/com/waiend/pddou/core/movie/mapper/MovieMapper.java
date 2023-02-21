@@ -18,7 +18,7 @@ public interface MovieMapper extends BaseMapper<MovieEntity> {
      * @param isShow 上映/下映
      * @return int
      */
-    int selectCountMoviesByStore(@Param("cinemaId") Long cinemaId, @Param("name") String name,
+    int selectCountMovieByStore(@Param("cinemaId") Long cinemaId, @Param("name") String name,
                                  @Param("language") String language, @Param("isShow") String isShow);
 
     /**
@@ -32,6 +32,6 @@ public interface MovieMapper extends BaseMapper<MovieEntity> {
      * @param isShow 上映/下映
      * @return List<MovieStoreVo>
      */
-    List<MovieStoreVo> selectMoviesByStore(@Param("page") int page, @Param("limit") Integer limit, @Param("cinemaId") Long cinemaId,
+    List<MovieStoreVo> selectMovieListByStore(@Param("page") int page, @Param("limit") Integer limit, @Param("cinemaId") Long cinemaId,
                                            @Param("name") String name, @Param("language") String language, @Param("isShow") String isShow);
 }

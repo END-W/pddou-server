@@ -26,7 +26,7 @@ public interface MovieService extends IService<MovieEntity> {
     Map<String, Object> MovieList(Integer page, Integer limit, String name, String language, String isShow);
 
     /**
-     * 电影列表
+     * 商家电影列表
      *
      * @param page 页码
      * @param limit 页大小
@@ -95,5 +95,5 @@ public interface MovieService extends IService<MovieEntity> {
      *
      * @param id 电影-影院实体ID
      */
-    void deleteByStore(Integer id);
+    void removeMovieByStore(Integer id);
 }

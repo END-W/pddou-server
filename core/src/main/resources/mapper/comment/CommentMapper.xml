@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waiend.pddou.core.comment.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.waiend.pddou.core.comment.entity.CommentEntity">
+    <!--@mbg.generated-->
+    <!--@Table pddou_comment-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="movie_id" jdbcType="INTEGER" property="movieId" />
+    <result column="user_score" jdbcType="TINYINT" property="userScore" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="comment_date" jdbcType="TIMESTAMP" property="commentDate" />
+    <result column="support_num" jdbcType="INTEGER" property="supportNum" />
+    <result column="is_pass" jdbcType="BOOLEAN" property="isPass" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, movie_id, user_score, content, comment_date, support_num, is_pass, parent_id
+  </sql>
+
+  <select id="selectCountComment" resultType="int">
+    SELECT count(*)
+    FROM pddou_comment c
+    JOIN pddou_user u
+    ON c.user_id=u.id
+    JOIN pddou_movie m
+    ON c.movie_id=m.id
+    <where>
+      <if test="username != null and username != ''">
+        u.username LIKE concat('%',#{username},'%')
+      </if>
+      <if test="movieName != null and movieName != ''">
+        AND m.`name` LIKE concat('%',#{movieName},'%')
+      </if>
+      <if test="isPass != null and isPass != ''">
+        AND c.is_pass=#{isPass}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectCommentList" resultType="com.waiend.pddou.core.comment.vo.CommentVo">
+    SELECT c.id, u.username, m.`name` AS movie_name, c.user_score, c.content, c.comment_date, c.support_num, c.is_pass
+    FROM pddou_comment c
+    JOIN pddou_user u
+    ON c.user_id=u.id
+    JOIN pddou_movie m
+    ON c.movie_id=m.id
+    <where>
+      <if test="username != null and username != ''">
+        u.username LIKE concat('%',#{username},'%')
+      </if>
+      <if test="movieName != null and movieName != ''">
+        AND m.`name` LIKE concat('%',#{movieName},'%')
+      </if>
+      <if test="isPass != null and isPass != ''">
+        AND c.is_pass=#{isPass}
+      </if>
+    </where>
+    ORDER BY c.comment_date DESC
+    LIMIT #{page}, #{limit}
+  </select>
+</mapper>

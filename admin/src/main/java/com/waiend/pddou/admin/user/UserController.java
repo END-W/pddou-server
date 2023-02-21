@@ -30,7 +30,7 @@ public class UserController {
      * @return Result
      */
     @GetMapping("list")
-    public Result UserList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public Result userList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                            @RequestParam(value = "limit", defaultValue = "20") Integer limit,
                            String username, String phone) {
         return ResultFactory.buildSuccessResult(userServiceImpl.userList(page, limit, username, phone));
@@ -44,7 +44,7 @@ public class UserController {
      */
     @RequiresOperationLog(description = "删除用户操作")
     @DeleteMapping("delete")
-    public Result removeEmployeeById(Long userId) {
+    public Result removeUserById(Long userId) {
         userServiceImpl.removeUserById(userId);
         return ResultFactory.buildSuccessResult();
     }

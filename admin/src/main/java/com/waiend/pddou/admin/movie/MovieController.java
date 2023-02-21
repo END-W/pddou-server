@@ -39,14 +39,14 @@ public class MovieController {
      * @return Result
      */
     @GetMapping("list")
-    public Result MovieList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public Result movieList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                             @RequestParam(value = "limit", defaultValue = "20") Integer limit,
                             String name, String language, String isShow) {
         return ResultFactory.buildSuccessResult(movieServiceImpl.MovieList(page, limit, name, language, isShow));
     }
 
     /**
-     * 电影列表
+     * 商家电影列表
      *
      * @param page 页码
      * @param limit 页大小
@@ -57,7 +57,7 @@ public class MovieController {
      * @return Result
      */
     @GetMapping("listByStore")
-    public Result MovieListByStore(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public Result movieListByStore(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "limit", defaultValue = "20") Integer limit,
                                    @EmployeeId Long employeeId,
                                    String name, String language, String isShow) {
@@ -171,8 +171,8 @@ public class MovieController {
      */
     @RequiresOperationLog(description = "商家删除电影操作")
     @DeleteMapping("deleteByStore")
-    public Result deleteByStore(Integer id) {
-        movieServiceImpl.deleteByStore(id);
+    public Result removeMovieByStore(Integer id) {
+        movieServiceImpl.removeMovieByStore(id);
         return ResultFactory.buildSuccessResult();
     }
 }

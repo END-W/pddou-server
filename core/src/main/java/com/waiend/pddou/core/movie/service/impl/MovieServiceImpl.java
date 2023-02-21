@@ -70,8 +70,8 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
 
         Long cinemaId = cinemaMapper.selectOne(new QueryWrapper<CinemaEntity>().lambda()
                                     .eq(CinemaEntity::getEmployeeId, employeeId)).getId();
-        int total = movieMapper.selectCountMoviesByStore(cinemaId, name, language, isShow);
-        List<MovieStoreVo> movieList = movieMapper.selectMoviesByStore((page - 1) * limit, limit, cinemaId, name, language, isShow);
+        int total = movieMapper.selectCountMovieByStore(cinemaId, name, language, isShow);
+        List<MovieStoreVo> movieList = movieMapper.selectMovieListByStore((page - 1) * limit, limit, cinemaId, name, language, isShow);
 
         map.put("list", movieList);
         map.put("total", total);
@@ -124,7 +124,7 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     }
 
     @Override
-    public void deleteByStore(Integer id) {
+    public void removeMovieByStore(Integer id) {
         movieCinemaMapper.deleteById(id);
     }
 }

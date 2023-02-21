@@ -162,7 +162,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
 
         if (Objects.nonNull(roleIds)) {
             if (StringUtils.hasText(username)) {
-                queryWrapper.eq("username", username);
+                queryWrapper.like("username", username);
             }
 
             if (StringUtils.hasText(phone)) {

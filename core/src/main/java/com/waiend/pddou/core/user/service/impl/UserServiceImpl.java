@@ -35,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
 
         if (StringUtils.hasText(username)) {
-            queryWrapper.eq("username", username);
+            queryWrapper.like("username", username);
         }
 
         if (StringUtils.hasText(phone)) {
