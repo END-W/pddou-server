@@ -91,6 +91,13 @@ public interface MovieService extends IService<MovieEntity> {
     void changeStatus(Long movieId, Boolean isShow);
 
     /**
+     * 商家电影上映/下映
+     *  @param id 电影-影院ID
+     * @param isShow 上映/下映
+     */
+    void storeChangeStatus(Integer id, Boolean isShow);
+
+    /**
      * 商家删除电影
      *
      * @param id 电影-影院实体ID

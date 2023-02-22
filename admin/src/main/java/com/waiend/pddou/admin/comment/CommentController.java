@@ -1,14 +1,13 @@
 package com.waiend.pddou.admin.comment;
 
+import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.comment.service.CommentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @author end
@@ -36,5 +35,33 @@ public class CommentController {
                               @RequestParam(value = "limit", defaultValue = "20") Integer limit,
                               String username, String movieName, String isPass) {
         return ResultFactory.buildSuccessResult(commentServiceImpl.commentList(page, limit, username, movieName, isPass));
+    }
+
+    /**
+     * 评论审核-通过/未通过
+     *
+     * @param map map
+     * @return Result
+     */
+    @RequiresOperationLog(description = "评论审核-通过/未通过操作")
+    @PostMapping("changeStatus")
+    public Result changeStatus(@RequestBody Map<String, String> map) {
+        Integer commentId = Integer.valueOf(map.get("commentId"));
+        Boolean isPass = Boolean.valueOf(map.get("isPass"));
+        commentServiceImpl.changeStatus(commentId, isPass);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 删除用户影评
+     *
+     * @param commentId 评论ID
+     * @return Result
+     */
+    @RequiresOperationLog(description = "删除用户影评操作")
+    @DeleteMapping("delete")
+    public Result removeCommentById(Integer commentId) {
+        commentServiceImpl.removeCommentById(commentId);
+        return ResultFactory.buildSuccessResult();
     }
 }

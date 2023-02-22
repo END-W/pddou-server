@@ -85,4 +85,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
         return true;
     }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println(response.getOutputStream().toString());
+        HandlerMethod method = (HandlerMethod) handler;
+        RequiresOperationLog requiresOperationLog = method.getMethodAnnotation(RequiresOperationLog.class);
+        if (requiresOperationLog != null) {
+            System.out.println(1111);
+        }
+    }
 }

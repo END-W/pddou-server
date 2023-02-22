@@ -1,6 +1,4 @@
-package com.waiend.pddou.core.movie.entity;
-
-import java.math.BigDecimal;
+package com.waiend.pddou.core.schedule.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -17,32 +15,45 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
-@TableName("pddou_movie_cinema")
-public class MovieCinemaEntity {
+@TableName("pddou_schedule")
+public class ScheduleEntity {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
-    * 电影ID
+    * 电影id
     */
     @TableField(value = "movie_id")
-    private Long movieId;
+    private Integer movieId;
 
     /**
-    * 影院ID
+    * 影院id
     */
     @TableField(value = "cinema_id")
-    private Long cinemaId;
+    private Integer cinemaId;
 
     /**
-    * 票价
+    * 影厅名
     */
-    private BigDecimal price;
+    @TableField(value = "hall_name")
+    private String hallName;
 
     /**
-     * 是否上映（0-false，1-true-默认）
-     */
-    @TableField(value = "is_show")
-    private Boolean isShow;
+    * 放映日期
+    */
+    @TableField(value = "show_date")
+    private String showDate;
+
+    /**
+    * 放映时间
+    */
+    @TableField(value = "show_time")
+    private String showTime;
+
+    /**
+    * 座位信息
+    */
+    @TableField(value = "seat_info")
+    private String seatInfo;
 }

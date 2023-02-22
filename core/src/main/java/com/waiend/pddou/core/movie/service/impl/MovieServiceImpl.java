@@ -124,6 +124,15 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     }
 
     @Override
+    public void storeChangeStatus(Integer id, Boolean isShow) {
+        MovieCinemaEntity movieCinemaEntity = new MovieCinemaEntity();
+        movieCinemaEntity.setId(id);
+        movieCinemaEntity.setIsShow(isShow);
+
+        movieCinemaMapper.updateById(movieCinemaEntity);
+    }
+
+    @Override
     public void removeMovieByStore(Integer id) {
         movieCinemaMapper.deleteById(id);
     }

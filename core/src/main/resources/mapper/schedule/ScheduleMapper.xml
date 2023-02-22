@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waiend.pddou.core.schedule.mapper.ScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.waiend.pddou.core.schedule.entity.ScheduleEntity">
+    <!--@mbg.generated-->
+    <!--@Table pddou_schedule-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="movie_id" jdbcType="INTEGER" property="movieId" />
+    <result column="cinema_id" jdbcType="INTEGER" property="cinemaId" />
+    <result column="hall_name" jdbcType="VARCHAR" property="hallName" />
+    <result column="show_date" jdbcType="CHAR" property="showDate" />
+    <result column="show_time" jdbcType="CHAR" property="showTime" />
+    <result column="seat_info" jdbcType="LONGVARCHAR" property="seatInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, movie_id, cinema_id, hall_name, show_date, show_time, seat_info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from pddou_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from pddou_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pddou_schedule (movie_id, cinema_id, hall_name, 
+      show_date, show_time, seat_info
+      )
+    values (#{movieId,jdbcType=INTEGER}, #{cinemaId,jdbcType=INTEGER}, #{hallName,jdbcType=VARCHAR}, 
+      #{showDate,jdbcType=CHAR}, #{showTime,jdbcType=CHAR}, #{seatInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into pddou_schedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="movieId != null">
+        movie_id,
+      </if>
+      <if test="cinemaId != null">
+        cinema_id,
+      </if>
+      <if test="hallName != null">
+        hall_name,
+      </if>
+      <if test="showDate != null">
+        show_date,
+      </if>
+      <if test="showTime != null">
+        show_time,
+      </if>
+      <if test="seatInfo != null">
+        seat_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="movieId != null">
+        #{movieId,jdbcType=INTEGER},
+      </if>
+      <if test="cinemaId != null">
+        #{cinemaId,jdbcType=INTEGER},
+      </if>
+      <if test="hallName != null">
+        #{hallName,jdbcType=VARCHAR},
+      </if>
+      <if test="showDate != null">
+        #{showDate,jdbcType=CHAR},
+      </if>
+      <if test="showTime != null">
+        #{showTime,jdbcType=CHAR},
+      </if>
+      <if test="seatInfo != null">
+        #{seatInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity">
+    <!--@mbg.generated-->
+    update pddou_schedule
+    <set>
+      <if test="movieId != null">
+        movie_id = #{movieId,jdbcType=INTEGER},
+      </if>
+      <if test="cinemaId != null">
+        cinema_id = #{cinemaId,jdbcType=INTEGER},
+      </if>
+      <if test="hallName != null">
+        hall_name = #{hallName,jdbcType=VARCHAR},
+      </if>
+      <if test="showDate != null">
+        show_date = #{showDate,jdbcType=CHAR},
+      </if>
+      <if test="showTime != null">
+        show_time = #{showTime,jdbcType=CHAR},
+      </if>
+      <if test="seatInfo != null">
+        seat_info = #{seatInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity">
+    <!--@mbg.generated-->
+    update pddou_schedule
+    set movie_id = #{movieId,jdbcType=INTEGER},
+      cinema_id = #{cinemaId,jdbcType=INTEGER},
+      hall_name = #{hallName,jdbcType=VARCHAR},
+      show_date = #{showDate,jdbcType=CHAR},
+      show_time = #{showTime,jdbcType=CHAR},
+      seat_info = #{seatInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

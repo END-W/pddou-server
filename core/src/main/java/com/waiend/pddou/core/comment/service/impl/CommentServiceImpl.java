@@ -17,7 +17,7 @@ import java.util.Map;
  * @date 2022年12月10日 20:01
  */
 @Service
-public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity> implements CommentService{
+public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity> implements CommentService {
 
     @Resource
     private CommentMapper commentMapper;
@@ -33,5 +33,19 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity
         map.put("total", total);
 
         return map;
+    }
+
+    @Override
+    public void changeStatus(Integer commentId, Boolean isPass) {
+        CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setId(commentId);
+        commentEntity.setIsPass(isPass);
+
+        commentMapper.updateById(commentEntity);
+    }
+
+    @Override
+    public void removeCommentById(Integer commentId) {
+        commentMapper.deleteById(commentId);
     }
 }

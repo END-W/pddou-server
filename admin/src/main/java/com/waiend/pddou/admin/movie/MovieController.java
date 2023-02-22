@@ -164,6 +164,21 @@ public class MovieController {
     }
 
     /**
+     * 商家电影上映/下映
+     *
+     * @param map map
+     * @return Result
+     */
+    @RequiresOperationLog(description = "商家电影上映/下映操作")
+    @PostMapping("storeChangeStatus")
+    public Result storeChangeStatus(@RequestBody Map<String, String> map) {
+        Integer id = Integer.valueOf(map.get("id"));
+        Boolean isShow = Boolean.valueOf(map.get("isShow"));
+        movieServiceImpl.storeChangeStatus(id, isShow);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
      * 商家删除电影
      *
      * @param id 电影-影院实体ID

@@ -22,4 +22,19 @@ public interface CommentService extends IService<CommentEntity> {
      * @return map
      */
     Map<String, Object> commentList(Integer page, Integer limit, String username, String movieName, String isPass);
+
+    /**
+     * 评论审核-通过/未通过
+     *
+     * @param commentId 评论ID
+     * @param isPass 通过/未通过
+     */
+    void changeStatus(Integer commentId, Boolean isPass);
+
+    /**
+     * 删除用户影评
+     *
+     * @param commentId 评论ID
+     */
+    void removeCommentById(Integer commentId);
 }
