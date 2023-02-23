@@ -32,13 +32,19 @@ public class HallController {
      * @param page 页码
      * @param limit 页大小
      * @param name 影厅名称
+     * @param employeeId 员工ID
      * @return Result
      */
     @GetMapping("listByStore")
     public Result hallListByStore(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                   @RequestParam(value = "limit", defaultValue = "20") Integer limit,
-                                  String name) {
-        return ResultFactory.buildSuccessResult(hallServiceImpl.hallListByStore(page, limit, name));
+                                  String name, @EmployeeId Long employeeId) {
+        EmployeeEntity employeeEntity = employeeServiceImpl.getById(employeeId);
+        // 如果是员工，不是商家
+        if (EmployeeEntity.UserType.STAFF.name().equals(employeeEntity.getUserType().name())) {
+            employeeId = employeeEntity.getParentId();
+        }
+        return ResultFactory.buildSuccessResult(hallServiceImpl.hallListByStore(page, limit, name, employeeId));
     }
 
     /**

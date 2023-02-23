@@ -39,7 +39,9 @@ public class OrderVo {
 
     private Byte ticketNum;
 
-    private BigDecimal price;
+    private String showDate;
+
+    private String showTime;
 
     private BigDecimal ticketTotalPrice;
 

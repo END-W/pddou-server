@@ -17,9 +17,10 @@ public interface HallService extends IService<HallEntity> {
      * @param page 页码
      * @param limit 页大小
      * @param name 影厅名称
+     * @param employeeId 员工ID
      * @return map
      */
-    Map<String, Object> hallListByStore(Integer page, Integer limit, String name);
+    Map<String, Object> hallListByStore(Integer page, Integer limit, String name, Long employeeId);
 
     /**
      * 商家添加影厅

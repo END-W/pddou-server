@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
-import com.waiend.pddou.core.movie.entity.MovieEntity;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.waiend.pddou.core.hall.mapper.HallMapper;
@@ -30,7 +29,7 @@ public class HallServiceImpl extends ServiceImpl<HallMapper, HallEntity> impleme
     private CinemaMapper cinemaMapper;
 
     @Override
-    public Map<String, Object> hallListByStore(Integer page, Integer limit, String name) {
+    public Map<String, Object> hallListByStore(Integer page, Integer limit, String name, Long employeeId) {
         Map<String, Object> map = new HashMap<>();
         Page<HallEntity> pages = new Page<>(page, limit);
 
@@ -40,6 +39,10 @@ public class HallServiceImpl extends ServiceImpl<HallMapper, HallEntity> impleme
             queryWrapper.like("name", name);
         }
 
+        Long cinemaId = cinemaMapper.selectOne(new QueryWrapper<CinemaEntity>().lambda()
+                                    .eq(CinemaEntity::getEmployeeId, employeeId)).getId();
+
+        queryWrapper.eq("cinema_id", cinemaId);
         hallMapper.selectPage(pages, queryWrapper);
 
         map.put("list", pages.getRecords());

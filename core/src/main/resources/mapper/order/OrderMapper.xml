@@ -44,13 +44,13 @@
         AND o.order_num=#{orderNum}
       </if>
       <if test="payType != null and payType != ''">
-        AND o.pay_type==#{payType}
+        AND o.pay_type=#{payType}
       </if>
       <if test="cinemaId != null">
-        AND o.is_delete==0
+        AND o.is_delete=0
       </if>
       <if test="username != null and username != ''">
-        AND u.username= LIKE concat('%',#{username},'%')
+        AND u.username LIKE concat('%',#{username},'%')
       </if>
       <if test="movieName != null and movieName != ''">
         AND m.`name` LIKE concat('%',#{movieName},'%')
@@ -62,7 +62,7 @@
   </select>
 
   <select id="selectOrderList" resultType="com.waiend.pddou.core.order.vo.OrderVo">
-    SELECT o.id, o.order_num, u.username, m.`name` AS mvoie_name, c.cinema_name, s.hall_name, o.order_date, o.ticket_num, o.ticket_total_price, o.ticket_code, o.pay_type, mc.price
+    SELECT o.id, o.order_num, u.username, m.`name` AS movie_name, c.cinema_name, s.hall_name, o.order_date, o.ticket_num, o.ticket_total_price, o.ticket_code, o.pay_type, s.show_date, s.show_time
     FROM pddou_order o
     JOIN pddou_user u
     ON o.user_id=u.id
@@ -82,13 +82,13 @@
         AND o.order_num=#{orderNum}
       </if>
       <if test="payType != null and payType != ''">
-        AND o.pay_type==#{payType}
+        AND o.pay_type=#{payType}
       </if>
       <if test="cinemaId != null">
-        AND o.is_delete==0
+        AND o.is_delete=0
       </if>
       <if test="username != null and username != ''">
-        AND u.username= LIKE concat('%',#{username},'%')
+        AND u.username LIKE concat('%',#{username},'%')
       </if>
       <if test="movieName != null and movieName != ''">
         AND m.`name` LIKE concat('%',#{movieName},'%')

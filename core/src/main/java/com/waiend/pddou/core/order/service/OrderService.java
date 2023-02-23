@@ -26,4 +26,18 @@ public interface OrderService extends IService<OrderEntity> {
      * @return map
      */
     Map<String, Object> orderList(Integer page, Integer limit, String username, String movieName, String cinemaName, String orderNum, String payType, Long employeeId, String userType);
+
+    /**
+     * 商家删除订单
+     *
+     * @param orderId 订单ID
+     */
+    void deleteOrderByStore(Integer orderId);
+
+    /**
+     * 退票
+     *
+     * @param orderId 订单ID
+     */
+    void returnTicketById(Integer orderId);
 }

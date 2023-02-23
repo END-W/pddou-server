@@ -1,17 +1,16 @@
 package com.waiend.pddou.admin.order;
 
+import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.order.service.OrderService;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import com.waiend.pddou.core.system.service.EmployeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @author end
@@ -54,4 +53,32 @@ public class OrderController {
         return ResultFactory.buildSuccessResult(orderServiceImpl.orderList(page, limit, username, movieName, cinemaName,
                                                                             orderNum, payType, employeeId, userType));
     }
+
+    /**
+     * 商家删除订单
+     *
+     * @param orderId 订单ID
+     * @return Result
+     */
+    @RequiresOperationLog(description = "商家删除订单操作")
+    @DeleteMapping("deleteByStore")
+    public Result deleteOrderByStore(Integer orderId) {
+        orderServiceImpl.deleteOrderByStore(orderId);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 退票
+     *
+     * @param map
+     * @return Result
+     */
+    @RequiresOperationLog(description = "退票操作")
+    @PostMapping("returnTicket")
+    public Result returnTicketById(@RequestBody Map<String, String> map) {
+        Integer orderId = Integer.valueOf(map.get("orderId"));
+        orderServiceImpl.returnTicketById(orderId);
+        return ResultFactory.buildSuccessResult();
+    }
+
 }
