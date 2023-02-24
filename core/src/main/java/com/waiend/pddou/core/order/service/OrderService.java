@@ -33,11 +33,4 @@ public interface OrderService extends IService<OrderEntity> {
      * @param orderId 订单ID
      */
     void deleteOrderByStore(Integer orderId);
-
-    /**
-     * 退票
-     *
-     * @param orderId 订单ID
-     */
-    void returnTicketById(Integer orderId);
 }

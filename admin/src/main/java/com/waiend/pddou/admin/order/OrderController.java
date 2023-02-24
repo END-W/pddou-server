@@ -10,7 +10,6 @@ import com.waiend.pddou.core.system.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * @author end
@@ -41,7 +40,7 @@ public class OrderController {
      * @return Result
      */
     @GetMapping("list")
-    public Result commentList(@RequestParam(value = "page", defaultValue = "1") Integer page,
+    public Result orderList(@RequestParam(value = "page", defaultValue = "1") Integer page,
                               @RequestParam(value = "limit", defaultValue = "20") Integer limit,
                               String username, String movieName, String cinemaName, String orderNum,
                               String payType, @EmployeeId Long employeeId, String userType) {
@@ -66,19 +65,4 @@ public class OrderController {
         orderServiceImpl.deleteOrderByStore(orderId);
         return ResultFactory.buildSuccessResult();
     }
-
-    /**
-     * 退票
-     *
-     * @param map
-     * @return Result
-     */
-    @RequiresOperationLog(description = "退票操作")
-    @PostMapping("returnTicket")
-    public Result returnTicketById(@RequestBody Map<String, String> map) {
-        Integer orderId = Integer.valueOf(map.get("orderId"));
-        orderServiceImpl.returnTicketById(orderId);
-        return ResultFactory.buildSuccessResult();
-    }
-
 }

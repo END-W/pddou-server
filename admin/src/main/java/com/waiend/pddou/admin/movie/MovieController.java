@@ -71,21 +71,23 @@ public class MovieController {
 
     /**
      * 获取电影信息
+     *
      * @param movieId 电影ID
      * @return Result
      */
     @GetMapping("getMovie")
-    public Result getMovie(Long movieId){
+    public Result getMovie(Long movieId) {
        return ResultFactory.buildSuccessResult(movieServiceImpl.getMovie(movieId));
     }
 
     /**
      * 商家获取电影信息
+     *
      * @param name 电影名
      * @return Result
      */
     @GetMapping("getMovieByStore")
-    public Result getMovieByStore(String name){
+    public Result getMovieByStore(String name) {
         return ResultFactory.buildSuccessResult(movieServiceImpl.getMovieByStore(name));
     }
 

@@ -59,13 +59,4 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
 
         orderMapper.updateById(orderEntity);
     }
-
-    @Override
-    public void returnTicketById(Integer orderId) {
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId(orderId);
-        orderEntity.setPayType(OrderEntity.PayType.RETURN);
-
-        orderMapper.updateById(orderEntity);
-    }
 }

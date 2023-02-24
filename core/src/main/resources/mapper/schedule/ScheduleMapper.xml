@@ -16,105 +16,56 @@
     <!--@mbg.generated-->
     id, movie_id, cinema_id, hall_name, show_date, show_time, seat_info
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from pddou_schedule
-    where id = #{id,jdbcType=INTEGER}
+
+  <select id="selectCountScheduleByStore" resultType="int">
+    SELECT count(*)
+    FROM pddou_schedule s
+    JOIN pddou_movie m
+    ON s.movie_id=m.id
+    JOIN pddou_movie_cinema mc
+    ON s.cinema_id=mc.cinema_id AND s.movie_id=mc.movie_id
+    WHERE s.cinema_id=#{cinemaId}
+    <if test="movieName != null and movieName != ''">
+      AND m.`name` LIKE CONCAT('%',#{movieName},'%')
+    </if>
+    <if test="hallName != null and hallName != ''">
+      AND s.hall_name LIKE CONCAT('%',#{hallName},'%')
+    </if>
+    <if test="movieName != null and movieName != ''">
+      AND m.`name` LIKE CONCAT('%',#{movieName},'%')
+    </if>
+    <if test="isShelf != null and isShelf == 1">
+      AND CONCAT(s.show_date,' ',s.show_time) > #{now}
+    </if>
+    <if test="isShelf != null and isShelf == 0">
+      AND #{now} > CONCAT(s.show_date,' ',s.show_time)
+    </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from pddou_schedule
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into pddou_schedule (movie_id, cinema_id, hall_name, 
-      show_date, show_time, seat_info
-      )
-    values (#{movieId,jdbcType=INTEGER}, #{cinemaId,jdbcType=INTEGER}, #{hallName,jdbcType=VARCHAR}, 
-      #{showDate,jdbcType=CHAR}, #{showTime,jdbcType=CHAR}, #{seatInfo,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into pddou_schedule
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="movieId != null">
-        movie_id,
-      </if>
-      <if test="cinemaId != null">
-        cinema_id,
-      </if>
-      <if test="hallName != null">
-        hall_name,
-      </if>
-      <if test="showDate != null">
-        show_date,
-      </if>
-      <if test="showTime != null">
-        show_time,
-      </if>
-      <if test="seatInfo != null">
-        seat_info,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="movieId != null">
-        #{movieId,jdbcType=INTEGER},
-      </if>
-      <if test="cinemaId != null">
-        #{cinemaId,jdbcType=INTEGER},
-      </if>
-      <if test="hallName != null">
-        #{hallName,jdbcType=VARCHAR},
-      </if>
-      <if test="showDate != null">
-        #{showDate,jdbcType=CHAR},
-      </if>
-      <if test="showTime != null">
-        #{showTime,jdbcType=CHAR},
-      </if>
-      <if test="seatInfo != null">
-        #{seatInfo,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity">
-    <!--@mbg.generated-->
-    update pddou_schedule
-    <set>
-      <if test="movieId != null">
-        movie_id = #{movieId,jdbcType=INTEGER},
-      </if>
-      <if test="cinemaId != null">
-        cinema_id = #{cinemaId,jdbcType=INTEGER},
-      </if>
-      <if test="hallName != null">
-        hall_name = #{hallName,jdbcType=VARCHAR},
-      </if>
-      <if test="showDate != null">
-        show_date = #{showDate,jdbcType=CHAR},
-      </if>
-      <if test="showTime != null">
-        show_time = #{showTime,jdbcType=CHAR},
-      </if>
-      <if test="seatInfo != null">
-        seat_info = #{seatInfo,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.waiend.pddou.core.schedule.entity.ScheduleEntity">
-    <!--@mbg.generated-->
-    update pddou_schedule
-    set movie_id = #{movieId,jdbcType=INTEGER},
-      cinema_id = #{cinemaId,jdbcType=INTEGER},
-      hall_name = #{hallName,jdbcType=VARCHAR},
-      show_date = #{showDate,jdbcType=CHAR},
-      show_time = #{showTime,jdbcType=CHAR},
-      seat_info = #{seatInfo,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+  <select id="selectScheduleListByStore" resultType="com.waiend.pddou.core.schedule.vo.ScheduleVo">
+    SELECT s.id, m.`name` AS movie_name, s.hall_name, s.show_date, s.show_time, mc.price
+    FROM pddou_schedule s
+    JOIN pddou_movie m
+    ON s.movie_id=m.id
+    JOIN pddou_movie_cinema mc
+    ON s.cinema_id=mc.cinema_id AND s.movie_id=mc.movie_id
+    WHERE s.cinema_id=#{cinemaId}
+    <if test="movieName != null and movieName != ''">
+      AND m.`name` LIKE CONCAT('%',#{movieName},'%')
+    </if>
+    <if test="hallName != null and hallName != ''">
+      AND s.hall_name LIKE CONCAT('%',#{hallName},'%')
+    </if>
+    <if test="movieName != null and movieName != ''">
+      AND m.`name` LIKE CONCAT('%',#{movieName},'%')
+    </if>
+    <if test="isShelf != null and isShelf == 1">
+      AND CONCAT(s.show_date,' ',s.show_time) > #{now}
+    </if>
+    <if test="isShelf != null and isShelf == 0">
+      AND #{now} > CONCAT(s.show_date,' ',s.show_time)
+    </if>
+    ORDER BY s.show_date
+    LIMIT #{page}, #{limit}
+  </select>
 </mapper>

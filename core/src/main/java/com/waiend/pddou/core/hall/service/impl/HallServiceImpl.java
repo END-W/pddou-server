@@ -13,6 +13,7 @@ import com.waiend.pddou.core.hall.service.HallService;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,6 +50,15 @@ public class HallServiceImpl extends ServiceImpl<HallMapper, HallEntity> impleme
         map.put("total", pages.getTotal());
 
         return map;
+    }
+
+    @Override
+    public List<HallEntity> getHallByStore(Long employeeId) {
+        Long cinemaId = cinemaMapper.selectOne(new QueryWrapper<CinemaEntity>().lambda()
+                                    .eq(CinemaEntity::getEmployeeId, employeeId)).getId();
+
+        return hallMapper.selectList(new QueryWrapper<HallEntity>().lambda()
+                                                                   .eq(HallEntity::getCinemaId, cinemaId));
     }
 
     @Override
