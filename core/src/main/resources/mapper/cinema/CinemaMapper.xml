@@ -24,4 +24,46 @@
     id, cinema_name, cinema_phone, province, city, county, specified_address, employee_id, 
     is_block, is_examine, check_employee_id, check_time, create_time, updateTime
   </sql>
+
+  <select id="selectCountCinema" resultType="int">
+    SELECT count(*)
+    FROM pddou_cinema c
+    JOIN sys_employee e1
+    ON c.employee_id=e1.id
+    LEFT JOIN sys_employee e2
+    ON c.check_employee_id=e2.id
+    <where>
+      <if test="cinemaName != null and cinemaName != ''">
+        cinema_name LIKE CONCAT('%',#{cinemaName},'%')
+      </if>
+      <if test="isExamine != null and isExamine != ''">
+        AND c.is_examine=#{isExamine}
+      </if>
+      <if test="isBlock != null">
+        AND c.is_block=#{isBlock}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectCinemaList" resultType="com.waiend.pddou.core.cinema.vo.CinemaVo">
+    SELECT c.id, c.cinema_name, c.cinema_phone, c.province, c.city, c.specified_address, e1.`name` AS legal_person, e2.`name` AS check_person, c.is_examine, c.is_block, c.check_time
+    FROM pddou_cinema c
+    JOIN sys_employee e1
+    ON c.employee_id=e1.id
+    LEFT JOIN sys_employee e2
+    ON c.check_employee_id=e2.id
+    <where>
+      <if test="cinemaName != null and cinemaName != ''">
+        cinema_name LIKE CONCAT('%',#{cinemaName},'%')
+      </if>
+      <if test="isExamine != null and isExamine != ''">
+        AND c.is_examine=#{isExamine}
+      </if>
+      <if test="isBlock != null">
+        AND c.is_block=#{isBlock}
+      </if>
+    </where>
+    ORDER BY c.create_time DESC
+    LIMIT #{page}, #{limit}
+  </select>
 </mapper>

@@ -94,7 +94,7 @@ public class ScheduleController {
      * @param scheduleId 场次ID
      * @return Result
      */
-    @RequiresOperationLog(description = "商家删除电场次操作")
+    @RequiresOperationLog(description = "商家删除场次操作")
     @DeleteMapping("deleteByStore")
     public Result removeScheduleByStore(Integer scheduleId) {
         scheduleServiceImpl.removeScheduleByStore(scheduleId);

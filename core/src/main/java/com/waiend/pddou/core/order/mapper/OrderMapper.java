@@ -14,7 +14,7 @@ import java.util.List;
 public interface OrderMapper extends BaseMapper<OrderEntity> {
 
     /**
-     * 订单列表
+     * 统计订单总记录数
      *
      * @param username 用户名
      * @param movieName 电影名

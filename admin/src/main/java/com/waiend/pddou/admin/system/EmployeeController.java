@@ -72,12 +72,13 @@ public class EmployeeController {
      * 删除员工
      *
      * @param employeeId 员工ID
+     * @param userType 用户类型
      * @return Result
      */
     @RequiresOperationLog(description = "删除员工操作")
     @DeleteMapping("delete")
-    public Result removeEmployeeById(Long employeeId) {
-        employeeServiceImpl.removeEmployeeById(employeeId);
+    public Result removeEmployeeById(Long employeeId, String userType) {
+        employeeServiceImpl.removeEmployeeById(employeeId, userType);
         return ResultFactory.buildSuccessResult();
     }
 

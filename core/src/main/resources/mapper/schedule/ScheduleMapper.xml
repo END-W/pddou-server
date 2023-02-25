@@ -65,7 +65,7 @@
     <if test="isShelf != null and isShelf == 0">
       AND #{now} > CONCAT(s.show_date,' ',s.show_time)
     </if>
-    ORDER BY s.show_date
+    ORDER BY s.show_date DESC
     LIMIT #{page}, #{limit}
   </select>
 </mapper>

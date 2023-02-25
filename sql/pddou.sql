@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 23/02/2023 22:18:23
+ Date: 25/02/2023 22:58:34
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `pddou_cinema`  (
   `cinema_phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院电话',
   `province` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院所在省份',
   `city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院所在市',
-  `county` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院所在区县',
+  `county` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '影院所在区县',
   `specified_address` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院详细地址',
   `employee_id` bigint NOT NULL COMMENT '员工ID（法定代表人）',
   `is_block` tinyint(1) NOT NULL DEFAULT 0 COMMENT '影院是否被拉黑（0-false，1-true）',
@@ -36,14 +36,15 @@ CREATE TABLE `pddou_cinema`  (
   `check_time` datetime(6) NULL DEFAULT NULL COMMENT '审核时间',
   `create_time` datetime(6) NOT NULL COMMENT '创建时间',
   `update_time` datetime(6) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_employee_id_cinema_phone`(`employee_id`, `cinema_phone`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_cinema
 -- ----------------------------
-INSERT INTO `pddou_cinema` VALUES (1, '横店电影城(庆丰店)', '13498476301', '广东', '广州', '白云区', '白云区庆丰广场路财智广场2楼', 4, 0, 'HAVING_APPLY', NULL, NULL, '2023-02-17 20:57:52.000000', '2023-02-17 20:58:04.000000');
-INSERT INTO `pddou_cinema` VALUES (2, '尚影影院', '13745454545', '广东', '广州', '白云区', '白云区石夏路288号金铂广场7楼', 8, 0, 'HAVING_APPLY', NULL, NULL, '2023-02-17 20:57:52.000000', '2023-02-17 20:58:04.000000');
+INSERT INTO `pddou_cinema` VALUES (1, '横店电影城(庆丰店)', '13498476301', '广东', '广州', '白云区', '白云区庆丰广场路财智广场2楼', 4, 0, 'ON_ACTIVITY', 1, '2023-02-25 22:55:56.438091', '2023-02-17 20:57:52.000000', '2023-02-25 22:55:56.446069');
+INSERT INTO `pddou_cinema` VALUES (2, '尚影影院', '13745454545', '广东', '广州', '白云区', '白云区石夏路288号金铂广场7楼', 8, 1, 'HAVING_APPLY', NULL, NULL, '2023-02-17 20:57:52.000000', '2023-02-25 22:56:24.756918');
 
 -- ----------------------------
 -- Table structure for pddou_comment
@@ -79,7 +80,7 @@ CREATE TABLE `pddou_hall`  (
   `cinema_id` bigint NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_name_cinema_id`(`name`, `cinema_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_hall
@@ -137,7 +138,7 @@ CREATE TABLE `pddou_movie_cinema`  (
   `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否上映（0-false，1-true-默认）',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_movie_id_cinema_id`(`movie_id`, `cinema_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_movie_cinema
@@ -148,6 +149,7 @@ INSERT INTO `pddou_movie_cinema` VALUES (3, 2, 1, 43.90, 0);
 INSERT INTO `pddou_movie_cinema` VALUES (7, 5, 1, 49.90, 1);
 INSERT INTO `pddou_movie_cinema` VALUES (8, 4, 1, 57.80, 1);
 INSERT INTO `pddou_movie_cinema` VALUES (9, 2, 2, 40.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (10, 4, 2, 39.80, 1);
 
 -- ----------------------------
 -- Table structure for pddou_order
@@ -167,7 +169,7 @@ CREATE TABLE `pddou_order`  (
   `is_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '商家（0-false-默认，1-true）',
   `is_delete2` tinyint(1) NOT NULL DEFAULT 0 COMMENT '用户（0-false-默认，1-true）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_order
@@ -188,15 +190,19 @@ CREATE TABLE `pddou_schedule`  (
   `show_date` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '放映日期',
   `show_time` char(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '放映时间',
   `seat_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '座位信息',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_movie_id_cinema_id_show_date_time`(`movie_id`, `cinema_id`, `show_date`, `show_time`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_schedule
 -- ----------------------------
-INSERT INTO `pddou_schedule` VALUES (1, 1, 1, '1号激光厅', '2023-02-23', '20:05', '[25,26,35]');
-INSERT INTO `pddou_schedule` VALUES (2, 2, 2, '1号激光厅', '2023-02-23', '20:05', '[35,26,24,25,15,14,45,46,36]');
+INSERT INTO `pddou_schedule` VALUES (1, 1, 1, '1号激光厅', '2023-02-24', '20:05', '[25,26,35]');
+INSERT INTO `pddou_schedule` VALUES (2, 2, 2, '1号激光厅', '2023-02-24', '16:05', '[35,26,24,25,15,14,45,46,36]');
 INSERT INTO `pddou_schedule` VALUES (3, 3, 1, '1号激光厅', '2023-01-19', '15:30', '[31,32,33,34,35]');
+INSERT INTO `pddou_schedule` VALUES (4, 4, 1, '2号激光厅', '2023-02-26', '10:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (7, 3, 1, '3号激光厅', '2023-02-27', '15:50', NULL);
+INSERT INTO `pddou_schedule` VALUES (8, 4, 2, '2号激光厅', '2023-02-26', '10:35', NULL);
 
 -- ----------------------------
 -- Table structure for pddou_user
@@ -255,7 +261,7 @@ CREATE TABLE `sys_employee`  (
   UNIQUE INDEX `uk_username`(`username`) USING BTREE,
   UNIQUE INDEX `uk_email`(`email`) USING BTREE,
   UNIQUE INDEX `uk_phone`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_employee
@@ -278,7 +284,7 @@ CREATE TABLE `sys_employee_role`  (
   `employee_id` bigint NOT NULL COMMENT '平台id',
   `role_id` int NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_employee_role
@@ -327,7 +333,7 @@ CREATE TABLE `sys_operation_log`  (
   `ip_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '具体地址',
   `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 248 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 273 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -579,6 +585,38 @@ INSERT INTO `sys_operation_log` VALUES (244, '2023-02-23 17:55:11.402928', '2023
 INSERT INTO `sys_operation_log` VALUES (245, '2023-02-23 17:55:24.476289', '2023-02-23 17:55:24.476289', 4, 'ADMIN', 'http://localhost:7001/admin/order/deleteByStore', '{\"orderId\":[\"4\"]}', '127.0.0.1', NULL, '商家删除订单操作');
 INSERT INTO `sys_operation_log` VALUES (246, '2023-02-23 17:55:50.304550', '2023-02-23 17:55:50.304550', 4, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
 INSERT INTO `sys_operation_log` VALUES (247, '2023-02-23 17:55:52.641192', '2023-02-23 17:55:52.641192', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (248, '2023-02-24 14:49:02.753413', '2023-02-24 14:49:02.753413', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (249, '2023-02-24 14:52:10.987920', '2023-02-24 14:52:10.987920', 1, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (250, '2023-02-24 14:52:16.995977', '2023-02-24 14:52:16.995977', 4, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (251, '2023-02-24 17:11:14.783101', '2023-02-24 17:11:14.783101', 4, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (252, '2023-02-24 17:30:46.440761', '2023-02-24 17:30:46.440761', 4, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (253, '2023-02-24 17:30:52.584362', '2023-02-24 17:30:52.584362', 8, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (254, '2023-02-24 22:26:46.887539', '2023-02-24 22:26:46.887539', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (255, '2023-02-24 22:26:52.212166', '2023-02-24 22:26:52.212166', 1, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (256, '2023-02-24 22:26:59.822811', '2023-02-24 22:26:59.822811', 4, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (257, '2023-02-25 15:35:52.650118', '2023-02-25 15:35:52.650118', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (258, '2023-02-25 15:37:10.828654', '2023-02-25 15:37:10.828654', 1, 'ADMIN', 'http://localhost:7001/admin/employee/add', '{}', '127.0.0.1', NULL, '添加员工操作');
+INSERT INTO `sys_operation_log` VALUES (259, '2023-02-25 15:37:23.786402', '2023-02-25 15:37:23.786402', 1, 'ADMIN', 'http://localhost:7001/admin/employee/delete', '{\"employeeId\":[\"10\"],\"userType\":[\"SUPERADMIN\"]}', '127.0.0.1', NULL, '删除员工操作');
+INSERT INTO `sys_operation_log` VALUES (260, '2023-02-25 15:38:39.773383', '2023-02-25 15:38:39.773383', 1, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (261, '2023-02-25 15:38:46.948978', '2023-02-25 15:38:46.948978', 4, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (262, '2023-02-25 15:57:07.276202', '2023-02-25 15:57:07.276202', 4, 'ADMIN', 'http://localhost:7001/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (263, '2023-02-25 15:57:46.278451', '2023-02-25 15:57:46.278451', 4, 'ADMIN', 'http://localhost:7001/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (264, '2023-02-25 15:58:04.774464', '2023-02-25 15:58:04.774464', 4, 'ADMIN', 'http://localhost:7001/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (265, '2023-02-25 15:59:54.431383', '2023-02-25 15:59:54.431383', 4, 'ADMIN', 'http://localhost:7001/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (266, '2023-02-25 16:00:08.062894', '2023-02-25 16:00:08.062894', 4, 'ADMIN', 'http://localhost:7001/admin/schedule/deleteByStore', '{\"scheduleId\":[\"6\"]}', '127.0.0.1', NULL, '商家删除电场次操作');
+INSERT INTO `sys_operation_log` VALUES (267, '2023-02-25 16:00:14.225270', '2023-02-25 16:00:14.225270', 4, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (268, '2023-02-25 16:00:19.423265', '2023-02-25 16:00:19.423265', 8, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (269, '2023-02-25 16:02:06.364873', '2023-02-25 16:02:06.364873', 8, 'ADMIN', 'http://localhost:7001/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (270, '2023-02-25 16:02:39.976418', '2023-02-25 16:02:39.976418', 8, 'ADMIN', 'http://localhost:7001/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (271, '2023-02-25 16:02:59.272935', '2023-02-25 16:02:59.272935', 8, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (272, '2023-02-25 16:03:08.034125', '2023-02-25 16:03:08.034125', 5, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (273, '2023-02-25 21:40:16.913555', '2023-02-25 21:40:16.913555', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (274, '2023-02-25 22:53:19.452628', '2023-02-25 22:53:19.452628', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (275, '2023-02-25 22:53:19.490834', '2023-02-25 22:53:19.490834', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (276, '2023-02-25 22:53:39.583887', '2023-02-25 22:53:39.583887', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/examineCinema', '{}', '127.0.0.1', NULL, '审核影院操作');
+INSERT INTO `sys_operation_log` VALUES (277, '2023-02-25 22:55:41.008578', '2023-02-25 22:55:41.008578', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/examineCinema', '{}', '127.0.0.1', NULL, '审核影院操作');
+INSERT INTO `sys_operation_log` VALUES (278, '2023-02-25 22:55:53.825625', '2023-02-25 22:55:53.825625', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/examineCinema', '{}', '127.0.0.1', NULL, '审核影院操作');
+INSERT INTO `sys_operation_log` VALUES (279, '2023-02-25 22:56:24.734903', '2023-02-25 22:56:24.734903', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/blockCinema', '{\"cinemaId\":[\"2\"]}', '127.0.0.1', NULL, '拉黑影院操作');
 
 -- ----------------------------
 -- Table structure for sys_role

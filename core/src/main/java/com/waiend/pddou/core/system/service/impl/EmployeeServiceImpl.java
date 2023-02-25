@@ -240,8 +240,22 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, EmployeeEnt
 
     @Transactional
     @Override
-    public void removeEmployeeById(Long employeeId) {
-        employeeMapper.deleteById(employeeId);
+    public void removeEmployeeById(Long employeeId, String userType) {
+        QueryWrapper<EmployeeEntity> queryWrapper = new QueryWrapper<>();
+
+        // 超级管理员
+        if (EmployeeEntity.UserType.SUPERADMIN.name().equals(userType)) {
+            queryWrapper.in("user_type", "ADMIN", "STORE", "STAFF");
+        } else if (EmployeeEntity.UserType.ADMIN.name().equals(userType)) { // 管理员
+            queryWrapper.in("user_type", "STORE", "STAFF");
+        } else if (EmployeeEntity.UserType.STORE.name().equals(userType)) { // 商家
+            queryWrapper.in("user_type", "STAFF");
+        } else {
+            return;
+        }
+        queryWrapper.eq("id", employeeId);
+
+        employeeMapper.delete(queryWrapper);
         employeeRoleMapper.delete(new QueryWrapper<EmployeeRoleEntity>().lambda()
                                     .eq(EmployeeRoleEntity::getEmployeeId, employeeId));
     }

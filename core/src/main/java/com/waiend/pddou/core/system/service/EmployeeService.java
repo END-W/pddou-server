@@ -73,8 +73,9 @@ public interface EmployeeService extends IService<EmployeeEntity> {
      * 删除员工
      *
      * @param employeeId 员工ID
+     * @param userType 用户类型
      */
-    void removeEmployeeById(Long employeeId);
+    void removeEmployeeById(Long employeeId, String userType);
 
     /**
      * 账号是否锁定
