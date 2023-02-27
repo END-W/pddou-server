@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -30,6 +31,10 @@ public class CinemaVo {
     private String specifiedAddress;
 
     private String legalPerson;
+
+    private BigDecimal lng;
+
+    private BigDecimal lat;
 
     private Boolean isBlock;
 

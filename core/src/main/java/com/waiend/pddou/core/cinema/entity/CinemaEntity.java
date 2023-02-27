@@ -1,5 +1,6 @@
 package com.waiend.pddou.core.cinema.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -59,6 +60,22 @@ public class CinemaEntity extends BaseEntity {
      */
     @TableField(value = "specified_address")
     private String specifiedAddress;
+
+    /**
+     * 法定代表人
+     */
+    @TableField(value = "legal_person")
+    private String legalPerson;
+
+    /**
+     * 经度
+     */
+    private BigDecimal lng;
+
+    /**
+     * 纬度
+     */
+    private BigDecimal lat;
 
     /**
      * 员工ID（法定代表人）

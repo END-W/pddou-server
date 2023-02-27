@@ -2,6 +2,7 @@ package com.waiend.pddou.core.cinema.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
+import com.waiend.pddou.core.cinema.vo.CinemaVo;
 
 import java.util.Map;
 
@@ -22,6 +23,14 @@ public interface CinemaService extends IService<CinemaEntity> {
      * @return map
      */
     Map<String, Object> cinemaList(Integer page, Integer limit, String cinemaName, String isExamine, Integer isBlock);
+
+    /**
+     * 查询影院信息
+     *
+     * @param cinemaId 影院ID
+     * @return CinemaVo
+     */
+    CinemaVo getCinema(Integer cinemaId);
 
     /**
      * 审核影院

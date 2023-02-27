@@ -1,6 +1,6 @@
-package com.waiend.pddou.admin.base.exception;
+package com.waiend.pddou.core.base.expection;
 
-import com.waiend.pddou.admin.base.result.ResultStatus;
+import com.waiend.pddou.core.base.result.ResultStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

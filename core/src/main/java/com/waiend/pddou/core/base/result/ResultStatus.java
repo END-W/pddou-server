@@ -1,4 +1,4 @@
-package com.waiend.pddou.admin.base.result;
+package com.waiend.pddou.core.base.result;
 
 /**
  * @author end

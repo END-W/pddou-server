@@ -1,5 +1,7 @@
 package com.waiend.pddou.admin.base.result;
 
+import com.waiend.pddou.core.base.result.ResultStatus;
+
 /**
  * @author end
  * @date 2022年12月09日 22:27

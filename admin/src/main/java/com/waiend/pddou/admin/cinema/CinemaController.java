@@ -41,6 +41,17 @@ public class CinemaController {
     }
 
     /**
+     * 查询影院信息
+     *
+     * @param cinemaId 影院ID
+     * @return Result
+     */
+    @GetMapping("getCinema")
+    public Result getCinema(Integer cinemaId) {
+        return ResultFactory.buildSuccessResult(cinemaServiceImpl.getCinema(cinemaId));
+    }
+
+    /**
      * 审核影院
      *
      * @param map map
