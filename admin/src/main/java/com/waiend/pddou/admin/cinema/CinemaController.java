@@ -4,6 +4,7 @@ import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
 import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
+import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.service.CinemaService;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,32 @@ public class CinemaController {
     @GetMapping("getCinema")
     public Result getCinema(Integer cinemaId) {
         return ResultFactory.buildSuccessResult(cinemaServiceImpl.getCinema(cinemaId));
+    }
+
+    /**
+     * 添加影院
+     *
+     * @param cinemaEntity 影院实体
+     * @return Result
+     */
+    @RequiresOperationLog(description = "添加影院操作")
+    @PostMapping("add")
+    public Result addCinema(@RequestBody CinemaEntity cinemaEntity) {
+        cinemaServiceImpl.addCinema(cinemaEntity);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 编辑影院
+     *
+     * @param cinemaEntity 影院实体
+     * @return Result
+     */
+    @RequiresOperationLog(description = "编辑影院操作")
+    @PutMapping("update")
+    public Result updateCinema(@RequestBody CinemaEntity cinemaEntity) {
+        cinemaServiceImpl.updateCinema(cinemaEntity);
+        return ResultFactory.buildSuccessResult();
     }
 
     /**

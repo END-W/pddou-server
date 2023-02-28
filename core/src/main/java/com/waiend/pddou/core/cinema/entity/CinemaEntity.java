@@ -68,6 +68,11 @@ public class CinemaEntity extends BaseEntity {
     private String legalPerson;
 
     /**
+     * 联系电话
+     */
+    private String phone;
+
+    /**
      * 经度
      */
     private BigDecimal lng;

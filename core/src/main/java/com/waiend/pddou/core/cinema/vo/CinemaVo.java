@@ -32,6 +32,8 @@ public class CinemaVo {
 
     private String legalPerson;
 
+    private String phone;
+
     private BigDecimal lng;
 
     private BigDecimal lat;

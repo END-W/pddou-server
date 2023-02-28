@@ -12,6 +12,7 @@
     <result column="county" jdbcType="VARCHAR" property="county" />
     <result column="specified_address" jdbcType="VARCHAR" property="specifiedAddress" />
     <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
     <result column="employee_id" jdbcType="BIGINT" property="employeeId" />
     <result column="is_block" jdbcType="BOOLEAN" property="isBlock" />
     <result column="is_examine" jdbcType="VARCHAR" property="isExamine" />
@@ -24,7 +25,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, cinema_name, cinema_phone, province, city, county, specified_address, legal_person, employee_id,
+    id, cinema_name, cinema_phone, province, city, county, specified_address, legal_person, phone, employee_id,
     is_block, is_examine, check_employee_id, check_time, lng, lat, create_time, updateTime
   </sql>
 
@@ -47,7 +48,7 @@
   </select>
 
   <select id="selectCinemaList" resultType="com.waiend.pddou.core.cinema.vo.CinemaVo">
-    SELECT c.id, c.cinema_name, c.cinema_phone, c.province, c.city, c.specified_address, c.lng, c.lat, c.legal_person, e2.`name` AS check_person, c.is_examine, c.is_block, c.check_time
+    SELECT c.id, c.cinema_name, c.cinema_phone, c.province, c.city, c.specified_address, c.lng, c.lat, c.legal_person, c.phone, e2.`name` AS check_person, c.is_examine, c.is_block, c.check_time
     FROM pddou_cinema c
     LEFT JOIN sys_employee e2
     ON c.check_employee_id=e2.id

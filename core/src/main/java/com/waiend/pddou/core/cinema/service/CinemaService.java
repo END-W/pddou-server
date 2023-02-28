@@ -33,6 +33,20 @@ public interface CinemaService extends IService<CinemaEntity> {
     CinemaVo getCinema(Integer cinemaId);
 
     /**
+     * 添加影院
+     *
+     * @param cinemaEntity 影院实体
+     */
+    void addCinema(CinemaEntity cinemaEntity);
+
+    /**
+     * 编辑影院
+     *
+     * @param cinemaEntity 影院实体
+     */
+    void updateCinema(CinemaEntity cinemaEntity);
+
+    /**
      * 审核影院
      *
      * @param id 影院ID

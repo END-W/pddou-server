@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 27/02/2023 21:08:36
+ Date: 28/02/2023 22:42:30
 */
 
 SET NAMES utf8mb4;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `pddou_cinema`;
 CREATE TABLE `pddou_cinema`  (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影院id',
   `cinema_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院名称',
-  `cinema_phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院电话',
+  `cinema_phone` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院电话',
   `province` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院所在省份',
   `city` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '影院所在市',
   `county` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '影院所在区县',
@@ -39,15 +39,18 @@ CREATE TABLE `pddou_cinema`  (
   `legal_person` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '法定代表人',
   `lng` decimal(10, 6) NOT NULL COMMENT '经度',
   `lat` decimal(10, 6) NOT NULL COMMENT '纬度',
+  `phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '联系电话',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_employee_id_cinema_phone`(`employee_id`, `cinema_phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_cinema
 -- ----------------------------
-INSERT INTO `pddou_cinema` VALUES (1, '横店电影城(庆丰店)', '13498476301', '广东', '广州', '白云区', '白云区庆丰广场路财智广场2楼', 4, 0, 'ON_ACTIVITY', 1, '2023-02-25 22:55:56.438091', '2023-02-17 20:57:52.000000', '2023-02-25 22:55:56.446069', '商家', 113.269054, 22.993812);
-INSERT INTO `pddou_cinema` VALUES (2, '尚影影院', '13745454545', '广东', '广州', '白云区', '白云区石夏路288号金铂广场7楼', 8, 1, 'HAVING_APPLY', NULL, NULL, '2023-02-17 20:57:52.000000', '2023-02-25 22:56:24.756918', '李俊基', 113.101506, 23.052214);
+INSERT INTO `pddou_cinema` VALUES (1, '横店电影城(庆丰店)', '023-87987490', '广东省', '广州', '白云区', '白云区庆丰广场路财智广场2楼', 4, 0, 'ON_ACTIVITY', 1, '2023-02-25 22:55:56.438091', '2023-02-17 20:57:52.000000', '2023-02-25 22:55:56.446069', '商家', 113.269054, 22.993812, '15983067120');
+INSERT INTO `pddou_cinema` VALUES (2, '尚影影院', '023-86678533', '广东省', '佛山市', '白云区', '白云区石夏路288号金铂广场7楼', 8, 1, 'HAVING_APPLY', NULL, NULL, '2023-02-17 20:57:52.000000', '2023-02-28 22:38:26.324687', '李俊基', 113.101506, 23.052214, '13988095568');
+INSERT INTO `pddou_cinema` VALUES (3, '太平洋影城(蜀西店)', '028-87718221', '四川省', '成都市', NULL, '高新西区蜀西路399号中海国际购物公园B1-301', 11, 0, 'HAVING_APPLY', NULL, NULL, '2023-02-28 16:08:34.000000', '2023-02-28 16:08:37.000000', '吴起', 103.979593, 30.722622, '15993046978');
+INSERT INTO `pddou_cinema` VALUES (5, '太平洋影城(金泉店)', '028-87592998', '四川省', '成都市', NULL, '金牛区两河西二路300号附301号3、4层', 14, 0, 'ON_ACTIVITY', 3, '2023-02-28 22:35:58.871874', '2023-02-28 22:31:28.589712', '2023-02-28 22:35:58.874901', '梦琪', 103.982045, 30.715903, '13558097745');
 
 -- ----------------------------
 -- Table structure for pddou_comment
@@ -275,6 +278,8 @@ INSERT INTO `sys_employee` VALUES (4, '2022-12-10 21:21:44.000000', '2023-01-12 
 INSERT INTO `sys_employee` VALUES (5, '2022-12-10 21:21:44.000000', '2023-02-17 16:04:29.600689', 'jack', '$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq', '员工', '16689361@qq.com', '15889364452', 'MALE', 'MERCHANT', 'STAFF', 4, 0, 'https://pddou.oss-cn-chengdu.aliyuncs.com/pkq.jpg');
 INSERT INTO `sys_employee` VALUES (7, '2023-02-17 16:41:23.029926', '2023-02-17 16:41:23.029926', 'wflin', '$2a$10$s2Qw8VELEYhTvDMaOmj9J.TQctZzypzAXAfHWWFqsdmC/EsoUDexu', '小白', '1667908814@qq.com', '15998074452', 'SECRET', 'ADMINISTRATION', 'ADMIN', 0, 0, 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
 INSERT INTO `sys_employee` VALUES (8, '2023-02-17 16:46:06.515414', '2023-02-17 16:54:14.286573', 'ggg', '$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi', '李俊基', '8894858@qq.com', '13988095568', 'MALE', 'MERCHANT', 'STORE', 0, 0, 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
+INSERT INTO `sys_employee` VALUES (11, '2023-02-28 16:02:54.000000', '2023-02-28 16:02:57.000000', '15993046978', '$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi', '吴起', '', '15993046978', 'SECRET', 'MERCHANT', 'STORE', 0, 0, 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
+INSERT INTO `sys_employee` VALUES (14, '2023-02-28 22:31:28.534017', '2023-02-28 22:31:28.534017', '13558097745', '$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi', '梦琪', NULL, '13558097745', 'SECRET', 'MERCHANT', 'STORE', 0, 0, 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
 
 -- ----------------------------
 -- Table structure for sys_employee_role
@@ -287,7 +292,7 @@ CREATE TABLE `sys_employee_role`  (
   `employee_id` bigint NOT NULL COMMENT '平台id',
   `role_id` int NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_employee_role
@@ -298,6 +303,7 @@ INSERT INTO `sys_employee_role` VALUES (3, '2023-02-16 18:18:15.000000', '2023-0
 INSERT INTO `sys_employee_role` VALUES (4, '2023-02-16 18:18:29.000000', '2023-02-16 18:18:32.000000', 5, 4);
 INSERT INTO `sys_employee_role` VALUES (5, '2023-02-17 16:41:23.061820', '2023-02-17 16:41:23.061820', 7, 2);
 INSERT INTO `sys_employee_role` VALUES (6, '2023-02-17 16:46:06.543051', '2023-02-17 16:46:06.543051', 8, 3);
+INSERT INTO `sys_employee_role` VALUES (11, '2023-02-28 22:31:28.569505', '2023-02-28 22:31:28.569505', 14, 3);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -336,7 +342,7 @@ CREATE TABLE `sys_operation_log`  (
   `ip_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '具体地址',
   `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 289 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 305 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -633,6 +639,18 @@ INSERT INTO `sys_operation_log` VALUES (289, '2023-02-27 16:47:31.645603', '2023
 INSERT INTO `sys_operation_log` VALUES (290, '2023-02-27 18:01:25.341841', '2023-02-27 18:01:25.341841', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
 INSERT INTO `sys_operation_log` VALUES (291, '2023-02-27 19:40:42.117457', '2023-02-27 19:40:42.117457', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
 INSERT INTO `sys_operation_log` VALUES (292, '2023-02-27 20:44:41.771179', '2023-02-27 20:44:41.771179', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (293, '2023-02-28 15:19:02.074916', '2023-02-28 15:19:02.074916', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (294, '2023-02-28 16:19:12.637099', '2023-02-28 16:19:12.637099', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (295, '2023-02-28 21:47:51.132318', '2023-02-28 21:47:51.132318', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (296, '2023-02-28 22:16:43.525532', '2023-02-28 22:16:43.525532', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/add', '{}', '127.0.0.1', NULL, '添加影院操作');
+INSERT INTO `sys_operation_log` VALUES (297, '2023-02-28 22:26:27.079712', '2023-02-28 22:26:27.079712', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/add', '{}', '127.0.0.1', NULL, '添加影院操作');
+INSERT INTO `sys_operation_log` VALUES (298, '2023-02-28 22:31:28.345585', '2023-02-28 22:31:28.345585', 1, 'ADMIN', 'http://localhost:7001/admin/cinema/add', '{}', '127.0.0.1', NULL, '添加影院操作');
+INSERT INTO `sys_operation_log` VALUES (299, '2023-02-28 22:35:15.603128', '2023-02-28 22:35:15.603128', 1, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (300, '2023-02-28 22:35:21.362800', '2023-02-28 22:35:21.362800', 3, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (301, '2023-02-28 22:35:58.849934', '2023-02-28 22:35:58.849934', 3, 'ADMIN', 'http://localhost:7001/admin/cinema/examineCinema', '{}', '127.0.0.1', NULL, '审核影院操作');
+INSERT INTO `sys_operation_log` VALUES (302, '2023-02-28 22:38:26.299705', '2023-02-28 22:38:26.299705', 3, 'ADMIN', 'http://localhost:7001/admin/cinema/update', '{}', '127.0.0.1', NULL, '编辑影院操作');
+INSERT INTO `sys_operation_log` VALUES (303, '2023-02-28 22:40:11.764682', '2023-02-28 22:40:11.764682', 3, 'ADMIN', 'http://localhost:7001/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (304, '2023-02-28 22:40:28.585956', '2023-02-28 22:40:28.585956', 14, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
 
 -- ----------------------------
 -- Table structure for sys_role

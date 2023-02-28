@@ -1,12 +1,22 @@
 package com.waiend.pddou.core.cinema.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.waiend.pddou.core.base.password.BCryptPasswordManager;
+import com.waiend.pddou.core.base.password.PasswordManager;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
 import com.waiend.pddou.core.cinema.service.CinemaService;
 import com.waiend.pddou.core.cinema.vo.CinemaVo;
+import com.waiend.pddou.core.system.entity.EmployeeEntity;
+import com.waiend.pddou.core.system.entity.EmployeeRoleEntity;
+import com.waiend.pddou.core.system.entity.RoleEntity;
+import com.waiend.pddou.core.system.mapper.EmployeeMapper;
+import com.waiend.pddou.core.system.mapper.EmployeeRoleMapper;
+import com.waiend.pddou.core.system.mapper.RoleMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -23,6 +33,15 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
 
     @Resource
     private CinemaMapper cinemaMapper;
+
+    @Resource
+    private EmployeeMapper employeeMapper;
+
+    @Resource
+    private RoleMapper roleMapper;
+
+    @Resource
+    private EmployeeRoleMapper employeeRoleMapper;
 
     @Override
     public Map<String, Object> cinemaList(Integer page, Integer limit, String cinemaName, String isExamine, Integer isBlock) {
@@ -42,6 +61,38 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
         CinemaEntity cinemaEntity = cinemaMapper.selectById(cinemaId);
 
         return BeanUtil.copyProperties(cinemaEntity, CinemaVo.class);
+    }
+
+    @Transactional
+    @Override
+    public void addCinema(CinemaEntity cinemaEntity) {
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setType(EmployeeEntity.Type.MERCHANT);
+        employeeEntity.setUserType(EmployeeEntity.UserType.STORE);
+        employeeEntity.setUsername(cinemaEntity.getPhone());
+        employeeEntity.setName(cinemaEntity.getLegalPerson());
+        employeeEntity.setPhone(cinemaEntity.getPhone());
+        // 默认密码：123456
+        employeeEntity.setPassword("$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi");
+
+        employeeMapper.insert(employeeEntity);
+
+        EmployeeRoleEntity employeeRoleEntity = new EmployeeRoleEntity();
+        RoleEntity roleEntity = roleMapper.selectOne(new QueryWrapper<RoleEntity>().lambda()
+                                                    .eq(RoleEntity::getName, EmployeeEntity.UserType.STORE));
+        employeeRoleEntity.setEmployeeId(employeeEntity.getId());
+        employeeRoleEntity.setRoleId(Math.toIntExact(roleEntity.getId()));
+
+        employeeRoleMapper.insert(employeeRoleEntity);
+
+        cinemaEntity.setEmployeeId(employeeEntity.getId());
+
+        cinemaMapper.insert(cinemaEntity);
+    }
+
+    @Override
+    public void updateCinema(CinemaEntity cinemaEntity) {
+        cinemaMapper.updateById(cinemaEntity);
     }
 
     @Override
