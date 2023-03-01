@@ -3,6 +3,7 @@ package com.waiend.pddou.admin.base.auth;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.waiend.pddou.admin.base.result.Result;
 import com.waiend.pddou.core.base.expection.PDDouException;
 import com.waiend.pddou.core.base.result.ResultStatus;
 import com.waiend.pddou.core.common.util.IPUtils;
@@ -12,6 +13,7 @@ import com.waiend.pddou.core.operationlog.service.OperationLogService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,8 +48,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        HandlerMethod method = (HandlerMethod) handler;
-        RequiresOperationLog requiresOperationLog = method.getMethodAnnotation(RequiresOperationLog.class);
         // 验证token
         if (!ignoredUrlsProperties.getUrls().contains(request.getRequestURI())) {
             String token = request.getHeader("Authorization");
@@ -59,23 +59,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 if (jwtTokenUtils.isTokenExpired(token)) {
                     throw new PDDouException("token过期", ResultStatus.TOKEN_EXPIRED);
                 }
-                // 记录操作日志
-                if (requiresOperationLog != null) {
-                    // 获取请求参数信息
-                    String param = JSON.toJSONString(request.getParameterMap(),
-                                    SerializerFeature.DisableCircularReferenceDetect,
-                                    SerializerFeature.WriteMapNullValue);
-
-                    OperationLogEntity operationLogEntity = new OperationLogEntity();
-                    operationLogEntity.setOperationId(id)
-                                      .setUrl(request.getRequestURL().toString())
-                                      .setIp(IPUtils.getIpAddr(request))
-                                      .setParams(param)
-                                      .setOperationType(OperationLogEntity.OperationType.ADMIN)
-                                      .setDescription(requiresOperationLog.description());
-
-                    operationLogServiceImpl.save(operationLogEntity);
-                }
                 return true;
             } else {
                 throw new UnauthenticatedException("未登录");
@@ -83,15 +66,5 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
 
         return true;
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println(response.getOutputStream().toString());
-        HandlerMethod method = (HandlerMethod) handler;
-        RequiresOperationLog requiresOperationLog = method.getMethodAnnotation(RequiresOperationLog.class);
-        if (requiresOperationLog != null) {
-            System.out.println(1111);
-        }
     }
 }
