@@ -1,11 +1,10 @@
-package com.waiend.pddou.admin.base.exception;
+package com.waiend.pddou.web.base.exception;
 
-import com.waiend.pddou.admin.base.auth.UnauthenticatedException;
-import com.waiend.pddou.admin.base.auth.UnauthorizedException;
-import com.waiend.pddou.core.base.result.Result;
-import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.base.expection.PDDouException;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.core.base.result.ResultStatus;
+import com.waiend.pddou.web.base.auth.UnauthenticatedException;
+import com.waiend.pddou.web.base.result.ResultFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -31,12 +30,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UnauthenticatedException.class)
     public Result handleUnauthenticatedException(UnauthenticatedException e) {
-        log.error(e.getMessage(), e);
-        return ResultFactory.buildErrorResult(e.getCode(), e.getMessage());
-    }
-
-    @ExceptionHandler(UnauthorizedException.class)
-    public Result handleUnauthorizedException(UnauthorizedException e) {
         log.error(e.getMessage(), e);
         return ResultFactory.buildErrorResult(e.getCode(), e.getMessage());
     }

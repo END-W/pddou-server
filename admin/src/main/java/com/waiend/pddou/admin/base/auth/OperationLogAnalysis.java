@@ -2,7 +2,7 @@ package com.waiend.pddou.admin.base.auth;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.core.common.util.IPUtils;
 import com.waiend.pddou.core.common.util.JwtTokenUtils;
 import com.waiend.pddou.core.operationlog.entity.OperationLogEntity;

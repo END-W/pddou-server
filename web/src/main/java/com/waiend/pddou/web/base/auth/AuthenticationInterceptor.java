@@ -1,4 +1,4 @@
-package com.waiend.pddou.admin.base.auth;
+package com.waiend.pddou.web.base.auth;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.waiend.pddou.core.base.expection.PDDouException;
@@ -21,9 +21,6 @@ import java.util.Objects;
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Resource
-    private IgnoredUrlsProperties ignoredUrlsProperties;
-
-    @Resource
     private JwtTokenUtils jwtTokenUtils;
 
     @Override
@@ -39,22 +36,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
 
         // 验证token
-        if (!ignoredUrlsProperties.getUrls().contains(request.getRequestURI())) {
-            String token = request.getHeader("Authorization");
-            if (StringUtils.isNotBlank(token)) {
-                Long id = jwtTokenUtils.getIdFromToken(token);
-                if (Objects.isNull(id)) {
-                    throw new PDDouException("无效token", ResultStatus.ILLEGAL_TOKEN);
-                }
-                if (jwtTokenUtils.isTokenExpired(token)) {
-                    throw new PDDouException("token过期", ResultStatus.TOKEN_EXPIRED);
-                }
-                return true;
-            } else {
-                throw new UnauthenticatedException("未登录");
+        String token = request.getHeader("Authorization");
+        if (StringUtils.isNotBlank(token)) {
+            Long id = jwtTokenUtils.getIdFromToken(token);
+            if (Objects.isNull(id)) {
+                throw new PDDouException("无效token", ResultStatus.ILLEGAL_TOKEN);
             }
+            if (jwtTokenUtils.isTokenExpired(token)) {
+                throw new PDDouException("token过期", ResultStatus.TOKEN_EXPIRED);
+            }
+            return true;
+        } else {
+            throw new UnauthenticatedException("未登录");
         }
-
-        return true;
     }
 }

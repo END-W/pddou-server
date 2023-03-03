@@ -2,9 +2,8 @@ package com.waiend.pddou.admin.schedule;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
-import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.schedule.entity.ScheduleEntity;
 import com.waiend.pddou.core.schedule.service.ScheduleService;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;

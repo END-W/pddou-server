@@ -1,7 +1,7 @@
 package com.waiend.pddou.admin.upload;
 
 import com.aliyun.oss.OSS;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.common.util.PathUtils;
 import org.springframework.beans.factory.annotation.Value;

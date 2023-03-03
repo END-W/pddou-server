@@ -1,7 +1,7 @@
 package com.waiend.pddou.admin.user;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.user.service.UserService;
 import org.springframework.web.bind.annotation.*;

@@ -2,7 +2,7 @@ package com.waiend.pddou.admin.movie;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.movie.entity.MovieEntity;

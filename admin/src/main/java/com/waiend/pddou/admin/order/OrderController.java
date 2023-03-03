@@ -2,7 +2,7 @@ package com.waiend.pddou.admin.order;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.order.service.OrderService;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;

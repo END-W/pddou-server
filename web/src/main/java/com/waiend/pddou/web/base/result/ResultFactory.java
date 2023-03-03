@@ -1,11 +1,11 @@
-package com.waiend.pddou.admin.base.result;
+package com.waiend.pddou.web.base.result;
 
 import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.core.base.result.ResultStatus;
 
 /**
  * @author end
- * @date 2022年12月09日 22:27
+ * @date 2023年03月03日 15:39
  */
 public class ResultFactory {
 

@@ -16,6 +16,8 @@ public class UserVo extends BaseEntity {
 
     private String phone;
 
+    private String avatar;
+
     private String gender;
 
     private String birthday;

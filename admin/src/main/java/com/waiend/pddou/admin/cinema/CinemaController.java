@@ -2,15 +2,13 @@ package com.waiend.pddou.admin.cinema;
 
 import com.waiend.pddou.admin.base.auth.RequiresOperationLog;
 import com.waiend.pddou.admin.base.resolver.EmployeeId;
-import com.waiend.pddou.admin.base.result.Result;
+import com.waiend.pddou.core.base.result.Result;
 import com.waiend.pddou.admin.base.result.ResultFactory;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.service.CinemaService;
-import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.PushBuilder;
 import java.util.Map;
 
 /**

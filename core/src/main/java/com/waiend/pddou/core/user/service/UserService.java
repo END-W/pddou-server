@@ -1,7 +1,9 @@
 package com.waiend.pddou.core.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.waiend.pddou.core.user.dto.LoginUserDto;
 import com.waiend.pddou.core.user.entity.UserEntity;
+import com.waiend.pddou.core.user.vo.UserVo;
 
 import java.util.Map;
 
@@ -36,4 +38,20 @@ public interface UserService extends IService<UserEntity> {
      * @param locked 锁定状态
      */
     void changeStatus(Long userId, Boolean locked);
+
+    /**
+     * 手机登录
+     *
+     * @param loginUserDto 登录实体
+     * @return map
+     */
+    Map<String, String> phoneLogin(LoginUserDto loginUserDto);
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId 用户ID
+     * @return UserVo
+     */
+    UserVo getUserInfo(Long userId);
 }
