@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @author end
@@ -65,5 +66,61 @@ public class UserController {
     @GetMapping("getUserInfo")
     public Result getUserInfo(@UserId Long userId) {
         return ResultFactory.buildSuccessResult(userServiceImpl.getUserInfo(userId));
+    }
+
+    /**
+     * 更新用户昵称
+     *
+     * @param map map
+     * @param userId 用户ID
+     * @return Result
+     */
+    @PostMapping("updateUserName")
+    public Result updateUserName(@RequestBody Map<String, String> map, @UserId Long userId) {
+        String username = map.get("username");
+        userServiceImpl.updateUserName(username, userId);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 更新用户性别
+     *
+     * @param map map
+     * @param userId 用户ID
+     * @return Result
+     */
+    @PostMapping("updateUserGender")
+    public Result updateUserGender(@RequestBody Map<String, String> map, @UserId Long userId) {
+        String gender = map.get("gender");
+        userServiceImpl.updateUserGender(gender, userId);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 更新用户生日
+     *
+     * @param map map
+     * @param userId 用户ID
+     * @return Result
+     */
+    @PostMapping("updateUserBirthday")
+    public Result updateUserBirthday(@RequestBody Map<String, String> map, @UserId Long userId) {
+        String birthday = map.get("birthday");
+        userServiceImpl.updateUserBirthday(birthday, userId);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 更新用户手机号
+     *
+     * @param map map
+     * @param userId 用户ID
+     * @return Result
+     */
+    @PostMapping("updateUserPhone")
+    public Result updateUserPhone(@RequestBody Map<String, String> map, @UserId Long userId) {
+        String phone = map.get("phone");
+        userServiceImpl.updateUserPhone(phone, userId);
+        return ResultFactory.buildSuccessResult();
     }
 }

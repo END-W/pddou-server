@@ -59,4 +59,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
 
         orderMapper.updateById(orderEntity);
     }
+
+    @Override
+    public List<OrderVo> getOrderByUserId(Long userId) {
+        return orderMapper.selectOrderListByUserId((userId));
+    }
+
+    @Override
+    public void delOrderByUserId(Integer orderId, Long userId) {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setIsDelete2(true);
+
+        orderMapper.update(orderEntity, new QueryWrapper<OrderEntity>().lambda()
+                                            .eq(OrderEntity::getId, orderId)
+                                            .eq(OrderEntity::getUserId, userId));
+    }
 }

@@ -93,7 +93,7 @@ public class OrderEntity {
     /**
      * 用户（0-false-默认，1-true）
      */
-    @TableField(value = "is_delete1")
+    @TableField(value = "is_delete2")
     private Boolean isDelete2;
 
     public enum PayType {

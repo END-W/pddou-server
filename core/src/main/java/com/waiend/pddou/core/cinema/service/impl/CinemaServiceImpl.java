@@ -67,13 +67,13 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
     @Override
     public void addCinema(CinemaEntity cinemaEntity) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setType(EmployeeEntity.Type.MERCHANT);
-        employeeEntity.setUserType(EmployeeEntity.UserType.STORE);
-        employeeEntity.setUsername(cinemaEntity.getPhone());
-        employeeEntity.setName(cinemaEntity.getLegalPerson());
-        employeeEntity.setPhone(cinemaEntity.getPhone());
+        employeeEntity.setType(EmployeeEntity.Type.MERCHANT)
+                      .setUserType(EmployeeEntity.UserType.STORE)
+                      .setUsername(cinemaEntity.getPhone())
+                      .setName(cinemaEntity.getLegalPerson())
+                      .setPhone(cinemaEntity.getPhone())
         // 默认密码：123456
-        employeeEntity.setPassword("$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi");
+                      .setPassword("$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi");
 
         employeeMapper.insert(employeeEntity);
 

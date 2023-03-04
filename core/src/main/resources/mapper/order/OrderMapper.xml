@@ -100,4 +100,16 @@
     ORDER BY o.order_date DESC
     LIMIT #{page}, #{limit}
   </select>
+
+  <select id="selectOrderListByUserId" resultType="com.waiend.pddou.core.order.vo.OrderVo">
+    SELECT o.id, m.`name` AS movie_name, m.poster, o.order_seat_info, c.cinema_name, s.hall_name, o.order_date, o.ticket_num, o.ticket_total_price, o.ticket_code, o.pay_type, s.show_date, s.show_time
+    FROM (SELECT * FROM pddou_order WHERE user_id=#{userId} AND is_delete2=0) o
+    JOIN pddou_schedule s
+    ON o.schedule_id=s.id
+    JOIN pddou_movie m
+    ON s.movie_id=m.id
+    JOIN pddou_cinema c
+    ON s.cinema_id=c.id
+    ORDER BY concat(s.show_date,' ',s.show_time) DESC
+  </select>
 </mapper>

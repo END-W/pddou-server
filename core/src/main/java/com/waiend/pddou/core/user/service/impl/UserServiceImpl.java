@@ -96,9 +96,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         // 未注册
         if (Objects.isNull(userEntity)) {
             userEntity = new UserEntity();
-            userEntity.setUsername(loginUserDto.getPhone());
-            userEntity.setPassword("$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq");
-            userEntity.setPhone(loginUserDto.getPhone());
+            userEntity.setUsername(loginUserDto.getPhone())
+                      .setPassword("$2a$10$e7/hVq5w6Qqn20z07KrMdOgWwob2XL0hIJhbqxy5E.2krqaJUevGq")
+                      .setPhone(loginUserDto.getPhone());
 
             userMapper.insert(userEntity);
         }
@@ -115,5 +115,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
         UserEntity userEntity = userMapper.selectById(userId);
 
         return BeanUtil.copyProperties(userEntity, UserVo.class);
+    }
+
+    @Override
+    public void updateUserName(String username, Long userId) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
+        userEntity.setUsername(username);
+
+        userMapper.updateById(userEntity);
+    }
+
+    @Override
+    public void updateUserGender(String gender, Long userId) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
+        userEntity.setGender(gender);
+
+        userMapper.updateById(userEntity);
+    }
+
+    @Override
+    public void updateUserBirthday(String birthday, Long userId) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
+        userEntity.setBirthday(birthday);
+
+        userMapper.updateById(userEntity);
+    }
+
+    @Override
+    public void updateUserPhone(String phone, Long userId) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userId);
+        userEntity.setPhone(phone);
+
+        userMapper.updateById(userEntity);
     }
 }

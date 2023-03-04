@@ -2,7 +2,9 @@ package com.waiend.pddou.core.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.waiend.pddou.core.order.entity.OrderEntity;
+import com.waiend.pddou.core.order.vo.OrderVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,4 +35,20 @@ public interface OrderService extends IService<OrderEntity> {
      * @param orderId 订单ID
      */
     void deleteOrderByStore(Integer orderId);
+
+    /**
+     * 获取个人订单信息
+     *
+     * @param userId 用户ID
+     * @return List<OrderVo>
+     */
+    List<OrderVo> getOrderByUserId(Long userId);
+
+    /**
+     * 删除个人订单信息
+     *
+     * @param orderId 订单ID
+     * @param userId 用户ID
+     */
+    void delOrderByUserId(Integer orderId, Long userId);
 }

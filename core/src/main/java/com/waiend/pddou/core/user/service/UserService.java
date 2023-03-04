@@ -54,4 +54,36 @@ public interface UserService extends IService<UserEntity> {
      * @return UserVo
      */
     UserVo getUserInfo(Long userId);
+
+    /**
+     * 更新用户昵称
+     *
+     * @param username 昵称
+     * @param userId 用户ID
+     */
+    void updateUserName(String username, Long userId);
+
+    /**
+     * 更新用户性别
+     *
+     * @param gender 性别
+     * @param userId 用户ID
+     */
+    void updateUserGender(String gender, Long userId);
+
+    /**
+     * 更新用户生日
+     *
+     * @param birthday 生日
+     * @param userId 用户ID
+     */
+    void updateUserBirthday(String birthday, Long userId);
+
+    /**
+     * 更新用户手机号
+     *
+     * @param phone 手机号
+     * @param userId 用户ID
+     */
+    void updateUserPhone(String phone, Long userId);
 }
