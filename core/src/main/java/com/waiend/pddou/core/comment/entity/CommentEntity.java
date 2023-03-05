@@ -69,6 +69,12 @@ public class CommentEntity {
     private Integer supportNum;
 
     /**
+     * 点赞用户数组
+     */
+    @TableField(value = "support_user")
+    private String supportUser;
+
+    /**
     * 评论是否通过审核（默认0）
     */
     @TableField(value = "is_pass")

@@ -7,16 +7,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="movie_id" jdbcType="INTEGER" property="movieId" />
+    <result column="is_delete" jdbcType="BOOLEAN" property="isDelete" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, user_id, movie_id
+    id, user_id, movie_id, is_delete
   </sql>
-
-  <select id="selectIsWatchedMovieListByUserId" resultType="com.waiend.pddou.core.wishmovie.vo.WatchedMovieVo">
-    SELECT m.id, m.poster, m.`name`, cast(c.user_score/2 as decimal(3,1)) AS user_score, c.content
-    FROM (SELECT movie_id, user_score, content FROM pddou_comment WHERE user_id=#{userId}) c
-    JOIN pddou_movie m
-    ON c.movie_id=m.id
-  </select>
 </mapper>

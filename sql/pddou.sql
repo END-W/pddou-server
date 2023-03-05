@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 04/03/2023 22:55:21
+ Date: 05/03/2023 23:28:53
 */
 
 SET NAMES utf8mb4;
@@ -67,6 +67,7 @@ CREATE TABLE `pddou_comment`  (
   `support_num` int NOT NULL COMMENT '点赞数',
   `is_pass` tinyint(1) NOT NULL DEFAULT 0 COMMENT '评论是否通过审核（默认0）',
   `parent_id` int NOT NULL DEFAULT 0 COMMENT '父id（默认0）',
+  `support_user` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '点赞用户数组',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_user_id_movie_id`(`user_id`, `movie_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
@@ -74,8 +75,8 @@ CREATE TABLE `pddou_comment`  (
 -- ----------------------------
 -- Records of pddou_comment
 -- ----------------------------
-INSERT INTO `pddou_comment` VALUES (1, 1, 1, 8.0, '很好看，有一起的吗？', '2023-02-21 21:17:27', 28, 1, 0);
-INSERT INTO `pddou_comment` VALUES (2, 2, 3, 9.0, '很好看，挺悲伤的，让我哭一会！', '2023-02-21 21:20:14', 78, 1, 0);
+INSERT INTO `pddou_comment` VALUES (1, 1, 1, 8.0, '很好看，有一起的吗？', '2023-02-21 21:17:27', 28, 1, 0, '[1,2,3]');
+INSERT INTO `pddou_comment` VALUES (2, 2, 3, 9.0, '很好看，挺悲伤的，让我哭一会！', '2023-02-21 21:20:14', 78, 1, 0, '[1,2,4]');
 
 -- ----------------------------
 -- Table structure for pddou_hall
@@ -255,14 +256,15 @@ CREATE TABLE `pddou_wish_movie`  (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint NOT NULL COMMENT '用户id',
   `movie_id` int NOT NULL COMMENT '电影id',
+  `is_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除（0-false-默认，1-true）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_wish_movie
 -- ----------------------------
-INSERT INTO `pddou_wish_movie` VALUES (1, 1, 1);
-INSERT INTO `pddou_wish_movie` VALUES (2, 1, 2);
+INSERT INTO `pddou_wish_movie` VALUES (2, 1, 2, 0);
+INSERT INTO `pddou_wish_movie` VALUES (3, 1, 1, 0);
 
 -- ----------------------------
 -- Table structure for sys_employee

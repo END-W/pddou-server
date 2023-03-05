@@ -103,4 +103,12 @@ public interface MovieService extends IService<MovieEntity> {
      * @param id 电影-影院实体ID
      */
     void removeMovieByStore(Integer id);
+
+    /**
+     * 获取电影详情
+     *
+     * @param movieId 电影ID
+     * @return MovieEntity
+     */
+    MovieEntity getMovieDetail(Integer movieId);
 }

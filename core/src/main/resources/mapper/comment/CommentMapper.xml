@@ -60,4 +60,23 @@
     ORDER BY c.comment_date DESC
     LIMIT #{page}, #{limit}
   </select>
+
+  <select id="selectIsWatchedMovieListByUserId" resultType="com.waiend.pddou.core.comment.vo.WatchedMovieVo">
+    SELECT m.id, m.poster, m.`name`, cast(c.user_score/2 as decimal(3,1)) AS user_score, c.content
+    FROM (SELECT movie_id, user_score, content, comment_date FROM pddou_comment WHERE user_id=#{userId}) c
+    JOIN pddou_movie m
+    ON c.movie_id=m.id
+    ORDER BY c.comment_date DESC
+  </select>
+
+  <select id="selectPassCommentList" resultType="com.waiend.pddou.core.comment.vo.CommentVo">
+    SELECT c.id, c.user_id, c.movie_id, u.avatar, u.username, c.user_score, c.content, c.comment_date, c.support_user
+    FROM (SELECT id, user_id, movie_id, user_score, content, comment_date, support_num, support_user
+          FROM pddou_comment
+          WHERE is_pass=1
+          AND movie_id=#{movieId}) c
+    JOIN pddou_user u
+    ON c.user_id=u.id
+    ORDER BY c.support_num DESC
+  </select>
 </mapper>

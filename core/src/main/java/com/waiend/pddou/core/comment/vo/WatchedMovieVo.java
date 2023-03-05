@@ -1,4 +1,4 @@
-package com.waiend.pddou.core.wishmovie.vo;
+package com.waiend.pddou.core.comment.vo;
 
 import lombok.Data;
 

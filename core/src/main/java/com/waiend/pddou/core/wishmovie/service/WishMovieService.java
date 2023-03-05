@@ -3,7 +3,6 @@ package com.waiend.pddou.core.wishmovie.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
 import com.waiend.pddou.core.wishmovie.entity.WishMovieEntity;
-import com.waiend.pddou.core.wishmovie.vo.WatchedMovieVo;
 
 import java.util.List;
 
@@ -22,10 +21,27 @@ public interface WishMovieService extends IService<WishMovieEntity> {
     List<MovieEntity> getWishMovieByUserId(Long userId);
 
     /**
-     * 获取个人评论的电影
+     * 判断用户是否想看电影
      *
+     * @param movieId 电影ID
      * @param userId 用户ID
-     * @return List<WatchedMovieVo>
+     * @return boolean
      */
-    List<WatchedMovieVo> getIsWatchedMovieByUserId(Long userId);
+    boolean isWishMovie(Integer movieId, Long userId);
+
+    /**
+     * 想看电影
+     *
+     * @param movieId 电影ID
+     * @param userId 用户ID
+     */
+    void wishMovie(Integer movieId, Long userId);
+
+    /**
+     * 取消想看电影
+     *
+     * @param movieId 电影ID
+     * @param userId 用户ID
+     */
+    void cancelWishMovie(Integer movieId, Long userId);
 }

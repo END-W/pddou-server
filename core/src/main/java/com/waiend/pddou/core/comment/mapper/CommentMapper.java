@@ -3,6 +3,7 @@ package com.waiend.pddou.core.comment.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.waiend.pddou.core.comment.entity.CommentEntity;
 import com.waiend.pddou.core.comment.vo.CommentVo;
+import com.waiend.pddou.core.comment.vo.WatchedMovieVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -38,4 +39,20 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
     List<CommentVo> selectCommentList(@Param("page") int page, @Param("limit") Integer limit,
                                    @Param("username") String username, @Param("movieName") String movieName,
                                    @Param("isPass") String isPass);
+
+    /**
+     * 获取个人评论的电影
+     *
+     * @param userId 用户ID
+     * @return List<WatchedMovieVo>
+     */
+    List<WatchedMovieVo> selectIsWatchedMovieListByUserId(@Param("userId") Long userId);
+
+    /**
+     * 获取所有用户通过审核的评论
+     *
+     * @param movieId 电影ID
+     * @return List<CommentVo>
+     */
+    List<CommentVo> selectPassCommentList(@Param("movieId") Integer movieId);
 }

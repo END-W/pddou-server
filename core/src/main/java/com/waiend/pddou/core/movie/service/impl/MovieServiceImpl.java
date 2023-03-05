@@ -136,4 +136,9 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     public void removeMovieByStore(Integer id) {
         movieCinemaMapper.deleteById(id);
     }
+
+    @Override
+    public MovieEntity getMovieDetail(Integer movieId) {
+        return movieMapper.selectById(movieId);
+    }
 }
