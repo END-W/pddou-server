@@ -53,18 +53,19 @@ public interface CommentService extends IService<CommentEntity> {
      * 获取所有用户通过审核的评论
      *
      * @param movieId 电影ID
+     * @param userId 用户ID
      * @return List<CommentEntity>
      */
-    List<CommentVo> getAllUserPassComment(Integer movieId);
+    List<CommentVo> getAllUserPassComment(Integer movieId, Long userId);
 
     /**
      * 获取当前用户评论
      *
      * @param movieId 电影ID
      * @param userId 用户ID
-     * @return CommentEntity
+     * @return CommentVo
      */
-    CommentEntity getUserComment(Integer movieId, Long userId);
+    CommentVo getUserComment(Integer movieId, Long userId);
 
     /**
      * 更新当前用户评论
@@ -73,4 +74,11 @@ public interface CommentService extends IService<CommentEntity> {
      * @param userId 用户ID
      */
     void updateUserComment(CommentEntity commentEntity, Long userId);
+
+    /**
+     * 更新当前评论的用户点赞
+     *
+     * @param commentEntity 评论实体
+     */
+    void updateUserSupport(CommentEntity commentEntity);
 }

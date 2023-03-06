@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 05/03/2023 23:28:53
+ Date: 06/03/2023 22:23:37
 */
 
 SET NAMES utf8mb4;
@@ -64,7 +64,7 @@ CREATE TABLE `pddou_comment`  (
   `user_score` decimal(3, 1) NOT NULL DEFAULT 0.0 COMMENT '用户评分',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户评论内容',
   `comment_date` datetime NOT NULL COMMENT '评论日期',
-  `support_num` int NOT NULL COMMENT '点赞数',
+  `support_num` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '点赞数',
   `is_pass` tinyint(1) NOT NULL DEFAULT 0 COMMENT '评论是否通过审核（默认0）',
   `parent_id` int NOT NULL DEFAULT 0 COMMENT '父id（默认0）',
   `support_user` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '点赞用户数组',
@@ -75,8 +75,10 @@ CREATE TABLE `pddou_comment`  (
 -- ----------------------------
 -- Records of pddou_comment
 -- ----------------------------
-INSERT INTO `pddou_comment` VALUES (1, 1, 1, 8.0, '很好看，有一起的吗？', '2023-02-21 21:17:27', 28, 1, 0, '[1,2,3]');
-INSERT INTO `pddou_comment` VALUES (2, 2, 3, 9.0, '很好看，挺悲伤的，让我哭一会！', '2023-02-21 21:20:14', 78, 1, 0, '[1,2,4]');
+INSERT INTO `pddou_comment` VALUES (1, 1, 1, 8.0, '心里难受，还要再看两遍，以后再也没机会在荧幕上看到无牙仔和小咯咯了。', '2023-03-06 22:09:52', 3, 0, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (2, 2, 3, 9.0, '很好看，挺悲伤的，让我哭一会！', '2023-02-21 21:20:14', 3, 1, 0, '[1,2,4]');
+INSERT INTO `pddou_comment` VALUES (4, 1, 2, 9.0, '夏目真是太温暖了，每次看都会给我最温柔坚定的力量，这次剧场版也是一如既往地美好，带给我一整天好心情。', '2023-03-06 14:49:37', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (5, 2, 1, 8.0, '饱满的结局，但不是完美的谢幕，剧情太规整了，这个反派太老套，甚至连个配菜都不如...\n优点是视效升级以及最后结局的处理，让你失望了，现在我们可能还是不值得与龙共存。', '2023-03-06 17:31:33', 1, 1, 0, '[1]');
 
 -- ----------------------------
 -- Table structure for pddou_hall
@@ -258,13 +260,14 @@ CREATE TABLE `pddou_wish_movie`  (
   `movie_id` int NOT NULL COMMENT '电影id',
   `is_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除（0-false-默认，1-true）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_wish_movie
 -- ----------------------------
 INSERT INTO `pddou_wish_movie` VALUES (2, 1, 2, 0);
 INSERT INTO `pddou_wish_movie` VALUES (3, 1, 1, 0);
+INSERT INTO `pddou_wish_movie` VALUES (4, 2, 1, 0);
 
 -- ----------------------------
 -- Table structure for sys_employee

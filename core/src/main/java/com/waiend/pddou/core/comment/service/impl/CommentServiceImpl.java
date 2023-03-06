@@ -1,5 +1,6 @@
 package com.waiend.pddou.core.comment.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.waiend.pddou.core.comment.entity.CommentEntity;
@@ -7,12 +8,15 @@ import com.waiend.pddou.core.comment.mapper.CommentMapper;
 import com.waiend.pddou.core.comment.service.CommentService;
 import com.waiend.pddou.core.comment.vo.CommentVo;
 import com.waiend.pddou.core.comment.vo.WatchedMovieVo;
+import com.waiend.pddou.core.user.entity.UserEntity;
+import com.waiend.pddou.core.user.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author end
@@ -23,6 +27,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity
 
     @Resource
     private CommentMapper commentMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public Map<String, Object> commentList(Integer page, Integer limit, String username, String movieName, String isPass) {
@@ -57,13 +64,28 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity
     }
 
     @Override
-    public List<CommentVo> getAllUserPassComment(Integer movieId) {
-        return commentMapper.selectPassCommentList(movieId);
+    public List<CommentVo> getAllUserPassComment(Integer movieId, Long userId) {
+        return commentMapper.selectPassCommentList(movieId, userId);
     }
 
     @Override
-    public CommentEntity getUserComment(Integer movieId, Long userId) {
-        return commentMapper.selectOne(new QueryWrapper<CommentEntity>().lambda());
+    public CommentVo getUserComment(Integer movieId, Long userId) {
+        CommentEntity commentEntity = commentMapper.selectOne(new QueryWrapper<CommentEntity>().lambda()
+                                                                .eq(CommentEntity::getMovieId, movieId)
+                                                                .eq(CommentEntity::getUserId, userId));
+
+        if (Objects.isNull(commentEntity)) {
+            return null;
+        }
+
+        CommentVo commentVo = BeanUtil.copyProperties(commentEntity, CommentVo.class);
+
+        UserEntity userEntity = userMapper.selectById(userId);
+
+        commentVo.setAvatar(userEntity.getAvatar());
+        commentVo.setUsername(userEntity.getUsername());
+
+        return commentVo;
     }
 
     @Override
@@ -78,5 +100,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity
             commentEntity.setUserId(userId);
             commentMapper.insert(commentEntity);
         }
+    }
+
+    @Override
+    public void updateUserSupport(CommentEntity commentEntity) {
+        commentMapper.updateById(commentEntity);
     }
 }

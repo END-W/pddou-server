@@ -70,11 +70,12 @@
   </select>
 
   <select id="selectPassCommentList" resultType="com.waiend.pddou.core.comment.vo.CommentVo">
-    SELECT c.id, c.user_id, c.movie_id, u.avatar, u.username, c.user_score, c.content, c.comment_date, c.support_user
+    SELECT c.id, c.user_id, c.movie_id, u.avatar, u.username, c.user_score, c.content, c.comment_date, c.support_num, c.support_user
     FROM (SELECT id, user_id, movie_id, user_score, content, comment_date, support_num, support_user
           FROM pddou_comment
           WHERE is_pass=1
-          AND movie_id=#{movieId}) c
+          AND movie_id=#{movieId}
+          AND user_id != #{userId}) c
     JOIN pddou_user u
     ON c.user_id=u.id
     ORDER BY c.support_num DESC

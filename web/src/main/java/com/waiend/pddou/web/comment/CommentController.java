@@ -35,11 +35,12 @@ public class CommentController {
      * 获取所有用户通过审核的评论
      *
      * @param movieId 电影ID
+     * @param userId 用户ID
      * @return Result
      */
     @GetMapping("getAllUserPassComment")
-    public Result getAllUserPassComment(Integer movieId) {
-        return ResultFactory.buildSuccessResult(commentServiceImpl.getAllUserPassComment(movieId));
+    public Result getAllUserPassComment(Integer movieId, @UserId Long userId) {
+        return ResultFactory.buildSuccessResult(commentServiceImpl.getAllUserPassComment(movieId, userId));
     }
 
     /**
@@ -64,6 +65,18 @@ public class CommentController {
     @PostMapping("updateUserComment")
     public Result updateUserComment(@RequestBody CommentEntity commentEntity, @UserId Long userId) {
         commentServiceImpl.updateUserComment(commentEntity, userId);
+        return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 更新当前评论的用户点赞
+     *
+     * @param commentEntity 评论实体
+     * @return Result
+     */
+    @PostMapping("updateUserSupport")
+    public Result updateUserSupport(@RequestBody CommentEntity commentEntity) {
+        commentServiceImpl.updateUserSupport(commentEntity);
         return ResultFactory.buildSuccessResult();
     }
 }

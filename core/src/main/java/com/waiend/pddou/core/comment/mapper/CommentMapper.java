@@ -52,7 +52,8 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
      * 获取所有用户通过审核的评论
      *
      * @param movieId 电影ID
+     * @param userId 用户ID
      * @return List<CommentVo>
      */
-    List<CommentVo> selectPassCommentList(@Param("movieId") Integer movieId);
+    List<CommentVo> selectPassCommentList(@Param("movieId") Integer movieId, @Param("userId") Long userId);
 }
