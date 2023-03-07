@@ -1,5 +1,6 @@
 package com.waiend.pddou.core.comment.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class CommentEntity {
     * 用户评分
     */
     @TableField(value = "user_score")
-    private Byte userScore;
+    private BigDecimal userScore;
 
     /**
     * 用户评论内容

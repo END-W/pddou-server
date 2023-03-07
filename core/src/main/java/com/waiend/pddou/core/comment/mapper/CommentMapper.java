@@ -37,8 +37,8 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
      * @return
      */
     List<CommentVo> selectCommentList(@Param("page") int page, @Param("limit") Integer limit,
-                                   @Param("username") String username, @Param("movieName") String movieName,
-                                   @Param("isPass") String isPass);
+                                      @Param("username") String username, @Param("movieName") String movieName,
+                                      @Param("isPass") String isPass);
 
     /**
      * 获取个人评论的电影

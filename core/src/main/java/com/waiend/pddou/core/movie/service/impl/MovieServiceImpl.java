@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
+import com.waiend.pddou.core.common.constant.RedisConstants;
+import com.waiend.pddou.core.common.util.RedisUtils;
 import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
 import com.waiend.pddou.core.movie.mapper.MovieCinemaMapper;
@@ -18,6 +20,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author end
@@ -34,6 +37,9 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
 
     @Resource
     private CinemaMapper cinemaMapper;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     @Override
     public Map<String, Object> MovieList(Integer page, Integer limit, String name, String language, String isShow) {
@@ -140,5 +146,22 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     @Override
     public MovieEntity getMovieDetail(Integer movieId) {
         return movieMapper.selectById(movieId);
+    }
+
+    @Override
+    public List<MovieEntity> getMovieList() {
+        List<MovieEntity> movieList = (List<MovieEntity>) redisUtils.get(RedisConstants.MOVIE_HOT_KEY);
+
+        if (Objects.isNull(movieList)) {
+            movieList = movieMapper.selectList(new QueryWrapper<MovieEntity>().lambda()
+                                                    .eq(MovieEntity::getIsShow, 1)
+                                                    .orderByDesc(MovieEntity::getScore)
+                                                    .orderByDesc(MovieEntity::getWishNum)
+                                                    .orderByDesc(MovieEntity::getPublicDate));
+
+            redisUtils.set(RedisConstants.MOVIE_HOT_KEY, movieList, 60 * 60 * 3);
+        }
+
+        return movieList;
     }
 }

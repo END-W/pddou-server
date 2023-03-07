@@ -111,4 +111,11 @@ public interface MovieService extends IService<MovieEntity> {
      * @return MovieEntity
      */
     MovieEntity getMovieDetail(Integer movieId);
+
+    /**
+     * 获取电影列表
+     *
+     * @return List<MovieEntity>
+     */
+    List<MovieEntity> getMovieList();
 }

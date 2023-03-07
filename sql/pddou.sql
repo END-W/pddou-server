@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 06/03/2023 22:23:37
+ Date: 07/03/2023 22:51:55
 */
 
 SET NAMES utf8mb4;
@@ -50,7 +50,7 @@ INSERT INTO `pddou_cinema` VALUES (1, '横店电影城(庆丰店)', '023-8798749
 INSERT INTO `pddou_cinema` VALUES (2, '尚影影院', '023-86678533', '广东省', '佛山市', '白云区', '白云区石夏路288号金铂广场7楼', 8, 1, 'HAVING_APPLY', NULL, NULL, '2023-02-17 20:57:52.000000', '2023-02-28 22:38:26.324687', '李俊基', 113.101506, 23.052214, '13988095568');
 INSERT INTO `pddou_cinema` VALUES (3, '太平洋影城(蜀西店)', '028-87718221', '四川省', '成都市', NULL, '高新西区蜀西路399号中海国际购物公园B1-301', 11, 0, 'ON_ACTIVITY', 1, '2023-03-01 20:50:42.074652', '2023-02-28 16:08:34.000000', '2023-03-01 20:50:42.077644', '吴起', 103.979593, 30.722622, '15993046978');
 INSERT INTO `pddou_cinema` VALUES (5, '太平洋影城(金泉店)', '028-87592998', '四川省', '成都市', NULL, '金牛区两河西二路300号附301号3、4层', 14, 0, 'ON_ACTIVITY', 3, '2023-02-28 22:35:58.871874', '2023-02-28 22:31:28.589712', '2023-02-28 22:35:58.874901', '梦琪', 103.982045, 30.715903, '13558097745');
-INSERT INTO `pddou_cinema` VALUES (6, '太平洋影城金辉店', '028-87991489', '四川省', '成都市', NULL, '郫都区百草路777号', 15, 0, 'HAVING_APPLY', NULL, NULL, '2023-03-01 16:11:38.128551', '2023-03-01 16:11:38.128551', '李超', 103.962148, 30.745178, '15889074553');
+INSERT INTO `pddou_cinema` VALUES (6, '太平洋影城金辉店', '028-87991489', '四川省', '成都市', NULL, '郫都区百草路777号', 15, 0, 'ON_ACTIVITY', 3, '2023-03-07 19:55:42.039992', '2023-03-01 16:11:38.128551', '2023-03-07 19:55:42.041995', '李超', 103.962148, 30.745178, '15889074553');
 INSERT INTO `pddou_cinema` VALUES (7, '金逸影城（成都后花园爱琴海IMAX店）', '028-86126811', '四川省', '成都市', NULL, '郫都区犀浦国宁东路919号1栋1单元5楼26号', 16, 0, 'HAVING_APPLY', NULL, NULL, '2023-03-01 20:47:28.307626', '2023-03-01 20:47:28.307626', '张建', 103.990915, 30.737410, '13469878633');
 
 -- ----------------------------
@@ -70,15 +70,22 @@ CREATE TABLE `pddou_comment`  (
   `support_user` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '点赞用户数组',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_user_id_movie_id`(`user_id`, `movie_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_comment
 -- ----------------------------
-INSERT INTO `pddou_comment` VALUES (1, 1, 1, 8.0, '心里难受，还要再看两遍，以后再也没机会在荧幕上看到无牙仔和小咯咯了。', '2023-03-06 22:09:52', 3, 0, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (1, 1, 1, 8.0, '心里难受，还要再看两遍，以后再也没机会在荧幕上看到无牙仔和小咯咯了', '2023-03-07 20:59:53', 3, 1, 0, '[2,3,1]');
 INSERT INTO `pddou_comment` VALUES (2, 2, 3, 9.0, '很好看，挺悲伤的，让我哭一会！', '2023-02-21 21:20:14', 3, 1, 0, '[1,2,4]');
 INSERT INTO `pddou_comment` VALUES (4, 1, 2, 9.0, '夏目真是太温暖了，每次看都会给我最温柔坚定的力量，这次剧场版也是一如既往地美好，带给我一整天好心情。', '2023-03-06 14:49:37', 0, 1, 0, NULL);
 INSERT INTO `pddou_comment` VALUES (5, 2, 1, 8.0, '饱满的结局，但不是完美的谢幕，剧情太规整了，这个反派太老套，甚至连个配菜都不如...\n优点是视效升级以及最后结局的处理，让你失望了，现在我们可能还是不值得与龙共存。', '2023-03-06 17:31:33', 1, 1, 0, '[1]');
+INSERT INTO `pddou_comment` VALUES (6, 1, 6, 9.0, '这是一个恢宏的故事，罕见的通过三条叙事线展开。叙事节奏相当牛批，全程无尿点，特效顶级，脑洞大开，同时也对在极端环境下的人性展开探索。总之，电影在流浪地球1基础上升华了。', '2023-03-07 21:33:59', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (7, 1, 7, 8.0, '整部电影画面色彩很唯美，音乐是充满了力量的，或忧郁、或彷徨、或自备，它总能精准的表达歌唱者的情绪，同样的，表演者的情绪也能够传达给听众，那些鼓舞着人心的、令人动容的、叫人向上的，会给予你我更多的勇气！', '2023-03-07 21:35:29', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (8, 1, 10, 7.0, '传统的港片节奏，搭配新颖的黑客题材，新老结合，视觉呈现上有了新的感觉，节奏感和紧张感又有传统的港片味道，枪战，追逐，打斗，通通给到，看男神对决非常精彩。', '2023-03-07 21:36:27', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (9, 1, 8, 7.0, '本来是冲着梁朝伟周迅去的，没想到被王一博给惊到了。以前一直对流量小鲜肉没啥好感，名字听过，这次还以为他就是来蹭的。没想到啊，竟然和影帝的对手戏接住了。还这 年轻，关键是确实长得帅啊。看好他未来发展， 宣布以后有王一博的影视，我会去看。', '2023-03-07 21:37:24', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (10, 1, 11, 8.0, '这应该是复联四以后最好看的的漫威电影了，特效感觉炸裂，而且剧本充实，新老演员看的出都在为这个电影付出', '2023-03-07 21:38:50', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (11, 1, 13, 7.0, '不看你真的会后悔！\n一部非常贴近生活的影片，讲义气的人为了做自己认为对的事情遇到了一系列的困难，过程中闹出了很多笑话，也承担了相应的后果，就算是这样也不影响真情的存在，电影结尾有一些催泪，还有小小的彩蛋哦，值得推荐的好电影。', '2023-03-07 21:41:04', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (12, 1, 14, 6.0, '东野圭吾的悬疑本，日剧拍过，内地也拍过，这次影版千呼万唤始出来，还是很期待的\n在小小的回廊亭上演的命案，牵出\"钱\"与\"情\"的纠葛，抛开原著还是不错的，围绕着原著里的几点线索拼图，打乱了布局，又是一出复仇剧本！\n这次的侯雯元，还是挺帅气的', '2023-03-07 21:42:31', 0, 1, 0, NULL);
 
 -- ----------------------------
 -- Table structure for pddou_hall
@@ -97,11 +104,35 @@ CREATE TABLE `pddou_hall`  (
 -- ----------------------------
 INSERT INTO `pddou_hall` VALUES (1, '1号激光厅', 1);
 INSERT INTO `pddou_hall` VALUES (8, '1号激光厅', 2);
+INSERT INTO `pddou_hall` VALUES (30, '1号激光厅', 3);
+INSERT INTO `pddou_hall` VALUES (24, '1号激光厅', 5);
+INSERT INTO `pddou_hall` VALUES (20, '1号激光厅', 6);
+INSERT INTO `pddou_hall` VALUES (28, '2号四川银行厅', 5);
 INSERT INTO `pddou_hall` VALUES (2, '2号激光厅', 1);
 INSERT INTO `pddou_hall` VALUES (9, '2号激光厅', 2);
+INSERT INTO `pddou_hall` VALUES (19, '2号激光厅', 6);
 INSERT INTO `pddou_hall` VALUES (3, '3号激光厅', 1);
+INSERT INTO `pddou_hall` VALUES (27, '3号激光厅', 5);
+INSERT INTO `pddou_hall` VALUES (21, '3号激光厅', 6);
+INSERT INTO `pddou_hall` VALUES (25, '4号亲子厅', 5);
 INSERT INTO `pddou_hall` VALUES (6, '4号激光厅', 1);
+INSERT INTO `pddou_hall` VALUES (31, '4号激光厅', 3);
+INSERT INTO `pddou_hall` VALUES (22, '4号激光厅', 6);
+INSERT INTO `pddou_hall` VALUES (23, '5号厅全景声激光厅', 6);
 INSERT INTO `pddou_hall` VALUES (7, '5号激光厅', 1);
+INSERT INTO `pddou_hall` VALUES (26, '5号激光厅', 5);
+INSERT INTO `pddou_hall` VALUES (29, '6号luxe巨幕厅', 5);
+INSERT INTO `pddou_hall` VALUES (34, '6号激光厅', 3);
+INSERT INTO `pddou_hall` VALUES (11, '兔兔高升-五号激光厅', 7);
+INSERT INTO `pddou_hall` VALUES (18, '兔气扬眉-一号儿童厅', 7);
+INSERT INTO `pddou_hall` VALUES (14, '兔气扬眉-六号IMAX厅', 7);
+INSERT INTO `pddou_hall` VALUES (15, '兔飞猛进-四号激光厅', 7);
+INSERT INTO `pddou_hall` VALUES (33, '全兴大曲厅', 3);
+INSERT INTO `pddou_hall` VALUES (17, '前兔似锦-七号激光厅', 7);
+INSERT INTO `pddou_hall` VALUES (16, '前兔似锦-二号床厅', 7);
+INSERT INTO `pddou_hall` VALUES (12, '玉兔迎春-三号激光厅', 7);
+INSERT INTO `pddou_hall` VALUES (13, '玉兔迎春-八号激光厅', 7);
+INSERT INTO `pddou_hall` VALUES (32, '红色电影厅', 3);
 
 -- ----------------------------
 -- Table structure for pddou_movie
@@ -119,7 +150,7 @@ CREATE TABLE `pddou_movie`  (
   `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '电影类型',
   `public_date` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '电影上映时间',
   `wish_num` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '想看人数',
-  `score` decimal(4, 1) NULL DEFAULT NULL COMMENT '电影综合评分',
+  `score` decimal(3, 1) NULL DEFAULT NULL COMMENT '电影综合评分',
   `create_time` datetime(6) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(6) NULL DEFAULT NULL COMMENT '更新时间',
   `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否上映（0-false，1-true-默认）',
@@ -135,6 +166,15 @@ INSERT INTO `pddou_movie` VALUES (2, '夏目友人帐', 'http://pddou.oss-cn-che
 INSERT INTO `pddou_movie` VALUES (3, '比悲伤更悲伤的故事', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/dec50b4e94ce45ce96fccfb8fbd50368.jpg', '林孝谦', '陈庭妮', '105分钟', '国语', '唱片制作人张哲凯（刘以豪 饰）和王牌作词人宋媛媛（陈意涵 饰）相依为命，两人自幼身世坎坷只有彼此为伴，他们是亲人、是朋友，也彷佛是命中注定的另一半。父亲罹患遗传重症而被母亲抛弃的哲凯，深怕自己随时会发病不久人世，始终没有跨出友谊的界线对媛媛展露爱意。眼见哲凯的病情加重，他暗自决定用剩余的生命完成他们之间的终曲，再为媛媛找个可以托付一生的好男人。这时，事业有成温柔体贴的医生（张书豪 饰）适时的出现让他成为照顾媛媛的最佳人选，二人按部就班发展着关系。一切看似都在哲凯的计划下进行。然而，故事远比这里所写更要悲伤', '言情', '2018-09-01', 178, 9.0, '2023-02-19 22:51:36.000000', '2023-02-19 22:51:36.000000', 0);
 INSERT INTO `pddou_movie` VALUES (4, '惊奇队长', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/e5b3623128424e3e85d2d683825e30e8.jpg', '瑞安·弗雷克', '本·门德尔森', '108分钟', '英语', '卡罗尔·丹弗斯（布丽·拉尔森 饰）是克里人的精英部队一员，但她挣扎着回忆过去，对于怎么获得超能力、以及之前的人生等超能力之前的人生，她只在梦中有片段不成章的记忆，这层困扰引起的情绪波动也进而影响她对超能力的掌控。所幸，在星际战队指挥官（裘德·洛 饰）的调教之下，卡罗尔·丹弗斯学会如何控制自己的超能力。一次外星任务中，卡罗尔·丹弗斯因故来到了地球，并遇到还是低阶探员的尼克·弗瑞（塞缪尔·杰克逊 饰），卡罗尔·丹弗斯与尼克·弗瑞一起追捕在地球惹事的变形人塔罗斯（本·门德尔森 饰），同时，也发现自己如何获得超能力。', '爱情', '2018-07-03', 0, NULL, '2023-02-19 23:04:01.000000', '2023-02-19 23:04:01.000000', 0);
 INSERT INTO `pddou_movie` VALUES (5, '我的英雄学院', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/02/19/8a76aeed433d4707aba376577e4f331a.jpg', '长崎健司', '生濑胜久', '96分钟', '日语', '讲述在绝大多数人都有超能力的未来时代，没有天赋的异能少年，如何凭努力与坚持打破绝境，成长为最强英雄，守卫世界和平的故事。 剧场版以移动科研都市“我之岛”为舞台，描绘正反两派的殊死激战。在第一英雄被困之际，少年与英雄科同学拼死克敌，却在无意中探得隐秘真相，剧情随之反转', '科幻', '2018-08-13', 0, NULL, '2023-02-19 23:10:36.000000', '2023-02-19 23:11:06.523690', 0);
+INSERT INTO `pddou_movie` VALUES (6, '流浪地球2', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/2f92ebce8a4342a7bca621399bf9fbf4.jpg', '郭帆', '吴京 / 刘德华 ', '173分钟', '国语', '太阳即将毁灭，人类在地球表面建造出巨大的推进器，寻找新的家园。然而宇宙之路危机四伏，为了拯救地球，流浪地球时代的年轻人再次挺身而出，展开争分夺秒的生死之战。', '科幻', '2023-01-22', 1, 9.0, '2023-03-07 16:50:49.822242', '2023-03-07 22:03:00.388243', 1);
+INSERT INTO `pddou_movie` VALUES (7, '满江红', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/cb7ef6941ca4410c9b557015d59bb4bd.jpg', '张艺谋', ' 沈腾 / 易烊千玺 / 张译', '159分钟', '国语', '南宋绍兴年间，岳飞死后四年，秦桧率兵与金国会谈。会谈前夜，金国使者死在宰相驻地，所携密信也不翼而飞。小兵张大（沈腾 饰）与亲兵营副统领孙均（易烊千玺 饰）机缘巧合被裹挟进这巨大阴谋之中，宰相秦桧（雷佳音 饰）命两人限一个时辰之内找到凶手。伴随危机四伏的深入调查，宰相府总管何立（张译 饰）、副总管武义淳（岳云鹏 饰）、舞姬瑶琴（王佳怡 饰）等人卷入局中，案件的背后似乎隐藏着一场更大的阴谋。局中有局、人心叵测，一夜之间风云变幻，各方势力暗流涌动……', '剧情', '2023-01-22', 1, 8.0, '2023-03-07 16:54:30.488537', '2023-03-07 22:03:00.439093', 1);
+INSERT INTO `pddou_movie` VALUES (8, '无名', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/e9e132b21fdc45abb8a4f584345f9c4e.jpg', '程耳', '梁朝伟', '128分钟', '国语', '影片通过对上世纪二十年代开始奋斗在上海的中国共产党领导下的中共特科，在隐蔽战线与各方势力殊死较量过程的再现，表现了在走向胜利过程中不可或缺的党的秘密战线上那些无名英雄，他们不可取代的贡献。全面抗战爆发后，中国共产党领导的中共特科在上海周旋于重庆、汪伪、日本间谍机构之间，通过错综复杂的敌后情报系统，策反敌人，获取情报，诛杀汉奸，建立更广泛的统一战线，直至抗战胜利的前夜…...', '剧情', '2023-01-22', 0, 7.0, '2023-03-07 16:57:16.836011', '2023-03-07 22:03:00.483771', 1);
+INSERT INTO `pddou_movie` VALUES (9, '毒舌律师', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/431a8cd2977b4aefa38bfac5da50607e.jpg', '吴炜伦', '黄子华', '133分钟', '粤语', '一宗国际名模涉嫌虐待女儿的冤案，竟成了法律界、权贵与名媛之间的角力场！社会金字塔顶层的钟氏家族，如何用尽权力与资源去自保？以林凉水（黄子华 饰）为代表的律师们又如何在重重困难下伸张正义？', '剧情', '2023-02-24', 0, NULL, '2023-03-07 17:04:09.909582', '2023-03-07 17:04:09.909582', 1);
+INSERT INTO `pddou_movie` VALUES (10, '断网', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/18bc3f787dff4f3497e9f3415a6c58b0.jpg', '黄庆勋', '郭富城 / 任达华', '110分钟', '国语', '故事讲述郭富城饰演的程序专家意外陷入一起网络金融犯罪的巨大阴谋中，为了活下去，不得不在有限的时间与黑白两道展开一场实力悬殊的暗网对决……', '剧情', '2023-03-03', 0, 7.0, '2023-03-07 17:08:49.039715', '2023-03-07 22:03:00.555268', 1);
+INSERT INTO `pddou_movie` VALUES (11, '蚁人与黄蜂女：量子狂潮', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/91204bf702504bbbab877a81a0518db3.jpg', '佩顿·里德', '保罗·路德', '125分钟', '英语', '影片是《蚁人》系列的第三部作品，同时也是漫威电影宇宙第五阶段的揭幕之作。故事发生于《复仇者联盟4：终局之战》之后，“蚁人”斯科特·朗（保罗·路德 Paul Rudd 饰）和“黄蜂女”霍普·凡·戴恩（伊万杰琳·莉莉 Evangeline Lilly 饰）成了拯救世界的英雄人物，皮姆博士与久违归来的珍妮特 也享受着平静的半退休生活，然而因为意外他们和斯科特的女儿凯茜（凯瑟琳·纽 顿 Kathryn Newton 饰）一起误入量子领域，在这个充满危险的未知世界遭遇了漫威电影宇宙最强反派——征服者康（乔纳森·梅杰斯 Jonathan Majors 饰），开始了一场超越他们想象极限的冒险。', '科幻', '2023-02-17', 1, 8.0, '2023-03-07 17:13:19.994408', '2023-03-07 22:03:00.599923', 1);
+INSERT INTO `pddou_movie` VALUES (12, '深海', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/7d87511638a949ec84c337d8c9493eeb.jpg', '田晓鹏', '苏鑫 ', '112分钟', '国语', '在大海的最深处，藏着所有秘密。一位现代少女（参宿）误入梦幻的深海世界，却因此邂逅了一段独特的生命旅程。', '动漫', '2023-01-22', 0, NULL, '2023-03-07 17:17:40.783384', '2023-03-07 17:17:40.783384', 1);
+INSERT INTO `pddou_movie` VALUES (13, '保你平安', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/cda3c45591a841e4b5f253a91b8e9bf6.jpg', '大鹏', '大鹏', '112分钟', '国语', '落魄中年魏平安（大鹏 饰）以直播带货卖墓地为生，他的客户韩露过世后被造谣抹黑，魏平安路见不平，辟谣跑断腿，笑料频出，反转不断，而他自己也因此陷入到新的谣言和网暴之中。', '喜剧', '2023-03-10', 1, 7.0, '2023-03-07 17:20:16.630649', '2023-03-07 22:03:00.668842', 1);
+INSERT INTO `pddou_movie` VALUES (14, '回廊亭', 'http://pddou.oss-cn-chengdu.aliyuncs.com/movie/2023/03/07/febd1507827a45ccb11eee1a4b1afd0c.jpg', '来牧宽', '任素汐', '95分钟', '国语', '影片根据东野圭吾畅销悬疑小说《长长的回廊》改编。回廊亭大宅中暗藏无数秘密，绝望女人为爱复仇的欲望纷争正在上演！\n富商病逝，他的亲属们聚集在回廊亭等待数十亿遗产将会如何分配，众人各怀鬼胎。关键时刻，律师周扬带着遗嘱和一本神秘日记而来，更牵扯出⼀场发生在一年前的火灾凶杀案，死者是富商流落在外的私生子，更是全部遗产的第⼀顺位继承人！凶手，似乎就隐藏在众人之中……', '爱情', '2023-03-10', 0, 6.0, '2023-03-07 19:46:25.775894', '2023-03-07 22:03:00.710187', 1);
 
 -- ----------------------------
 -- Table structure for pddou_movie_cinema
@@ -153,13 +193,49 @@ CREATE TABLE `pddou_movie_cinema`  (
 -- ----------------------------
 -- Records of pddou_movie_cinema
 -- ----------------------------
-INSERT INTO `pddou_movie_cinema` VALUES (1, 1, 1, 39.90, 1);
-INSERT INTO `pddou_movie_cinema` VALUES (2, 3, 1, 37.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (1, 1, 1, 39.90, 0);
+INSERT INTO `pddou_movie_cinema` VALUES (2, 3, 1, 37.80, 0);
 INSERT INTO `pddou_movie_cinema` VALUES (3, 2, 1, 43.90, 0);
-INSERT INTO `pddou_movie_cinema` VALUES (7, 5, 1, 49.90, 1);
-INSERT INTO `pddou_movie_cinema` VALUES (8, 4, 1, 57.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (7, 5, 1, 49.90, 0);
+INSERT INTO `pddou_movie_cinema` VALUES (8, 4, 1, 57.80, 0);
 INSERT INTO `pddou_movie_cinema` VALUES (9, 2, 2, 40.00, 1);
 INSERT INTO `pddou_movie_cinema` VALUES (10, 4, 2, 39.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (11, 6, 1, 42.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (12, 10, 1, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (13, 8, 1, 27.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (14, 7, 1, 36.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (15, 12, 1, 40.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (16, 6, 7, 43.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (17, 9, 7, 27.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (18, 13, 7, 38.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (19, 7, 7, 43.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (20, 10, 7, 42.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (21, 8, 7, 48.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (22, 11, 7, 39.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (23, 12, 7, 43.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (24, 10, 6, 37.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (25, 14, 6, 37.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (26, 13, 6, 34.80, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (27, 11, 6, 27.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (28, 7, 6, 36.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (30, 9, 6, 22.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (31, 12, 6, 33.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (32, 8, 6, 27.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (33, 14, 7, 42.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (34, 10, 5, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (35, 7, 5, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (36, 11, 5, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (37, 6, 5, 42.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (38, 9, 5, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (39, 8, 5, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (40, 13, 5, 37.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (41, 14, 5, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (42, 10, 3, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (43, 6, 3, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (44, 11, 3, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (45, 9, 3, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (46, 7, 3, 38.00, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (47, 12, 3, 38.00, 1);
 
 -- ----------------------------
 -- Table structure for pddou_order
@@ -260,7 +336,7 @@ CREATE TABLE `pddou_wish_movie`  (
   `movie_id` int NOT NULL COMMENT '电影id',
   `is_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除（0-false-默认，1-true）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_wish_movie
@@ -268,6 +344,10 @@ CREATE TABLE `pddou_wish_movie`  (
 INSERT INTO `pddou_wish_movie` VALUES (2, 1, 2, 0);
 INSERT INTO `pddou_wish_movie` VALUES (3, 1, 1, 0);
 INSERT INTO `pddou_wish_movie` VALUES (4, 2, 1, 0);
+INSERT INTO `pddou_wish_movie` VALUES (5, 1, 6, 0);
+INSERT INTO `pddou_wish_movie` VALUES (6, 1, 7, 0);
+INSERT INTO `pddou_wish_movie` VALUES (7, 1, 11, 0);
+INSERT INTO `pddou_wish_movie` VALUES (8, 1, 13, 0);
 
 -- ----------------------------
 -- Table structure for sys_employee
@@ -333,6 +413,7 @@ INSERT INTO `sys_employee_role` VALUES (6, '2023-02-17 16:46:06.543051', '2023-0
 INSERT INTO `sys_employee_role` VALUES (11, '2023-02-28 22:31:28.569505', '2023-02-28 22:31:28.569505', 14, 3);
 INSERT INTO `sys_employee_role` VALUES (12, '2023-03-01 16:11:38.097327', '2023-03-01 16:11:38.097327', 15, 3);
 INSERT INTO `sys_employee_role` VALUES (13, '2023-03-01 20:47:28.288440', '2023-03-01 20:47:28.288440', 16, 3);
+INSERT INTO `sys_employee_role` VALUES (14, '2023-03-07 20:22:05.000000', '2023-03-07 20:22:02.000000', 11, 3);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -376,6 +457,99 @@ CREATE TABLE `sys_operation_log`  (
 -- ----------------------------
 -- Records of sys_operation_log
 -- ----------------------------
+INSERT INTO `sys_operation_log` VALUES (1, '2023-03-07 15:48:46.909100', '2023-03-07 15:48:46.910123', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (2, '2023-03-07 15:58:58.802617', '2023-03-07 15:58:58.802617', 1, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (3, '2023-03-07 15:59:03.835788', '2023-03-07 15:59:03.835788', 3, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (4, '2023-03-07 16:50:49.980887', '2023-03-07 16:50:49.980887', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (5, '2023-03-07 16:54:30.531901', '2023-03-07 16:54:30.531901', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (6, '2023-03-07 16:57:16.873932', '2023-03-07 16:57:16.873932', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (7, '2023-03-07 17:03:06.761619', '2023-03-07 17:03:06.761619', 3, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (8, '2023-03-07 17:04:09.945427', '2023-03-07 17:04:09.945427', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (9, '2023-03-07 17:08:49.076739', '2023-03-07 17:08:49.077728', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (10, '2023-03-07 17:13:20.038834', '2023-03-07 17:13:20.038834', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (11, '2023-03-07 17:17:40.848522', '2023-03-07 17:17:40.848522', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (12, '2023-03-07 17:20:16.679422', '2023-03-07 17:20:16.679422', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (13, '2023-03-07 19:45:22.974418', '2023-03-07 19:45:22.974418', 3, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (14, '2023-03-07 19:46:25.831745', '2023-03-07 19:46:25.831745', 3, 'ADMIN', '/admin/movie/add', '{}', '127.0.0.1', NULL, '添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (15, '2023-03-07 19:47:35.160595', '2023-03-07 19:47:35.160595', 4, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (16, '2023-03-07 19:48:22.104591', '2023-03-07 19:48:22.104591', 4, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (17, '2023-03-07 19:48:50.285295', '2023-03-07 19:48:50.285295', 4, 'ADMIN', '/admin/movie/storeChangeStatus', '{}', '127.0.0.1', NULL, '商家电影上映/下映操作');
+INSERT INTO `sys_operation_log` VALUES (18, '2023-03-07 19:48:54.845660', '2023-03-07 19:48:54.845660', 4, 'ADMIN', '/admin/movie/storeChangeStatus', '{}', '127.0.0.1', NULL, '商家电影上映/下映操作');
+INSERT INTO `sys_operation_log` VALUES (19, '2023-03-07 19:48:58.221276', '2023-03-07 19:48:58.221276', 4, 'ADMIN', '/admin/movie/storeChangeStatus', '{}', '127.0.0.1', NULL, '商家电影上映/下映操作');
+INSERT INTO `sys_operation_log` VALUES (20, '2023-03-07 19:49:01.874754', '2023-03-07 19:49:01.874754', 4, 'ADMIN', '/admin/movie/storeChangeStatus', '{}', '127.0.0.1', NULL, '商家电影上映/下映操作');
+INSERT INTO `sys_operation_log` VALUES (21, '2023-03-07 19:49:49.066634', '2023-03-07 19:49:49.066634', 4, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (22, '2023-03-07 19:50:29.859346', '2023-03-07 19:50:29.859346', 4, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (23, '2023-03-07 19:51:09.544643', '2023-03-07 19:51:09.544643', 4, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (24, '2023-03-07 19:51:38.384289', '2023-03-07 19:51:38.384289', 4, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (25, '2023-03-07 19:52:17.664503', '2023-03-07 19:52:17.664503', 4, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (26, '2023-03-07 19:54:23.938050', '2023-03-07 19:54:23.938050', 16, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (27, '2023-03-07 19:54:53.007041', '2023-03-07 19:54:53.007041', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (28, '2023-03-07 19:55:42.064916', '2023-03-07 19:55:42.064916', 3, 'ADMIN', '/admin/cinema/examineCinema', '{}', '127.0.0.1', NULL, '审核影院操作');
+INSERT INTO `sys_operation_log` VALUES (29, '2023-03-07 19:56:25.624180', '2023-03-07 19:56:25.624180', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (30, '2023-03-07 19:57:22.169968', '2023-03-07 19:57:22.169968', 16, 'ADMIN', '/admin/movie/updateByStore', '{}', '127.0.0.1', NULL, '商家更新电影操作');
+INSERT INTO `sys_operation_log` VALUES (31, '2023-03-07 19:58:04.275072', '2023-03-07 19:58:04.275072', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (32, '2023-03-07 19:58:33.246903', '2023-03-07 19:58:33.246903', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (33, '2023-03-07 19:59:09.565917', '2023-03-07 19:59:09.565917', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (34, '2023-03-07 19:59:58.887579', '2023-03-07 19:59:58.887579', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (35, '2023-03-07 20:00:27.343596', '2023-03-07 20:00:27.344593', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (36, '2023-03-07 20:00:47.603876', '2023-03-07 20:00:47.603876', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (37, '2023-03-07 20:01:13.780011', '2023-03-07 20:01:13.780011', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (38, '2023-03-07 20:02:09.195198', '2023-03-07 20:02:09.195198', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (39, '2023-03-07 20:02:42.577606', '2023-03-07 20:02:42.577606', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (40, '2023-03-07 20:02:58.400192', '2023-03-07 20:02:58.400192', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (41, '2023-03-07 20:04:29.935209', '2023-03-07 20:04:29.935209', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (42, '2023-03-07 20:05:02.147090', '2023-03-07 20:05:02.147090', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (43, '2023-03-07 20:05:31.421459', '2023-03-07 20:05:31.421459', 16, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (44, '2023-03-07 20:05:54.129732', '2023-03-07 20:05:54.129732', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (45, '2023-03-07 20:06:05.969037', '2023-03-07 20:06:05.969037', 16, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (46, '2023-03-07 20:06:35.543242', '2023-03-07 20:06:35.543242', 15, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (47, '2023-03-07 20:07:09.518057', '2023-03-07 20:07:09.518057', 15, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (48, '2023-03-07 20:07:27.471835', '2023-03-07 20:07:27.471835', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (49, '2023-03-07 20:07:53.956003', '2023-03-07 20:07:53.956003', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (50, '2023-03-07 20:08:19.024444', '2023-03-07 20:08:19.024444', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (51, '2023-03-07 20:08:29.988101', '2023-03-07 20:08:29.988101', 15, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (52, '2023-03-07 20:08:36.476925', '2023-03-07 20:08:36.477929', 15, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (53, '2023-03-07 20:08:42.559872', '2023-03-07 20:08:42.559872', 15, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (54, '2023-03-07 20:09:01.186619', '2023-03-07 20:09:01.186619', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (55, '2023-03-07 20:09:24.017783', '2023-03-07 20:09:24.017783', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (56, '2023-03-07 20:10:02.006919', '2023-03-07 20:10:02.006919', 15, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (57, '2023-03-07 20:10:46.938714', '2023-03-07 20:10:46.938714', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (58, '2023-03-07 20:11:14.094889', '2023-03-07 20:11:14.094889', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (59, '2023-03-07 20:11:38.686911', '2023-03-07 20:11:38.686911', 15, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (60, '2023-03-07 20:11:52.002111', '2023-03-07 20:11:52.002111', 15, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (61, '2023-03-07 20:12:08.501095', '2023-03-07 20:12:08.501095', 16, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (62, '2023-03-07 20:12:36.339530', '2023-03-07 20:12:36.339530', 16, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (63, '2023-03-07 20:12:44.957119', '2023-03-07 20:12:44.957119', 16, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (64, '2023-03-07 20:13:02.688120', '2023-03-07 20:13:02.688120', 14, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (65, '2023-03-07 20:13:43.550068', '2023-03-07 20:13:43.550068', 14, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (66, '2023-03-07 20:14:00.007823', '2023-03-07 20:14:00.007823', 14, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (67, '2023-03-07 20:14:26.231604', '2023-03-07 20:14:26.231604', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (68, '2023-03-07 20:16:31.671148', '2023-03-07 20:16:31.671148', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (69, '2023-03-07 20:16:48.137045', '2023-03-07 20:16:48.137045', 14, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (70, '2023-03-07 20:17:17.135903', '2023-03-07 20:17:17.135903', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (71, '2023-03-07 20:17:31.465043', '2023-03-07 20:17:31.465043', 14, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (72, '2023-03-07 20:17:49.409580', '2023-03-07 20:17:49.409580', 14, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (73, '2023-03-07 20:18:10.087382', '2023-03-07 20:18:10.087382', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (74, '2023-03-07 20:18:36.791148', '2023-03-07 20:18:36.791148', 14, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (75, '2023-03-07 20:19:02.862796', '2023-03-07 20:19:02.862796', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (76, '2023-03-07 20:19:27.664006', '2023-03-07 20:19:27.664006', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (77, '2023-03-07 20:19:44.800372', '2023-03-07 20:19:44.800372', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (78, '2023-03-07 20:20:10.078989', '2023-03-07 20:20:10.078989', 14, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (79, '2023-03-07 20:20:15.980974', '2023-03-07 20:20:15.980974', 14, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (80, '2023-03-07 20:20:34.283912', '2023-03-07 20:20:34.283912', 11, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (81, '2023-03-07 20:20:38.767014', '2023-03-07 20:20:38.767014', 11, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (82, '2023-03-07 20:22:30.185355', '2023-03-07 20:22:30.185355', 11, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (83, '2023-03-07 20:23:00.553616', '2023-03-07 20:23:00.553616', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (84, '2023-03-07 20:23:11.964588', '2023-03-07 20:23:11.964588', 11, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (85, '2023-03-07 20:23:34.229977', '2023-03-07 20:23:34.229977', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (86, '2023-03-07 20:23:45.086524', '2023-03-07 20:23:45.086524', 11, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (87, '2023-03-07 20:24:02.811548', '2023-03-07 20:24:02.811548', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (88, '2023-03-07 20:24:20.059675', '2023-03-07 20:24:20.059675', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (89, '2023-03-07 20:24:32.320730', '2023-03-07 20:24:32.320730', 11, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (90, '2023-03-07 20:24:44.024799', '2023-03-07 20:24:44.024799', 11, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
+INSERT INTO `sys_operation_log` VALUES (91, '2023-03-07 20:25:03.446041', '2023-03-07 20:25:03.446041', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (92, '2023-03-07 20:25:18.908878', '2023-03-07 20:25:18.908878', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (93, '2023-03-07 20:25:47.232755', '2023-03-07 20:25:47.232755', 11, 'ADMIN', '/admin/hall/addByStore', '{}', '127.0.0.1', NULL, '商家添加影厅操作');
 
 -- ----------------------------
 -- Table structure for sys_role

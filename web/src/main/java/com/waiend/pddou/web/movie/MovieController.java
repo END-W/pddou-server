@@ -30,4 +30,14 @@ public class MovieController {
     public Result getMovieDetail(Integer movieId) {
         return ResultFactory.buildSuccessResult(movieServiceImpl.getMovieDetail(movieId));
     }
+
+    /**
+     * 获取电影列表
+     *
+     * @return Result
+     */
+    @GetMapping("getMovieList")
+    public Result getMovieList() {
+        return ResultFactory.buildSuccessResult(movieServiceImpl.getMovieList());
+    }
 }

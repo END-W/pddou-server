@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -30,7 +31,7 @@ public class CommentVo {
 
     private String movieName;
 
-    private Byte userScore;
+    private BigDecimal userScore;
 
     private String content;
 

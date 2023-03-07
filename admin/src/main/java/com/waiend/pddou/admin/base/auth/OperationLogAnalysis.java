@@ -40,7 +40,6 @@ public class OperationLogAnalysis implements ResponseBodyAdvice {
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (body instanceof Result) {
             Result result = (Result) body;
-            System.out.println(result);
             if (result.getCode() == 20000) {
                 RequiresOperationLog requiresOperationLog = methodParameter.getMethodAnnotation(RequiresOperationLog.class);
                 // 记录操作日志
