@@ -29,3 +29,6 @@ ignored:
   urls:
     - /user/getPhoneCode
     - /user/phoneLogin
+    - /movie/getMovieList
+    - /movie/getMovieDetail
+    - /comment/getAllUserPassComment

@@ -77,7 +77,10 @@
           FROM pddou_comment
           WHERE is_pass=1
           AND movie_id=#{movieId}
-          AND user_id != #{userId}) c
+          <if test="userId != null">
+            AND user_id != #{userId}
+          </if>
+          ) c
     JOIN pddou_user u
     ON c.user_id=u.id
     ORDER BY c.support_num DESC
