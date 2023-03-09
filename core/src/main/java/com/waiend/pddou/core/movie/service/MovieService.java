@@ -118,4 +118,12 @@ public interface MovieService extends IService<MovieEntity> {
      * @return List<MovieEntity>
      */
     List<MovieEntity> getMovieList();
+
+    /**
+     * 根据名字模糊匹配电影
+     *
+     * @param movieName 电影名
+     * @return List<MovieEntity>
+     */
+    List<MovieEntity> matchMovieByName(String movieName);
 }

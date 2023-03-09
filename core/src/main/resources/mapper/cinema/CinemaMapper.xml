@@ -66,4 +66,12 @@
     ORDER BY c.create_time DESC
     LIMIT #{page}, #{limit}
   </select>
+
+  <select id="selectCinemaByCity" resultType="com.waiend.pddou.core.cinema.vo.SelectCinemaVo">
+    SELECT cinema_name, specified_address, lng, lat
+    FROM pddou_cinema
+    WHERE is_block=0
+    AND is_examine='ON_ACTIVITY'
+    AND city=#{city}
+  </select>
 </mapper>

@@ -40,4 +40,15 @@ public class MovieController {
     public Result getMovieList() {
         return ResultFactory.buildSuccessResult(movieServiceImpl.getMovieList());
     }
+
+    /**
+     * 根据名字模糊匹配电影
+     *
+     * @param movieName 电影名
+     * @return Result
+     */
+    @GetMapping("matchMovieByName")
+    public Result matchMovieByName(String movieName) {
+        return ResultFactory.buildSuccessResult(movieServiceImpl.matchMovieByName(movieName));
+    }
 }

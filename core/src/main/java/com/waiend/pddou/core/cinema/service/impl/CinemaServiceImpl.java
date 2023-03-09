@@ -9,6 +9,7 @@ import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
 import com.waiend.pddou.core.cinema.service.CinemaService;
 import com.waiend.pddou.core.cinema.vo.CinemaVo;
+import com.waiend.pddou.core.cinema.vo.SelectCinemaVo;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import com.waiend.pddou.core.system.entity.EmployeeRoleEntity;
 import com.waiend.pddou.core.system.entity.RoleEntity;
@@ -17,12 +18,12 @@ import com.waiend.pddou.core.system.mapper.EmployeeRoleMapper;
 import com.waiend.pddou.core.system.mapper.RoleMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author end
@@ -117,5 +118,14 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
         cinemaEntity.setIsBlock(true);
 
         cinemaMapper.updateById(cinemaEntity);
+    }
+
+    @Override
+    public List<SelectCinemaVo> getCinemaList(Integer movieId, String city) {
+        if (!StringUtils.hasText(city)) {
+            return new ArrayList<>();
+        }
+
+        return cinemaMapper.selectCinemaByCity(city);
     }
 }

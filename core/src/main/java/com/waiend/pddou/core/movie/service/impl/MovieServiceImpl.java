@@ -164,4 +164,10 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
 
         return movieList;
     }
+
+    @Override
+    public List<MovieEntity> matchMovieByName(String movieName) {
+        return movieMapper.selectList(new QueryWrapper<MovieEntity>().lambda()
+                                            .likeRight(MovieEntity::getName, movieName));
+    }
 }

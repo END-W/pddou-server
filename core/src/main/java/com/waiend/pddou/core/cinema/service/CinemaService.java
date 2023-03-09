@@ -3,7 +3,10 @@ package com.waiend.pddou.core.cinema.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.vo.CinemaVo;
+import com.waiend.pddou.core.cinema.vo.SelectCinemaVo;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,4 +64,13 @@ public interface CinemaService extends IService<CinemaEntity> {
      * @param cinemaId 影院ID
      */
     void blockCinema(Long cinemaId);
+
+    /**
+     * 获取影院列表
+     *
+     * @param movieId 电影ID
+     * @param city 城市
+     * @return List<SelectCinemaVo>
+     */
+    List<SelectCinemaVo> getCinemaList(Integer movieId, String city);
 }

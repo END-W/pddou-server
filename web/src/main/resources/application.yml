@@ -31,4 +31,6 @@ ignored:
     - /user/phoneLogin
     - /movie/getMovieList
     - /movie/getMovieDetail
+    - /movie/matchMovieByName
+    - /cinema/getCinemaList
     - /comment/getAllUserPassComment
