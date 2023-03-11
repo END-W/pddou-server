@@ -121,11 +121,20 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
     }
 
     @Override
-    public List<SelectCinemaVo> getCinemaList(Integer movieId, String city) {
+    public List<SelectCinemaVo> getCinemaList(String city) {
         if (!StringUtils.hasText(city)) {
             return new ArrayList<>();
         }
 
-        return cinemaMapper.selectCinemaByCity(city);
+        return cinemaMapper.selectCinemaByCity(null, city);
+    }
+
+    @Override
+    public List<SelectCinemaVo> matchCinemaByName(String cinemaName, String city) {
+        if (!StringUtils.hasText(city)) {
+            return new ArrayList<>();
+        }
+
+        return cinemaMapper.selectCinemaByCity(cinemaName, city);
     }
 }

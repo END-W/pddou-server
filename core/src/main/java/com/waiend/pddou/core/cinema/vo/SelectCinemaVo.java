@@ -17,5 +17,9 @@ public class SelectCinemaVo {
 
     private String specifiedAddress;
 
+    private BigDecimal lng;
+
+    private BigDecimal lat;
+
     private BigDecimal distance;
 }

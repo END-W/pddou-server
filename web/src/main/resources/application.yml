@@ -33,4 +33,5 @@ ignored:
     - /movie/getMovieDetail
     - /movie/matchMovieByName
     - /cinema/getCinemaList
+    - /cinema/matchCinemaByName
     - /comment/getAllUserPassComment

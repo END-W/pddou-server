@@ -35,10 +35,11 @@ public interface CinemaMapper extends BaseMapper<CinemaEntity> {
                                     @Param("isBlock") Integer isBlock);
 
     /**
-     * 根据城市获取影院列表
+     * 根据影院名和城市获取影院列表
      *
+     * @param cinemaName 影院名
      * @param city 城市
      * @return List<SelectCinemaVo>
      */
-    List<SelectCinemaVo> selectCinemaByCity(@Param("city") String city);
+    List<SelectCinemaVo> selectCinemaByCity(@Param("cinemaName") String cinemaName, @Param("city") String city);
 }

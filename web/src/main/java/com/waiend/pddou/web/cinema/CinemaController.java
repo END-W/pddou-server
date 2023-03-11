@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 
 /**
+ *
  * @author end
  * @date 2023年03月09日 22:30
  */
@@ -24,12 +24,23 @@ public class CinemaController {
     /**
      * 获取影院列表
      *
-     * @param movieId 电影ID
      * @param city 城市
      * @return Result
      */
     @GetMapping("getCinemaList")
-    public Result getCinemaList(Integer movieId, String city) {
-        return ResultFactory.buildSuccessResult(cinemaServiceImpl.getCinemaList(movieId, city));
+    public Result getCinemaList(String city) {
+        return ResultFactory.buildSuccessResult(cinemaServiceImpl.getCinemaList(city));
+    }
+
+    /**
+     * 根据名字模糊匹配影院
+     *
+     * @param cinemaName 影院名
+     * @param city 城市
+     * @return Result
+     */
+    @GetMapping("matchCinemaByName")
+    public Result matchCinemaByName(String cinemaName, String city) {
+        return ResultFactory.buildSuccessResult(cinemaServiceImpl.matchCinemaByName(cinemaName, city));
     }
 }

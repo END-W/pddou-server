@@ -68,9 +68,17 @@ public interface CinemaService extends IService<CinemaEntity> {
     /**
      * 获取影院列表
      *
-     * @param movieId 电影ID
      * @param city 城市
      * @return List<SelectCinemaVo>
      */
-    List<SelectCinemaVo> getCinemaList(Integer movieId, String city);
+    List<SelectCinemaVo> getCinemaList(String city);
+
+    /**
+     * 根据名字模糊匹配影院
+     *
+     * @param cinemaName 影院名
+     * @param city 城市
+     * @return List<SelectCinemaVo>
+     */
+    List<SelectCinemaVo> matchCinemaByName(String cinemaName, String city);
 }
