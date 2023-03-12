@@ -63,4 +63,18 @@
     ORDER BY public_date DESC, score DESC
     LIMIT #{page}, #{limit}
   </select>
+
+  <select id="selectCinemaScheduleByMovieId" resultType="com.waiend.pddou.core.cinema.vo.CinemaScheduleVo">
+    SELECT DISTINCT c.id, c.cinema_name, c.specified_address, c.lng, c.lat, s.show_date
+    FROM (SELECT id, cinema_name, specified_address, lng, lat
+          FROM pddou_cinema
+          WHERE is_block=0
+          AND is_examine='ON_ACTIVITY'
+          AND city=#{city}) c
+    JOIN pddou_schedule s
+    ON c.id=s.cinema_id AND s.movie_id=#{movieId}
+    WHERE s.show_date BETWEEN #{today} AND #{after}
+    AND CONCAT(s.show_date,' ',s.show_time) > #{now}
+    ORDER BY s.show_date
+  </select>
 </mapper>

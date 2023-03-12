@@ -51,4 +51,16 @@ public class MovieController {
     public Result matchMovieByName(String movieName) {
         return ResultFactory.buildSuccessResult(movieServiceImpl.matchMovieByName(movieName));
     }
+
+    /**
+     * 获取当前电影的排片
+     *
+     * @param movieId 电影ID
+     * @param city 城市
+     * @return Result
+     */
+    @GetMapping("getCurrentMovieSchedule")
+    public Result getCurrentMovieSchedule(Integer movieId, String city) {
+        return ResultFactory.buildSuccessResult(movieServiceImpl.getCurrentMovieSchedule(movieId, city));
+    }
 }

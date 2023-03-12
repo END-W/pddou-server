@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
+import com.waiend.pddou.core.cinema.vo.CinemaScheduleVo;
 import com.waiend.pddou.core.common.constant.RedisConstants;
 import com.waiend.pddou.core.common.util.RedisUtils;
 import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
@@ -17,10 +18,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author end
@@ -168,6 +172,20 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     @Override
     public List<MovieEntity> matchMovieByName(String movieName) {
         return movieMapper.selectList(new QueryWrapper<MovieEntity>().lambda()
-                                            .likeRight(MovieEntity::getName, movieName));
+                                            .like(MovieEntity::getName, movieName));
+    }
+
+    @Override
+    public Map<String, List<CinemaScheduleVo>> getCurrentMovieSchedule(Integer movieId, String city) {
+        if (!StringUtils.hasText(city)) {
+            return new HashMap<>();
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = LocalDate.now();
+        LocalDate after = today.plusDays(7);
+
+        List<CinemaScheduleVo> cinemaList = movieMapper.selectCinemaScheduleByMovieId(movieId, city, now, today, after);
+        return cinemaList.stream().collect(Collectors.groupingBy(CinemaScheduleVo::getShowDate));
     }
 }

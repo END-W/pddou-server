@@ -1,6 +1,7 @@
 package com.waiend.pddou.core.movie.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.waiend.pddou.core.cinema.vo.CinemaScheduleVo;
 import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
 
@@ -126,4 +127,13 @@ public interface MovieService extends IService<MovieEntity> {
      * @return List<MovieEntity>
      */
     List<MovieEntity> matchMovieByName(String movieName);
+
+    /**
+     * 获取当前电影的排片
+     *
+     * @param movieId 电影ID
+     * @param city 城市
+     * @return Map<String, List<CinemaScheduleVo>>
+     */
+    Map<String, List<CinemaScheduleVo>> getCurrentMovieSchedule(Integer movieId, String city);
 }

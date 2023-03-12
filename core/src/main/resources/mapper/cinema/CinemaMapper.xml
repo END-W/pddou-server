@@ -74,7 +74,7 @@
     AND is_examine='ON_ACTIVITY'
     AND city=#{city}
     <if test="cinemaName != null and cinemaName != ''">
-      AND cinema_name LIKE concat(#{cinemaName},'%')
+      AND cinema_name LIKE concat('%',#{cinemaName},'%')
     </if>
   </select>
 </mapper>

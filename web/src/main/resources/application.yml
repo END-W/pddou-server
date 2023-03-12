@@ -32,6 +32,7 @@ ignored:
     - /movie/getMovieList
     - /movie/getMovieDetail
     - /movie/matchMovieByName
+    - /movie/getCurrentMovieSchedule
     - /cinema/getCinemaList
     - /cinema/matchCinemaByName
     - /comment/getAllUserPassComment
