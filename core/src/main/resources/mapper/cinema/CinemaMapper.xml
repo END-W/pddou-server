@@ -77,4 +77,29 @@
       AND cinema_name LIKE concat('%',#{cinemaName},'%')
     </if>
   </select>
+
+  <select id="selectMovieListByCinemaId" resultType="com.waiend.pddou.core.movie.entity.MovieEntity">
+    SELECT DISTINCT m.id, m.poster, m.`name`, m.score, m.type, m.actor, m.movie_long
+    FROM (SELECT movie_id, cinema_id
+          FROM pddou_movie_cinema
+          WHERE cinema_id=#{cinemaId}
+          AND is_show=1) mc
+    JOIN pddou_movie m
+    ON mc.movie_id=m.id
+    JOIN pddou_schedule s
+    ON s.movie_id=mc.movie_id AND s.cinema_id=mc.cinema_id
+    WHERE s.show_date BETWEEN #{today} AND #{after}
+    AND CONCAT(s.show_date,' ',s.show_time) > #{now}
+  </select>
+
+  <select id="selectMovieScheduleByCinemaId" resultType="com.waiend.pddou.core.cinema.vo.MovieScheduleVo">
+    SELECT s.id AS schedule_id, s.cinema_id, s.movie_id, s.show_date, s.show_time, s.hall_name, m.`language`, m.movie_long, mc.price
+    FROM (SELECT * FROM pddou_schedule WHERE cinema_id=#{cinemaId}) s
+    JOIN pddou_movie m
+    ON s.movie_id=m.id
+    JOIN pddou_movie_cinema mc
+    ON mc.cinema_id=#{cinemaId} AND mc.movie_id=s.movie_id AND mc.is_show=1
+    WHERE s.show_date BETWEEN #{today} AND #{after}
+    AND CONCAT(s.show_date,' ',s.show_time) > #{now}
+  </select>
 </mapper>

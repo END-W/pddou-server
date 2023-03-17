@@ -35,4 +35,6 @@ ignored:
     - /movie/getCurrentMovieSchedule
     - /cinema/getCinemaList
     - /cinema/matchCinemaByName
+    - /cinema/getCurrentCinemaDetail
+    - /cinema/getCurrentCinemaMovieSchedule
     - /comment/getAllUserPassComment

@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 12/03/2023 21:57:15
+ Date: 17/03/2023 18:24:20
 */
 
 SET NAMES utf8mb4;
@@ -86,6 +86,7 @@ INSERT INTO `pddou_comment` VALUES (9, 1, 8, 7.0, '本来是冲着梁朝伟周�
 INSERT INTO `pddou_comment` VALUES (10, 1, 11, 8.0, '这应该是复联四以后最好看的的漫威电影了，特效感觉炸裂，而且剧本充实，新老演员看的出都在为这个电影付出', '2023-03-07 21:38:50', 0, 1, 0, NULL);
 INSERT INTO `pddou_comment` VALUES (11, 1, 13, 7.0, '不看你真的会后悔！\n一部非常贴近生活的影片，讲义气的人为了做自己认为对的事情遇到了一系列的困难，过程中闹出了很多笑话，也承担了相应的后果，就算是这样也不影响真情的存在，电影结尾有一些催泪，还有小小的彩蛋哦，值得推荐的好电影。', '2023-03-07 21:41:04', 0, 1, 0, NULL);
 INSERT INTO `pddou_comment` VALUES (12, 1, 14, 6.0, '东野圭吾的悬疑本，日剧拍过，内地也拍过，这次影版千呼万唤始出来，还是很期待的\n在小小的回廊亭上演的命案，牵出\"钱\"与\"情\"的纠葛，抛开原著还是不错的，围绕着原著里的几点线索拼图，打乱了布局，又是一出复仇剧本！\n这次的侯雯元，还是挺帅气的', '2023-03-07 21:42:31', 0, 1, 0, NULL);
+INSERT INTO `pddou_comment` VALUES (13, 2, 6, 8.0, '很满意，之前一直担心第二部会不如第一部，看完很震撼，看得出来那些场景下功夫了，花钱了', '2023-03-17 15:16:42', 0, 1, 0, NULL);
 
 -- ----------------------------
 -- Table structure for pddou_hall
@@ -188,7 +189,7 @@ CREATE TABLE `pddou_movie_cinema`  (
   `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否上映（0-false，1-true-默认）',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_movie_id_cinema_id`(`movie_id`, `cinema_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_movie_cinema
@@ -239,6 +240,7 @@ INSERT INTO `pddou_movie_cinema` VALUES (47, 12, 3, 38.00, 1);
 INSERT INTO `pddou_movie_cinema` VALUES (48, 12, 5, 38.00, 1);
 INSERT INTO `pddou_movie_cinema` VALUES (49, 14, 3, 38.00, 1);
 INSERT INTO `pddou_movie_cinema` VALUES (50, 6, 6, 34.90, 1);
+INSERT INTO `pddou_movie_cinema` VALUES (51, 13, 3, 38.00, 1);
 
 -- ----------------------------
 -- Table structure for pddou_order
@@ -283,7 +285,7 @@ CREATE TABLE `pddou_schedule`  (
   `seat_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '座位信息',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_movie_id_cinema_id_show_date_time`(`movie_id`, `cinema_id`, `show_date`, `show_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 76 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of pddou_schedule
@@ -361,6 +363,38 @@ INSERT INTO `pddou_schedule` VALUES (72, 6, 6, '5号厅全景声激光厅', '202
 INSERT INTO `pddou_schedule` VALUES (73, 6, 6, '5号厅全景声激光厅', '2023-03-13', '17:20', NULL);
 INSERT INTO `pddou_schedule` VALUES (74, 6, 6, '5号厅全景声激光厅', '2023-03-14', '17:20', NULL);
 INSERT INTO `pddou_schedule` VALUES (75, 6, 6, '5号厅全景声激光厅', '2023-03-15', '17:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (76, 13, 3, '全兴大曲厅', '2023-03-17', '17:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (77, 13, 3, '全兴大曲厅', '2023-03-17', '19:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (78, 13, 3, '4号激光厅', '2023-03-17', '20:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (79, 14, 3, '红色电影厅', '2023-03-17', '17:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (80, 14, 3, '6号激光厅', '2023-03-17', '21:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (81, 14, 3, '全兴大曲厅', '2023-03-18', '13:10', NULL);
+INSERT INTO `pddou_schedule` VALUES (82, 14, 3, '6号激光厅', '2023-03-18', '17:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (83, 14, 3, '6号激光厅', '2023-03-18', '21:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (84, 13, 3, '4号激光厅', '2023-03-18', '14:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (85, 13, 3, '全兴大曲厅', '2023-03-18', '15:10', NULL);
+INSERT INTO `pddou_schedule` VALUES (86, 13, 3, '全兴大曲厅', '2023-03-18', '17:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (87, 13, 3, '4号激光厅', '2023-03-18', '20:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (88, 13, 5, '2号四川银行厅', '2023-03-17', '17:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (89, 13, 5, '2号四川银行厅', '2023-03-17', '21:50', NULL);
+INSERT INTO `pddou_schedule` VALUES (90, 13, 5, '2号四川银行厅', '2023-03-18', '14:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (91, 13, 5, '2号四川银行厅', '2023-03-18', '17:00', NULL);
+INSERT INTO `pddou_schedule` VALUES (92, 13, 5, '2号四川银行厅', '2023-03-18', '19:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (93, 6, 5, '5号激光厅', '2023-03-17', '20:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (94, 6, 5, '5号激光厅', '2023-03-18', '15:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (95, 6, 5, '5号激光厅', '2023-03-18', '20:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (96, 14, 5, '3号激光厅', '2023-03-17', '19:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (97, 14, 5, '4号亲子厅', '2023-03-18', '13:45', NULL);
+INSERT INTO `pddou_schedule` VALUES (98, 14, 5, '3号激光厅', '2023-03-18', '19:20', NULL);
+INSERT INTO `pddou_schedule` VALUES (99, 7, 5, '3号激光厅', '2023-03-17', '21:15', NULL);
+INSERT INTO `pddou_schedule` VALUES (100, 13, 6, '2号激光厅', '2023-03-17', '18:05', NULL);
+INSERT INTO `pddou_schedule` VALUES (101, 13, 6, '1号激光厅', '2023-03-17', '20:10', NULL);
+INSERT INTO `pddou_schedule` VALUES (102, 13, 6, '1号激光厅', '2023-03-18', '13:50', NULL);
+INSERT INTO `pddou_schedule` VALUES (103, 13, 6, '1号激光厅', '2023-03-18', '19:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (104, 14, 6, '2号激光厅', '2023-03-17', '20:30', NULL);
+INSERT INTO `pddou_schedule` VALUES (105, 14, 6, '1号激光厅', '2023-03-18', '15:55', NULL);
+INSERT INTO `pddou_schedule` VALUES (106, 12, 6, '3号激光厅', '2023-03-17', '17:40', NULL);
+INSERT INTO `pddou_schedule` VALUES (107, 8, 6, '3号激光厅', '2023-03-17', '22:15', NULL);
 
 -- ----------------------------
 -- Table structure for pddou_user
@@ -522,7 +556,7 @@ CREATE TABLE `sys_operation_log`  (
   `ip_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '具体地址',
   `description` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 111 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 175 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_operation_log
@@ -699,6 +733,46 @@ INSERT INTO `sys_operation_log` VALUES (169, '2023-03-12 17:33:26.018398', '2023
 INSERT INTO `sys_operation_log` VALUES (170, '2023-03-12 17:33:55.563932', '2023-03-12 17:33:55.563932', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
 INSERT INTO `sys_operation_log` VALUES (171, '2023-03-12 17:34:11.201173', '2023-03-12 17:34:11.201173', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
 INSERT INTO `sys_operation_log` VALUES (172, '2023-03-12 17:34:27.647788', '2023-03-12 17:34:27.647788', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (173, '2023-03-17 14:49:28.478425', '2023-03-17 14:49:28.478425', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (174, '2023-03-17 14:50:16.413875', '2023-03-17 14:50:16.413875', 1, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (175, '2023-03-17 14:52:17.330880', '2023-03-17 14:52:17.330880', 11, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (176, '2023-03-17 14:54:32.003807', '2023-03-17 14:54:32.003807', 11, 'ADMIN', '/admin/movie/addByStore', '{}', '127.0.0.1', NULL, '商家添加电影操作');
+INSERT INTO `sys_operation_log` VALUES (177, '2023-03-17 14:55:40.190571', '2023-03-17 14:55:40.190571', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (178, '2023-03-17 14:56:12.289009', '2023-03-17 14:56:12.289009', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (179, '2023-03-17 14:56:28.810111', '2023-03-17 14:56:28.810111', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (180, '2023-03-17 14:57:15.199311', '2023-03-17 14:57:15.199311', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (181, '2023-03-17 14:57:34.898099', '2023-03-17 14:57:34.898099', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (182, '2023-03-17 14:58:09.671871', '2023-03-17 14:58:09.671871', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (183, '2023-03-17 14:58:29.488941', '2023-03-17 14:58:29.488941', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (184, '2023-03-17 14:58:43.886608', '2023-03-17 14:58:43.886608', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (185, '2023-03-17 14:59:17.670366', '2023-03-17 14:59:17.670366', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (186, '2023-03-17 14:59:38.716070', '2023-03-17 14:59:38.716070', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (187, '2023-03-17 14:59:56.051453', '2023-03-17 14:59:56.051453', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (188, '2023-03-17 15:00:17.998206', '2023-03-17 15:00:17.998206', 11, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (189, '2023-03-17 15:00:21.837268', '2023-03-17 15:00:21.837268', 11, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (190, '2023-03-17 15:00:45.640696', '2023-03-17 15:00:45.640696', 14, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (191, '2023-03-17 15:01:18.380161', '2023-03-17 15:01:18.380161', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (192, '2023-03-17 15:01:41.889609', '2023-03-17 15:01:41.889609', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (193, '2023-03-17 15:02:17.888535', '2023-03-17 15:02:17.888535', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (194, '2023-03-17 15:02:32.408622', '2023-03-17 15:02:32.408622', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (195, '2023-03-17 15:02:51.649910', '2023-03-17 15:02:51.649910', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (196, '2023-03-17 15:03:18.140652', '2023-03-17 15:03:18.140652', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (197, '2023-03-17 15:03:46.848388', '2023-03-17 15:03:46.848388', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (198, '2023-03-17 15:04:03.826639', '2023-03-17 15:04:03.826639', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (199, '2023-03-17 15:04:26.847021', '2023-03-17 15:04:26.847021', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (200, '2023-03-17 15:05:14.488073', '2023-03-17 15:05:14.488073', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (201, '2023-03-17 15:05:32.485741', '2023-03-17 15:05:32.485741', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (202, '2023-03-17 15:06:08.556939', '2023-03-17 15:06:08.556939', 14, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (203, '2023-03-17 15:06:30.661803', '2023-03-17 15:06:30.661803', 14, 'ADMIN', '/admin/auth/logout', '{}', '127.0.0.1', NULL, '注销操作');
+INSERT INTO `sys_operation_log` VALUES (204, '2023-03-17 15:06:41.315128', '2023-03-17 15:06:41.315128', 15, 'ADMIN', 'http://localhost:7001/admin/auth/login', '{}', '127.0.0.1', NULL, '登录操作');
+INSERT INTO `sys_operation_log` VALUES (205, '2023-03-17 15:07:21.877352', '2023-03-17 15:07:21.877352', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (206, '2023-03-17 15:07:47.536636', '2023-03-17 15:07:47.536636', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (207, '2023-03-17 15:08:54.683549', '2023-03-17 15:08:54.683549', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (208, '2023-03-17 15:09:09.423046', '2023-03-17 15:09:09.423046', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (209, '2023-03-17 15:09:47.513305', '2023-03-17 15:09:47.513305', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (210, '2023-03-17 15:10:15.594280', '2023-03-17 15:10:15.594280', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (211, '2023-03-17 15:10:41.330245', '2023-03-17 15:10:41.330245', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
+INSERT INTO `sys_operation_log` VALUES (212, '2023-03-17 15:11:48.813429', '2023-03-17 15:11:48.813429', 15, 'ADMIN', '/admin/schedule/addByStore', '{}', '127.0.0.1', NULL, '商家添加场次操作');
 
 -- ----------------------------
 -- Table structure for sys_role

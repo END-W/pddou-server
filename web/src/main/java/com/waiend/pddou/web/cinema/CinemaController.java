@@ -43,4 +43,26 @@ public class CinemaController {
     public Result matchCinemaByName(String cinemaName, String city) {
         return ResultFactory.buildSuccessResult(cinemaServiceImpl.matchCinemaByName(cinemaName, city));
     }
+
+    /**
+     * 获取当前影院详情
+     *
+     * @param cinemaId 影院ID
+     * @return Result
+     */
+    @GetMapping("getCurrentCinemaDetail")
+    public Result getCurrentCinemaDetail(Integer cinemaId) {
+        return ResultFactory.buildSuccessResult(cinemaServiceImpl.getCurrentCinemaDetail(cinemaId));
+    }
+
+    /**
+     * 获取当前影院的排片
+     *
+     * @param cinemaId 影院ID
+     * @return Result
+     */
+    @GetMapping("getCurrentCinemaMovieSchedule")
+    public Result getCurrentCinemaMovieSchedule(Integer cinemaId) {
+        return ResultFactory.buildSuccessResult(cinemaServiceImpl.getCurrentCinemaMovieSchedule(cinemaId));
+    }
 }

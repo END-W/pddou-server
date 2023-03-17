@@ -81,4 +81,20 @@ public interface CinemaService extends IService<CinemaEntity> {
      * @return List<SelectCinemaVo>
      */
     List<SelectCinemaVo> matchCinemaByName(String cinemaName, String city);
+
+    /**
+     * 获取当前影院详情
+     *
+     * @param cinemaId 影院ID
+     * @return CinemaEntity
+     */
+    CinemaEntity getCurrentCinemaDetail(Integer cinemaId);
+
+    /**
+     * 获取当前影院的排片
+     *
+     * @param cinemaId 影院ID
+     * @return Map<String, Object>
+     */
+    Map<String, Object> getCurrentCinemaMovieSchedule(Integer cinemaId);
 }

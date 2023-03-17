@@ -8,8 +8,12 @@ import com.waiend.pddou.core.base.password.PasswordManager;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
 import com.waiend.pddou.core.cinema.service.CinemaService;
+import com.waiend.pddou.core.cinema.vo.CinemaScheduleVo;
 import com.waiend.pddou.core.cinema.vo.CinemaVo;
+import com.waiend.pddou.core.cinema.vo.MovieScheduleVo;
 import com.waiend.pddou.core.cinema.vo.SelectCinemaVo;
+import com.waiend.pddou.core.movie.entity.MovieEntity;
+import com.waiend.pddou.core.movie.mapper.MovieMapper;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import com.waiend.pddou.core.system.entity.EmployeeRoleEntity;
 import com.waiend.pddou.core.system.entity.RoleEntity;
@@ -22,8 +26,10 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author end
@@ -69,18 +75,18 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
     public void addCinema(CinemaEntity cinemaEntity) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
         employeeEntity.setType(EmployeeEntity.Type.MERCHANT)
-                      .setUserType(EmployeeEntity.UserType.STORE)
-                      .setUsername(cinemaEntity.getPhone())
-                      .setName(cinemaEntity.getLegalPerson())
-                      .setPhone(cinemaEntity.getPhone())
-        // 默认密码：123456
-                      .setPassword("$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi");
+                .setUserType(EmployeeEntity.UserType.STORE)
+                .setUsername(cinemaEntity.getPhone())
+                .setName(cinemaEntity.getLegalPerson())
+                .setPhone(cinemaEntity.getPhone())
+                // 默认密码：123456
+                .setPassword("$2a$10$UYcHnjoNXL/vgYy.kkxpZ.WO4rRGLkQLxAkRxaerwNXJNxCnKNCKi");
 
         employeeMapper.insert(employeeEntity);
 
         EmployeeRoleEntity employeeRoleEntity = new EmployeeRoleEntity();
         RoleEntity roleEntity = roleMapper.selectOne(new QueryWrapper<RoleEntity>().lambda()
-                                                    .eq(RoleEntity::getName, EmployeeEntity.UserType.STORE));
+                .eq(RoleEntity::getName, EmployeeEntity.UserType.STORE));
         employeeRoleEntity.setEmployeeId(employeeEntity.getId());
         employeeRoleEntity.setRoleId(Math.toIntExact(roleEntity.getId()));
 
@@ -136,5 +142,30 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
         }
 
         return cinemaMapper.selectCinemaByCity(cinemaName, city);
+    }
+
+    @Override
+    public CinemaEntity getCurrentCinemaDetail(Integer cinemaId) {
+        return cinemaMapper.selectById(cinemaId);
+    }
+
+    @Override
+    public Map<String, Object> getCurrentCinemaMovieSchedule(Integer cinemaId) {
+        Map<String, Object> map = new HashMap<>();
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = LocalDate.now();
+        LocalDate after = today.plusDays(7);
+
+        List<MovieEntity> movieList = cinemaMapper.selectMovieListByCinemaId(cinemaId, now, today, after);
+        List<MovieScheduleVo> movieScheduleList = cinemaMapper.selectMovieScheduleByCinemaId(cinemaId, now, today, after);
+
+        Map<Integer, List<MovieScheduleVo>> collect = movieScheduleList.stream().collect(Collectors.groupingBy(MovieScheduleVo::getMovieId));
+        ArrayList<Object> list = new ArrayList<>(collect.values());
+
+        map.put("hasMovieInfo", movieList);
+        map.put("movieScheduleInfo", list);
+
+        return map;
     }
 }
