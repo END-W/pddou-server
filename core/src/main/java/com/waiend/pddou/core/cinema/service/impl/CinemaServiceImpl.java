@@ -135,6 +135,7 @@ public class CinemaServiceImpl extends ServiceImpl<CinemaMapper, CinemaEntity> i
         return cinemaMapper.selectCinemaByCity(null, city);
     }
 
+
     @Override
     public List<SelectCinemaVo> matchCinemaByName(String cinemaName, String city) {
         if (!StringUtils.hasText(city)) {

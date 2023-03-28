@@ -6,14 +6,12 @@ import java.math.BigDecimal;
 
 /**
  * @author end
- * @date 2023年02月24日 15:37
+ * @date 2023年03月28日 14:57
  */
 @Data
-public class ScheduleVo {
+public class ScheduleMovieVo {
 
     private Integer id;
-
-    private String movieName;
 
     private String hallName;
 
@@ -22,4 +20,6 @@ public class ScheduleVo {
     private String showTime;
 
     private BigDecimal price;
+
+    private String seatInfo;
 }

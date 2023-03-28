@@ -38,3 +38,4 @@ ignored:
     - /cinema/getCurrentCinemaDetail
     - /cinema/getCurrentCinemaMovieSchedule
     - /comment/getAllUserPassComment
+    - /schedule/getScheduleById

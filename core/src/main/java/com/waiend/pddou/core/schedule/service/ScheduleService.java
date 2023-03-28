@@ -3,6 +3,7 @@ package com.waiend.pddou.core.schedule.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
 import com.waiend.pddou.core.schedule.entity.ScheduleEntity;
+import com.waiend.pddou.core.schedule.vo.ScheduleMovieVo;
 
 import java.util.List;
 import java.util.Map;
@@ -50,4 +51,22 @@ public interface ScheduleService extends IService<ScheduleEntity> {
      * @param scheduleId 场次ID
      */
     void removeScheduleByStore(Integer scheduleId);
+
+    /**
+     * 获取排片详情
+     *
+     * @param cinemaId 影院ID
+     * @param movieId 电影ID
+     * @param scheduleId 场次ID
+     * @return ScheduleEntity
+     */
+    ScheduleMovieVo getScheduleById(Integer cinemaId, Integer movieId, Integer scheduleId);
+
+    /**
+     * 更新排片座位信息
+     *
+     * @param scheduleId 场次ID
+     * @param seatInfo 座位
+     */
+    void updateScheduleSeat(Integer scheduleId, String seatInfo);
 }

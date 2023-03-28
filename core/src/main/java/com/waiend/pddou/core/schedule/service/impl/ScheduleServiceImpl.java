@@ -8,6 +8,7 @@ import com.waiend.pddou.core.movie.entity.MovieCinemaEntity;
 import com.waiend.pddou.core.movie.entity.MovieEntity;
 import com.waiend.pddou.core.movie.mapper.MovieCinemaMapper;
 import com.waiend.pddou.core.movie.mapper.MovieMapper;
+import com.waiend.pddou.core.schedule.vo.ScheduleMovieVo;
 import com.waiend.pddou.core.schedule.vo.ScheduleVo;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -85,5 +86,32 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, ScheduleEnt
     @Override
     public void removeScheduleByStore(Integer scheduleId) {
         scheduleMapper.deleteById(scheduleId);
+    }
+
+    @Override
+    public ScheduleMovieVo getScheduleById(Integer cinemaId, Integer movieId, Integer scheduleId) {
+        MovieCinemaEntity movieCinemaEntity = movieCinemaMapper.selectOne(new QueryWrapper<MovieCinemaEntity>().lambda()
+                                                                .eq(MovieCinemaEntity::getCinemaId, cinemaId)
+                                                                .eq(MovieCinemaEntity::getMovieId, movieId));
+        ScheduleEntity scheduleEntity = scheduleMapper.selectById(scheduleId);
+
+        ScheduleMovieVo scheduleMovieVo = new ScheduleMovieVo();
+        scheduleMovieVo.setId(scheduleEntity.getId());
+        scheduleMovieVo.setHallName(scheduleEntity.getHallName());
+        scheduleMovieVo.setShowDate(scheduleEntity.getShowDate());
+        scheduleMovieVo.setShowTime(scheduleEntity.getShowTime());
+        scheduleMovieVo.setPrice(movieCinemaEntity.getPrice());
+        scheduleMovieVo.setSeatInfo(scheduleEntity.getSeatInfo());
+
+        return scheduleMovieVo;
+    }
+
+    @Override
+    public void updateScheduleSeat(Integer scheduleId, String seatInfo) {
+        ScheduleEntity scheduleEntity = new ScheduleEntity();
+        scheduleEntity.setId(scheduleId);
+        scheduleEntity.setSeatInfo(seatInfo);
+
+        scheduleMapper.updateById(scheduleEntity);
     }
 }
