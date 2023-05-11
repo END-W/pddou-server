@@ -51,4 +51,13 @@ public interface OrderService extends IService<OrderEntity> {
      * @param userId 用户ID
      */
     void delOrderByUserId(Integer orderId, Long userId);
+
+    /**
+     * 用户下单
+     *
+     * @param orderEntity 订单实体
+     * @param userId 用户ID
+     * @return String
+     */
+    String order(OrderEntity orderEntity, Long userId);
 }

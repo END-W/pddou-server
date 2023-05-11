@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.waiend.pddou.core.cinema.entity.CinemaEntity;
 import com.waiend.pddou.core.cinema.mapper.CinemaMapper;
+import com.waiend.pddou.core.common.util.OrderUtils;
+import com.waiend.pddou.core.common.util.RandomUtils;
 import com.waiend.pddou.core.order.vo.OrderVo;
 import com.waiend.pddou.core.system.entity.EmployeeEntity;
 import com.waiend.pddou.core.system.mapper.EmployeeMapper;
@@ -13,6 +15,7 @@ import com.waiend.pddou.core.order.mapper.OrderMapper;
 import com.waiend.pddou.core.order.entity.OrderEntity;
 import com.waiend.pddou.core.order.service.OrderService;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,5 +76,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
         orderMapper.update(orderEntity, new QueryWrapper<OrderEntity>().lambda()
                                             .eq(OrderEntity::getId, orderId)
                                             .eq(OrderEntity::getUserId, userId));
+    }
+
+    @Override
+    public String order(OrderEntity orderEntity, Long userId) {
+        LocalDateTime orderTime = LocalDateTime.now();
+        String orderNumber = OrderUtils.generateOrderNumber();
+        String ticketCode = RandomUtils.generateVerCode();
+
+        orderEntity.setUserId(userId)
+                   .setOrderDate(orderTime)
+                   .setOrderNum(orderNumber)
+                   .setTicketCode(ticketCode)
+                   .setPayType(OrderEntity.PayType.PAID);
+
+        orderMapper.insert(orderEntity);
+
+        return ticketCode;
     }
 }

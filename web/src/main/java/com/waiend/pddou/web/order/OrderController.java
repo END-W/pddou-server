@@ -5,10 +5,7 @@ import com.waiend.pddou.core.order.entity.OrderEntity;
 import com.waiend.pddou.core.order.service.OrderService;
 import com.waiend.pddou.web.base.resolver.UserId;
 import com.waiend.pddou.web.base.result.ResultFactory;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -45,5 +42,17 @@ public class OrderController {
     public Result delOrderByUserId(Integer orderId, @UserId Long userId) {
         orderServiceImpl.delOrderByUserId(orderId, userId);
         return ResultFactory.buildSuccessResult();
+    }
+
+    /**
+     * 用户下单
+     *
+     * @param orderEntity 订单实体
+     * @param userId 用户ID
+     * @return Result
+     */
+    @PostMapping("order")
+    public Result order(@RequestBody OrderEntity orderEntity, @UserId Long userId) {
+        return ResultFactory.buildSuccessResult(orderServiceImpl.order(orderEntity, userId));
     }
 }
