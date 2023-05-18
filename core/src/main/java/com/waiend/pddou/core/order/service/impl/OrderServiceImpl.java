@@ -71,7 +71,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
     @Override
     public void delOrderByUserId(Integer orderId, Long userId) {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setIsDelete2(true);
+        orderEntity.setPayType(OrderEntity.PayType.RETURN);
 
         orderMapper.update(orderEntity, new QueryWrapper<OrderEntity>().lambda()
                                             .eq(OrderEntity::getId, orderId)

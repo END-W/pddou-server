@@ -3,6 +3,8 @@ package com.waiend.pddou.core.order.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.waiend.pddou.core.order.entity.OrderEntity;
 import com.waiend.pddou.core.order.vo.OrderVo;
+import com.waiend.pddou.core.system.vo.BoxOfficeMovieTypeVo;
+import com.waiend.pddou.core.system.vo.BoxOfficeTop10Vo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -51,4 +53,49 @@ public interface OrderMapper extends BaseMapper<OrderEntity> {
      * @return List<OrderVo>
      */
     List<OrderVo> selectOrderListByUserId(@Param("userId") Long userId);
+
+    /**
+     * 查询票房数据
+     *
+     * @return List<Integer>
+     */
+    List<Integer> selectBoxOffice();
+
+    /**
+     * 根据商家查询票房数据
+     *
+     * @param employeeId 员工ID
+     * @return List<Integer>
+     */
+    List<Integer> selectBoxOfficeByStore(Long employeeId);
+
+    /**
+     * 查询票房前十
+     *
+     * @return List<BoxOfficeTop10Vo>
+     */
+    List<BoxOfficeTop10Vo> selectBoxOfficeTop10();
+
+    /**
+     * 根据商家查询票房前十
+     *
+     * @param employeeId 员工ID
+     * @return List<BoxOfficeTop10Vo>
+     */
+    List<BoxOfficeTop10Vo> selectBoxOfficeTop10ByStore(Long employeeId);
+
+    /**
+     * 根据电影类型查询票房数据
+     *
+     * @return List<BoxOfficeMovieTypeVo>
+     */
+    List<BoxOfficeMovieTypeVo> selectBoxOfficeDataByMovieType();
+
+    /**
+     * 根据电影类型和商家查询票房数据
+     *
+     * @param employeeId 员工ID
+     * @return List<BoxOfficeMovieTypeVo>
+     */
+    List<BoxOfficeMovieTypeVo> selectBoxOfficeDataByMovieTypeWithStore(Long employeeId);
 }

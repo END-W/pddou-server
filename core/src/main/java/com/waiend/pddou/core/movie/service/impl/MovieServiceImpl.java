@@ -15,6 +15,7 @@ import com.waiend.pddou.core.movie.mapper.MovieMapper;
 import com.waiend.pddou.core.movie.service.MovieService;
 import com.waiend.pddou.core.movie.vo.MovieStoreVo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -101,8 +102,10 @@ public class MovieServiceImpl extends ServiceImpl<MovieMapper, MovieEntity> impl
     }
 
     @Override
+    @Transactional
     public void addMovie(MovieEntity movieEntity) {
         movieMapper.insert(movieEntity);
+        redisUtils.del(RedisConstants.MOVIE_HOT_KEY);
     }
 
     @Override
