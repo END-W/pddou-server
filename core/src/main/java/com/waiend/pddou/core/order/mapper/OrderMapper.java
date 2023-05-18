@@ -5,6 +5,7 @@ import com.waiend.pddou.core.order.entity.OrderEntity;
 import com.waiend.pddou.core.order.vo.OrderVo;
 import com.waiend.pddou.core.system.vo.BoxOfficeMovieTypeVo;
 import com.waiend.pddou.core.system.vo.BoxOfficeTop10Vo;
+import com.waiend.pddou.core.system.vo.BoxOfficeVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -57,17 +58,17 @@ public interface OrderMapper extends BaseMapper<OrderEntity> {
     /**
      * 查询票房数据
      *
-     * @return List<Integer>
+     * @return List<BoxOfficeVo>
      */
-    List<Integer> selectBoxOffice();
+    List<BoxOfficeVo> selectBoxOffice();
 
     /**
      * 根据商家查询票房数据
      *
      * @param employeeId 员工ID
-     * @return List<Integer>
+     * @return List<BoxOfficeVo>
      */
-    List<Integer> selectBoxOfficeByStore(Long employeeId);
+    List<BoxOfficeVo> selectBoxOfficeByStore(Long employeeId);
 
     /**
      * 查询票房前十

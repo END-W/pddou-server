@@ -6,6 +6,7 @@ import com.waiend.pddou.core.system.mapper.EmployeeMapper;
 import com.waiend.pddou.core.system.service.BoxOfficeService;
 import com.waiend.pddou.core.system.vo.BoxOfficeMovieTypeVo;
 import com.waiend.pddou.core.system.vo.BoxOfficeTop10Vo;
+import com.waiend.pddou.core.system.vo.BoxOfficeVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,7 +26,7 @@ public class BoxOfficeServiceImpl implements BoxOfficeService {
     private EmployeeMapper employeeMapper;
 
     @Override
-    public List<Integer> getBoxOfficeData(String role, Long employeeId) {
+    public List<BoxOfficeVo> getBoxOfficeData(String role, Long employeeId) {
         if (EmployeeEntity.UserType.STORE.name().equals(role)) {
             return orderMapper.selectBoxOfficeByStore(employeeId);
         } else if (EmployeeEntity.UserType.STAFF.name().equals(role)) {

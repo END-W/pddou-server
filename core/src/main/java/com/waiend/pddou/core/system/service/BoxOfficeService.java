@@ -2,6 +2,7 @@ package com.waiend.pddou.core.system.service;
 
 import com.waiend.pddou.core.system.vo.BoxOfficeMovieTypeVo;
 import com.waiend.pddou.core.system.vo.BoxOfficeTop10Vo;
+import com.waiend.pddou.core.system.vo.BoxOfficeVo;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ public interface BoxOfficeService {
      *
      * @param role 员工角色
      * @param employeeId 员工ID
-     * @return List<Integer>
+     * @return List<BoxOfficeVo>
      */
-    List<Integer> getBoxOfficeData(String role, Long employeeId);
+    List<BoxOfficeVo> getBoxOfficeData(String role, Long employeeId);
 
     /**
      * 根据电影类型获取票房数据
